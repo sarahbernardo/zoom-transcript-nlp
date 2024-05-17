@@ -1,0 +1,1334 @@
+John Rachlin
+00:00:04
+So sometimes. First of all, everyone can hear me. Okay, Just want to make sure it's my audio. Good
+thanks. Thanks, Annie. Sometimes
+software. Development, and coding is like scratch.
+It needs to be No, it's an itch that needs to be scratched. That's what I wanted to say. It's an itch that needs to be scratched. So last night I was very busy
+not preparing today's lecture, and the reason I wasn't preparing it was because something was on my mind, which was the
+Nlp framework that I kind of sketched out for you for your homework.
+and you know I I sort of kind of invented that framework in support of this homework assignment.
+I forget when maybe last semester or the semester before.
+and you know it's pretty good. But there are some things that kind of bother me about it. Like, you know, the whole point is extensibility.
+and I wonder whether or not maybe there are some designs, design, or architectural patterns that we could bring to bear to make it even better.
+And so I was playing around with this. Let's just share my screen for a second, and let me kind of point out the sort of the flaws of what I have, what I have in mind
+here. I need to share this screen right here.
+there, we go
+close.
+So here we were. you know. See my screen here, Here we were.
+We had to. We had invented this this framework.
+and what was kind of cool about it was that it was designed
+to enable us to kind of load text, to register
+text with the framework. and that if we wrote our visualizations in a very neutral way.
+then
+in theory, you couldn't just sort of plug in any text that you're interested in comparing and visualizing and gaining insights on.
+and you know that would be awesome. That would be very reusable. And if you wanted to extend it to support
+other sorts of texts, maybe in different formats. Then maybe you'd implement some sort of a custom parser
+that that would
+enable you to process that file name.
+which is great. Now here's where things get a little bit
+questionable in my mind, which is.
+I had suggested to you that, and I suggested this hard. I think I said this directly in the homework, that all right. You're going to need to define
+3 0r more visualizations. I think I said 3 visualizations.
+And here was an example of a visualization. Compare a number of words. Let's just run this real quick, and remind remind ourselves
+we loaded 4 different texts. One of them was a Json file that required us to use
+user avatar
+Unknown Speaker
+00:03:40
+a special parser.
+user avatar
+John Rachlin
+00:03:43
+And then, you know, I just printed out to the contents of the data to show you how the underlying
+data was being represented. And then I called this function that we had
+built into
+the framework called Compared number of words, and all it did was.
+if we look at it.
+user avatar
+Unknown Speaker
+00:04:04
+it's just producing a little bar chart.
+user avatar
+John Rachlin
+00:04:06
+Okay, so let's go back and run this and remind ourselves what happens. So there's our bar chart.
+and we can see how the data that we parsed has been extracted and stored in a way so that
+we have different pieces of information as keys.
+and then the values are dictionaries, mapping
+document labels to values. Okay, that's fine. So when I want to get the number of words
+for each document using this function to to generate that bar chart. The reason I organized dictionary in this way was so that
+all of the values are in one place. I don't have to iterate through different
+different keys, as if which I would have to do if I had.
+If I had stored the the the document label is the primary key, right? I and i'd have to go through each one and extract out number. Number. It's number it's here. I just said, All right. I'm going to make number words, the key, and then each value with the
+is a a particular text label, so I I fetch all this information. I got it all ready to go, and and I can now build my bar chart
+all right, so so Why don't I like this? Somebody tell me why I don't like this.
+What what is the
+if? If the theme is extensibility, it has something to do with extensibility.
+What is the problem?
+Any thoughts. strong opinions?
+And this is connecting.
+So
+the problem I have with this is that I've basically created a framework that defines the visualizations in a kind of hard, coded way.
+In other words.
+what would be cool, I think, is that my definition of cool? What would be cool would be if I could not only register
+different documents for comparison, but if I could also just have the user plug in different visualizations that they that they want to use to to analyze their documents.
+And just as I envisioned
+having maybe a predefined collection
+of parsers that might be useful to a user
+find to parse a variety of different kinds of documents. So, too, might it be helpful to have a predefined
+selection of visualizations, but still allow the user to roll their own visualization and to be able to
+user avatar
+Unknown Speaker
+00:07:19
+let's go back to this to be able to basically plug in
+user avatar
+John Rachlin
+00:07:28
+their own visualizations. Maybe, Yes, maybe the the framework comes with with some visualizations built in. But but why not allow the user to plug in their own?
+And just think about like how much easier that would be to
+extend the functionality of the system, using a community of developers all contributing interesting visualizations to your comparative framework.
+Now, the reason I didn't do it that way originally
+was because I wasn't sure how to do it. Number one, and and the reason it's a little tricky here is. So we see that compared num words
+has to be written in a way that it kind of knows what it's it's it's accessing the internal State data
+that
+that is associated with that
+with the with the framework right it it has to it. It makes certain assumptions that that the parsers will extract certain elements of information. Okay, we can't probably avoid that.
+But then it's using a self parameter to get access to that data. So that's problem. Number One
+user avatar
+Unknown Speaker
+00:08:53
+problem number 2 is.
+user avatar
+John Rachlin
+00:08:55
+if we were to sort of pass these visualization methods as functions well, a lot of visualizations might have
+parameters themselves. which we would have to also pass and store.
+And so I think we've all seen cases where we can pass functions as parameters. But the question is, what do you do Exactly. If the functions that you're trying to pass
+also take parameters.
+then it's maybe not so clear.
+So this is what i'm trying to do. This is what I want to do for starters today, and and then i'll g0 0n to them. What I what I really was planning to talk about, which was test driven development and and testing methods.
+But let's step back for a second and see if we can't make
+this framework even better than how I've originally envisioned it.
+So
+for starters let's
+consider the problem
+of passing functions
+and passing functions that maybe take parameters. So i'm going to come up with sort of a little toy example to demonstrate the issue.
+user avatar
+Unknown Speaker
+00:10:20
+show how we solve it.
+user avatar
+John Rachlin
+00:10:22
+and then it'll start to become clear, maybe, how we could use that pattern to create visualization plugins
+and make our and Lp: comparative document analysis, framework truly extensible.
+So for starters. allow me to create a new document. new program.
+user avatar
+Unknown Speaker
+00:10:49
+and I'll, I'll just call it
+user avatar
+Unknown Speaker
+00:10:53
+function passing
+user avatar
+Unknown Speaker
+00:10:57
+test.
+user avatar
+John Rachlin
+00:11:02
+Yeah.
+And basically, what I want to do here is demonstrate
+user avatar
+Unknown Speaker
+00:11:10
+issues with
+user avatar
+John Rachlin
+00:11:12
+passing functions as parameters. And
+what to do if those functions
+themselves
+take parameters.
+So, for example.
+let's suppose that I defined a function
+which transforms a list
+all right, sort of like a list comprehension. In fact, i'll implement a list comprehension to do this.
+and so i'll give it a list, and i'll give it some function that I want to apply to the elements in the list
+Great, easy enough to do. I just use a list comprehension, and I just, you know, apply the function to to the element in the list
+or X email.
+alright, easy and easy.
+So now. if, for example. I had
+user avatar
+Unknown Speaker
+00:12:18
+some function, I don't know, let's just call it square.
+user avatar
+John Rachlin
+00:12:24
+and that purchase returns X squared.
+and if I have some list
+I don't know 0 t0 9.
+Then. Now I have this ability to just say, yeah.
+user avatar
+Unknown Speaker
+00:12:48
+we'll say, print. transform.
+user avatar
+John Rachlin
+00:12:52
+No.
+Oh, let's just do it this way. Just make it a little cleaner. We'll call it that em
+equals transform L. Using this function square.
+Okay, so that's passing a function as a parameter.
+And now just print and then to make sure, this works.
+Okay, it does.
+user avatar
+Unknown Speaker
+00:13:20
+But now
+user avatar
+John Rachlin
+00:13:24
+let's make it a little more interesting. and imagine
+user avatar
+Unknown Speaker
+00:13:29
+that instead of just a square function.
+user avatar
+John Rachlin
+00:13:32
+maybe what we have is
+user avatar
+Unknown Speaker
+00:13:35
+a power function.
+user avatar
+John Rachlin
+00:13:38
+So you say, Power X to the K.
+Maybe it has a default value of 2.
+Okay, so
+great. We'll just return X to the power of K.
+And you see, Our problem here is okay. I can do power
+like that.
+and it works.
+If I had made the default value 3 just to show you. Yeah, now, it's keeping everything. But how do I sort of
+pass the parameters, the optional parameters.
+Or maybe they're required parameters associated with this function to the transformer so that they can use that. So any ideas.
+any ideas.
+I'll give you a hint. We
+talked about the use of this feature.
+Oh, so you want to say, can we just say in here? F.
+F. X. Comma.
+X equals 4 5 before
+It's An interesting idea is that what you had in mind?
+Let's see
+user avatar
+Unknown Speaker
+00:15:29
+that does work.
+user avatar
+John Rachlin
+00:15:32
+I say X equals 2
+that does work. But what's the problem with it?
+There's a problem with it
+what they give it square.
+You see, the problem is, I was trying to write this generic transformer.
+which would take
+a function which may or may not have additional parameters.
+So I've broken the generality of transform by
+by hard coding
+parameters that are associated with that particular function into transform. So that's not what I want to do. I want to do what Caroline is suggesting, which is a
+I think that's the key here. So how how would it work?
+We're going to allow simply
+transform to take ours and guards
+any number of positional parameters.
+any number of named parameters. and then we'll just pass those
+to the function.
+So now
+I think this should work. and it does. and power. We have K. Equals 3
+also works.
+So we we've made our trans. We've kept our transformer pretty straightforward and generic to handle any function. including functions that might themselves take parameters.
+Okay, that's kind of clever. So what does any of this have to do with
+textastic and the goal of building visualization plugins. Well, remember the problem. Was
+we going back?
+user avatar
+Unknown Speaker
+00:17:53
+This particular function doesn't take a parameter
+user avatar
+John Rachlin
+00:17:57
+I could.
+and maybe we'll rewrite it so that it does. But first let's just address the basic problem.
+making this a plugin.
+So recall that as we were loading text files.
+we gave them a a label for identification purposes. an optional parser.
+and we parsed it and stored internal data. Now, if we're going to load or register functions visualization functions
+with the
+with the tech textastic framework, with the Nlp framework. Then we're gonna have to store
+those visualization functions somewhere along, probably with their arcs and their quarks.
+So let's just
+let's do it this way. I don't want to kill the old version. So why don't I do this? Let's make let's create a new version of textastic.
+Let's see, Can I just do?
+Maybe I can just do copy by let's try this. Yeah.
+And this is gonna be the version of textastic, which is, has this plugins? That's what i'm gonna call it this plugin.
+Yeah. and
+let's also create. They
+copy of our app because we're gonna change the way the app works now as well. And this would be the app that also uses this plugin.
+All right. So we have 2 versions. Now one that uses visualization plugins and one that doesn't Well, we haven't re written rewritten this code yet, but we will in a second.
+All right. So so here's kind of what I have in mind. Let's say, let's think about like what we're trying to do
+at the at sort of the back level. What we're trying to do is imagine that we have. hey? Yeah.
+that we're going along. We've registered our text. But now we don't want to just call this function right Instead, let's imagine
+that.
+Let's close some things so that they don't get in our way.
+Let's imagine that instead of this being a hard coded function, comparing them words. Let's just rip this sucker out.
+but and
+maybe it's defined somewhere else could be defined in a library somewhere. But just for
+the sake of convenience, I'll just stick it right there.
+Okay, this is a function that the user is defining a visualization function that the user wants to run to produce
+a visualization.
+Now. first of all, since since I'm. Defining this visualization here.
+user avatar
+Unknown Speaker
+00:21:20
+I guess i'm gonna have to
+user avatar
+John Rachlin
+00:21:23
+implement or import some additional libraries that I was using originally in textastic. So import at what lab?
+All right, so that works. But I still have that this problem of self.
+right? There's no reference to self, this Isn't part of a class anymore.
+But that's okay. I think what we can do instead
+is
+imagine that the data that this visualization function is going to need will be passed
+by, you know it will be handed. Whatever data it means.
+Let's just call that data.
+And yeah, we don't
+have a reference to self. We're just gonna be when, whenever we whenever the framework calls this function, it'll hand the visualization, the data that it needs.
+Okay, so that's that's sort of step one.
+And then what we're aiming for is instead of just hard coding this call and assuming that compared number, it is part of the framework.
+what we would imagine doing instead what we had load text.
+Well, maybe what we have is dB: dot load visualization.
+visualization.
+and we'll give it a name number words.
+and we'll give it the function. Compare Works. I will worry about parameters later.
+all right, and then you know, wouldn't it be nice if we can. Then just say Tt. Duck visualize
+numbers.
+and now we we're now we're well on our way to just sort of plugging in any sort of visualization.
+not just the ones that came with the framework, but ones that we create on our own isn't that kind of cool.
+You see how this is much more extensible and reusable.
+and sort of sets us up for
+having a whole community contribute, or a whole development team contribute functions without having to.
+you know, change the framework itself.
+So this doesn't work yet, because we don't have these functions implemented, so let's implement them.
+Go back to here.
+So we have our So this is all the same.
+So I think what we need
+is load visualization.
+How are we going to store this?
+Well, I think all we need to kind of keep track of these functions and their associated names. So why Don't, we go back up here? And
+user avatar
+Unknown Speaker
+00:24:49
+this is this is Basically, our
+user avatar
+John Rachlin
+00:24:52
+data extracted from text files.
+Let's also have a viz.
+Which will be a dictionary for now. and it basically maps There's visual.
+let's say a name to a a visualization function.
+Okay, so
+so good.
+Sorry. I'm just muting.
+And so let's
+imagine what happens. The load visualization, all right. So it's gonna need a it's gonna need the name.
+It's going to need some this function
+and it
+we'll just say, yeah. not
+user avatar
+Unknown Speaker
+00:25:58
+this
+user avatar
+John Rachlin
+00:26:00
+of name will be equal to the base function.
+Okay, that's how we're storing the visualization function.
+And then. when we want to visualize.
+user avatar
+Unknown Speaker
+00:26:26
+give it a name
+user avatar
+John Rachlin
+00:26:34
+and we'll just we'll just run the visualization. So we'll just say.
+let's see.
+Well, let's just really spell it out. The visualization function is that equal to?
+And I do this.
+Yeah, it's self that it is of name.
+right? That that extracts it. Now we run the visualization
+and we'll hand it
+the data.
+That's how we get the data into the function.
+This might work
+this. We haven't written a lot of code here. It's just kind of just a little tweak in the way we
+think about
+how we, You know we really think about extensibility, what it what it means to be sensible. It sort of inspires us, maybe, to
+makes make small changes that have big impacts.
+So let's see if this works. It's not much good if it doesn't work.
+I think that's all we needed to do. All right. Let's run it.
+Okay, we have an error. N0 0bject. Tt: load visual. Did I spell it differently
+about visualization name is Funk.
+Oh, I know what the problem is.
+The problem is.
+i'm importing the wrong version of textastic. So I have to import
+this. I've created a new version.
+So I need to import the right version
+and let's try it again. Okay, there it is.
+Now
+we're almost there.
+Let's imagine
+that we that this takes parameters. I don't know what those parameters might be. Let's
+let's imagine that just something simple. Maybe it takes a color parameter
+which by default is none.
+So we have the ability to. When we call this. Maybe we want blue bars.
+so we'll say something like. How are you
+right? So now. where
+we're we're making it possible to customize our visualization.
+So that's that's important. Right? So let's see if we were doing this, then I guess I would say, make sure i'm doing this right.
+user avatar
+Unknown Speaker
+00:29:40
+you know. I could say, for example.
+user avatar
+John Rachlin
+00:29:43
+Breach Bar. If If I have a color, then plot it with color.
+else i'll just not the default thing.
+I think that's all I have to do.
+The problem is. where is this going? This Isn't going anywhere? And I think this might even just give an error at this point. because load visualization doesn't expect any keywords. Well, we know how to handle that now, right?
+We'll simply go back t0 0ur framework. and
+we a lot make it so that load visualization. and except ours. he barks.
+user avatar
+Unknown Speaker
+00:30:45
+This means, however, that we're gonna have to store those our
+user avatar
+John Rachlin
+00:30:51
+so that when the time comes we can pass those arguments
+and keyword arguments and and
+our we can pass those arts and quarks to the visualization function. Right Right now we're only passing the data.
+Okay, no problem.
+Instead of storing this the function, we'll store it to both
+like so.
+and then we'll extract that tuple
+and then
+and then we'll call. We'll call the
+we'll call the function with those parks, and I think the right way to do it is to put the
+put it like that. We try both ways. if you can just do that.
+Now I think I think if you do that well let's try it.
+Let's try it.
+This might not work.
+Yeah, no, I I I I messed around with this.
+You have to sort of pass it like this, I think.
+Try it again. Oh, what happened there?
+Okay, there we go. We got blue.
+and if I,
+if I, you know, change it to Red.
+Obviously that should just make it red Great. and if I don't specify it at all
+then.
+and I just get hello bars! Now, the neat thing about this is that
+Not only have we made the framework itself more extensible, and therefore more reusable.
+but we have also made the visualization functions themselves because they have. If they have parameters. We've made them more
+reusable as well. So, for example.
+suppose
+I wanted to? I don't know. Generate multiple bar charts
+all right. I could like do that
+2 and then 3,
+and then maybe this one is blue. and then this one is
+red. Okay, Again, this is a pretty dorky example of not a very useful visualization. But I hope you see past that and see the potential here.
+like your Sankey diagram with
+word counts, for example, might be parameterized in a lot of different ways. You might want to create variations on that visualization. Many different collections of words that you're focusing on.
+or
+different types of words or
+different numbers of words, and whatever it might be, there might be several different visualizations. Each of them are named, but they're named with different parameters.
+All right, so let's tweak this a little bit
+and allow visualization to just not take any parameter. And when I do this this is going to mean that it runs all of the visualizations that are registered with the system.
+That's a nice convenience, I think
+So let's let's just change that.
+So maybe now the default here is none.
+Okay. So what are we gonna do? If name is none. then we're gonna run all
+right, and for now else
+we'll run the named function
+run only the main visual.
+And so that's easy. We know how to iterate over dictionaries
+or
+or we don't even need the name
+in south. That is the items so reach visualization name. And then we remember that's a tuple the as a tuple
+containing the visualization function.
+the arts and the guards.
+and then we'll just run the visualization function. We'll give it self, dot data.
+We'll give it the
+easy.
+Okay. let's try it and see if it works.
+Okay, so this is just the way
+Python works. It shows you one at a time. If I close it, it'll show you the next one, and then the next one. and there they all are
+so good. I I recommend you.
+You take this approach
+when building your framework
+for comparative analysis. Any questions.
+Is it just me, or is that cool? I I just. I just think it's just like oh, it's just a small change, but it's just makes it so much better.
+so much more useful and easier to use and customizable.
+No questions. All right, then.
+let's move on.
+So
+what I want to talk about is testing.
+And you know.
+so far we have been.
+We have been really focusing on
+handling exceptions and and being very reactive to problems that might occur in our code.
+Testing
+is an effort to
+anticipate problems
+by checking before our code goes into production. Whether or not the code is truly reliable.
+and there's sort of 2 really 3 philosophies about this.
+but mainly 2.
+The first is called exploratory testing. This is
+basically
+what we usually do when you finish your assignment.
+and you're trying to make sure it works.
+or you know.
+maybe as long as it works on the required input and you get a result, maybe you think you're done.
+user avatar
+Unknown Speaker
+00:38:38
+and it's just sort of a one off analysis, and if it works it's good, and it doesn't matter whether or not
+user avatar
+John Rachlin
+00:38:44
+it's it's a little bit as long as it completes the assignment.
+But as we think about building enterprise, quality production, quality, software
+you know, we we can't always know what data is going to be thrown at our system.
+And
+so so we need to. We need to do some sort of a test. Now, before I talk about that. Actually, I I had a thought and just quick, quick thought about text tastic. S0 0ne of the things I asked you to do
+is build some exception handling.
+I'm not requiring you right unit test, which we'll we'll talk about today. But I did ask you to.
+Here we go to to to, maybe somehow build into this framework
+some sort of domain, specific framework, specific exception. Handle specifically. or
+for parsing errors
+like maybe you've defined some parsers, or maybe you're assuming that it'll just it'll work with the default person. But it doesn't for some reason.
+user avatar
+Unknown Speaker
+00:40:01
+you know it. It just gets confused and and and therefore.
+user avatar
+John Rachlin
+00:40:06
+or maybe it's like a type of a file that's not a text file. You You hand it as a Pdf. And you're trying to use the default.
+read a text file. but it's really a Pdf. And so maybe that frozen exception of one kind or another. So
+what I suggested to you in the spirit of reactive programming is how it would have a framework specific exception
+for handling. for for notifying the user that there was some sort of a parser there.
+Well, I would submit to you that another very useful domain, specific
+exception. is a visualization exception. and where errors might occur. is in the
+the reference to the data right? We are making an assumption that this function will have available to it the data that it needs in this case a key called numbers.
+If that if that hasn't been parsed out, if that data isn't available.
+then that's going to throw a key error.
+but just simply saying key error and telling the user hey? There was a key error.
+You know. The user doesn't know how this stuff is implemented. Necessarily
+Doesn't understand that
+user avatar
+Unknown Speaker
+00:41:36
+you know the underlying mechanisms for extracting data. Necessarily right. I mean they they maybe they.
+user avatar
+John Rachlin
+00:41:44
+There's just some library they're plugging in for for visualization. In other words, it's more appropriate, I think, to catch key errors
+and report them as some sort of a visualization there.
+So, for example, you might assert the existence of num words, and failing that, raise a a visualization exception
+that embeds details about what the visualization means in order for it to be used in the context of the framework.
+So yeah, you still are faced with this issue, that
+textastic or whatever you're gonna call yours.
+They the the the parsers, and the visualizations kind of need to be coordinated a little bit
+right, because the parsers have to extract the information that the visualizations need in order to
+enable themselves to produce a result. But different things can go wrong, either the parsing or in the visualization, and you should catch the both. You can't spoke with those really
+in the context of your implementation of the framework.
+Okay, so going back to
+testing this is what. in the context of a typical assignment most of us do we write our code? If it works, we're done.
+If we know that it's going to need to be a bit more robust, we go through a a series of tests usually kind of hand crafted tests.
+Let's run our program and try a few different inputs.
+Let's throw a few different
+user avatar
+Unknown Speaker
+00:43:33
+parameter sets
+user avatar
+John Rachlin
+00:43:36
+at different functions. Make sure it works.
+and you know, every time we rewrite our code and we're ready to deploy.
+We have to then go through this process of coming up with some tasks and running the program over and over again, trying a few different, maybe a few different command line options to see if it. If it really works.
+The test that we run are sort of defined by us
+in real time. So we're not
+predefining any particular test. We're relying on the tester.
+And some some software people have that role. They're They're the system test testers and they're gonna drive the the the testing process. But it's exploratory testing, meaning it's Manual. The Tests haven't formally been defined
+there. You're just kind of running the program over and over again.
+and and manually retesting
+a variety of things to make sure that
+it does the right thing. Imagine if you're like a a
+a testing that a gui
+all right, and you wanna make sure all the knobs and buttons basically work. You try different things and see if anything breaks.
+So you're not necessarily being very systematic about it. It's sort of
+at the dependent upon the skill of the tester to be complete.
+to make sure every aspect of the code is covered, that you have good coverage of your test meeting that you're exercising
+all of the code. Every line of code is at some point being run in one of the tests, and that can be very tedious
+and very unreliable.
+Okay. so. But that's what we usually do. We usually just do exploratory testing. you know.
+Run some tasks, execute the tests. see if they produced any errors. Figure out what went wrong.
+notify the development team.
+let them fix their code and then do it again over and over and over again.
+until eventually you're confident that the program is reliable because you've been testing it all day, and you haven't been able to find a single buck.
+So
+the next.
+the next sort of level of testing that we really probably want to embrace is
+automated testing.
+And what this simply means is that there's going to be
+a well defined set of tests that you run every single time.
+and
+they're sort of codified.
+And you can just have basically a test plan that says i'm going to do this this this, and you're just going to automate the execution of all the tests
+and have some sort of a test runner that executes each test intern.
+And so now your you, you know you can kind of add new tests as as need arises.
+and you can be much more thoughtful about that.
+making sure that you have complete coverage
+of all of your code, meaning that you are indeed exercising
+all every line of code. and that you're considering. you know, good inputs and bad inputs and every possible combination of parameter inputs
+such that if all the tests pass, then your
+then, then you feel confident that the the code is ready for production.
+Now, sometimes we're testing a single component that might be a single file a single class.
+and it's various methods.
+And
+sometimes we're really thinking about how different system components interact
+and this becomes known as integration testing.
+But it's often i'll just use the term unit test
+to describe a well defined test
+of a single method or component of the system itself.
+People usually just refer to unit tests. But you know, I guess technically a better term for it's it's it's maybe useful to to make that distinction. But sometimes a unit test is really focusing on a one component or function or class, and an integration test is
+testing the communication between an interaction between components across the network.
+Alright, but it's automated. The key is that it's automated. Now.
+advantages and disadvantages.
+you know. automated testing does require some leave time. You gotta sort of think through what our the yeah.
+What are the various tests that that you need to implement? They They have to be implemented upfront.
+and you know they have to be maintained.
+and you have to kind of develop scripts
+to sort of, maybe mimic a a user interacting with system.
+And so, you know, it takes a little bit of upfront effort to do automated testing. To be sure.
+you have to be very clear about
+what you're testing and documenting exactly what things you're you're including and not including in your tests.
+whereas exploratory testing is kind of very AD hoc process, and you're just leaving it to the test team to try it out and see what happens. See what breaks.
+And so sometimes kind of defining
+that those automated tests can be a little bit of a hassle right, but it's one once you have it. Then. Now you're you're rolling. You can be very measured about
+whether or not
+the tests are succeeding, or what fraction of the tests are succeeding in and report back exactly which tests failed.
+Tests have to be written with respect to well-defined specifications for what the code is supposed to do so. You can kind of see why documentation of the system that you're testing is kind of really important
+user avatar
+Unknown Speaker
+00:50:41
+and
+user avatar
+John Rachlin
+00:50:43
+very high reproducibility. That's a key thing here
+without that, you know. Some, you know, one iteration of your exploratory testing. Maybe you forgot to do something. Maybe you forgot to check a slider
+or pull down. or a particular input.
+And so you you may not always catch the error in the same phase of testing.
+whereas automated testing. Yeah, it's. It's gonna be absolutely
+reproducible.
+user avatar
+Unknown Speaker
+00:51:17
+Now, with automated testing, we get into
+user avatar
+John Rachlin
+00:51:22
+a new way of thinking about software development, which is
+user avatar
+Unknown Speaker
+00:51:29
+what's often referred to as test driven development.
+user avatar
+John Rachlin
+00:51:33
+So the idea is, Not only are we going to define upfront a series of tests.
+but we're actually going to do the the T. We're going to define the tests first. Before we even write any code. It takes a lot of discipline to do this. and
+maybe it will seem or small examples to be overkill.
+But
+you gotta remember, in the larger context of
+complex piece of software with many different moving parts
+and many, many members of the development team
+that that the testing becomes super super critical.
+And when you're talking about a user base of potentially millions of users
+than having very regimented process
+for testing
+and for developing code.
+with the view towards passing tests becomes a really useful and important thing.
+So so the idea of test-driven development. And we're going to use Pi test to demonstrate test room and development. The idea is that
+we'll we'll define our tests.
+and then we'll implement code
+to the specification of need to pass those tests. And initially, our code will fail Those tests because we haven't implemented everything we need to implement. But we'll sort of define our success.
+Well, we'll know we're finished. In fact. when all the predefined tests have passed. That's what I mean by test proof and development.
+You Don't have to do test-driven development to do automated testing you could d0 0n you could like, write your code and then figure. Out. Okay, what do I need to test. And then let's come up with some some tests and great. That's that's a good thing to do.
+It's better than exploratory testing. because at least, you're being systematic about your tests. But test-driven development reverses the process and says, no no we're going to create the tests first.
+and you have to write
+your code. You have to implement your methods with a view towards passing those tests.
+user avatar
+Unknown Speaker
+00:53:59
+Excuse me so so.
+user avatar
+John Rachlin
+00:54:02
+Oh, excuse me, so that means that in a sense
+the tests themselves are defining the specifications for what the code needs to do in order to be considered successful.
+Alright, so we're going to use a a testing framework called I test. and
+it's pretty easy to install. You just need a couple of libraries. You can go ahead and do this. I test.
+and you also want this Pi Test Cove library. So just make sure you're in the right. You're in your Ds environment. Run, Go ahead and run those 2 commands.
+and and then just verify that they've been installed. Let me go ahead and verify that. I've installed them
+on the list
+on windows. I don't know you. You don't have graph, but just say on the list, and you'll get the full list.
+It looks like these are the versions that that I installed. So you should get something reasonably comparable to that.
+What Pi test is going to do is basically allow us to create unit tests.
+and we're going to structure our code with
+with a certain
+we're gonna follow certain naming conventions. And we're gonna organize our code into test with with test folders which Pi test will be smart enough to pick up on and recognize. Okay, these are the tests that you want me to run. And so, when whenever you want to run your
+your your unit tests with a click of a button you'll be able to. I can run any test that's been properly named.
+and it'll find all of the tests and basically give you a report
+about what code passed and what code failed.
+So so that's the framework. There are other frameworks that we could use. But this one's a pretty good one.
+Now, what I thought I would do is basically develop.
+or you just to sort of show you. All right. Let's let's implement some like a couple of collections like stacks and queues.
+You guys are familiar with this. Have you guys taken? Maybe you learned about them in algorithms or data like a data structures course. But if you Haven't seen this just very briefly.
+these are data structures or selecting elements together
+user avatar
+Unknown Speaker
+00:56:55
+in 2 different ways. So stacks basically
+user avatar
+John Rachlin
+00:56:59
+our abstract data types
+that support 2 0perations pushing elements into the stack or on top of the stack and then popping elements off of the stack.
+So think of it like a stack of plates. You can put a plate on top. and then, when you want to take items off the plate
+You're you're taking them off the top. You're not allowed to pull from the middle and have button stacked. Come crashing down.
+So so basically. 2 0perations push and pop.
+And then with a queue.
+you have again 2 different operations and queue.
+Thank you. adds an element to the queue.
+It's like it's like a line. It's like a line at the bank or at the grocery store. You in queue at the back of a line.
+and then you. Dq. At the front of the line.
+so last in last down, or first in first out. if you prefer to think that that way. whereas the stack is the last one in is the first one out. and the first one in is the last one out.
+Okay, those are 2 abstract kind of data types that
+have a lot of use in implementing different kinds of algorithms.
+user avatar
+Unknown Speaker
+00:58:26
+For example, breadth-first search.
+user avatar
+John Rachlin
+00:58:29
+We'll visit nodes, and you'll track the notes that you visited in a queue, and you'll use that queue to decide which
+node you'll explore next so if you're doing a breadth-first search you're using a queue
+If you're using doing a depth. First search meeting you're going down the tree as far as you can until you reach a child. Now and then you start backtracking. Then you're using a stack. So just changing what type of data structure you're using
+to manage the nodes that you're gonna visit next.
+That's that that can determine the type of service you're performing.
+Here we're
+push, push, push, and then when we reach, we start popping back up to backtrack.
+and then we do. We just keep pushing notes
+if we can go deeper and deeper, and then we pop in order to backtrack and figure out where we were
+all right, whereas with a with breadth-first search the the reason it a queue becomes breadth-first search is because we might start by and queuing nodes one and 2,
+and then we'll explore one, but we won't. Go down and explore 3 and 4. We'll add those to the queue, but the next one in line is 2, so we'll explore that one next. all right, 5 and 6,
+and now 3 and 4 are at the front of the queue. So we explore those in order.
+So you can kind of imagine
+sort of the the nodes or the node identifiers being added to these data structures and helping guide the algorithm to decide which Node gets further explored next, and that will determine whether it's breath. First search
+or depth. First search
+are these slides posted, and you know, various kinds of graph traversal or path finding or looking for spanning trees. Lots of algorithms on graphs
+have at their for
+these
+user avatar
+Unknown Speaker
+01:00:32
+these data structures for stamps and queues. Yes, Jack, go ahead.
+user avatar
+Jack Krolik
+01:00:37
+Are these slides posted by chance?
+user avatar
+John Rachlin
+01:00:41
+I'm not hearing you. Is it me? Or is it?
+user avatar
+Jack Krolik
+01:00:46
+I think
+I I'm not picking up your audio. Just give me a second.
+user avatar
+John Rachlin
+01:00:51
+just wondering if it's me
+it might be me. Hold on.
+user avatar
+Unknown Speaker
+01:01:03
+Try again, Jack.
+user avatar
+Jack Krolik
+01:01:06
+Can you hear me
+user avatar
+John Rachlin
+01:01:08
+sure.
+Can you hear me?
+user avatar
+Jack Krolik
+01:01:14
+Sorry about that? No worries? There are these slides posted somewhere that we can get them?
+user avatar
+John Rachlin
+01:01:19
+Oh, yes, these are Slide Deck B,
+and they are in the repo. and if you go to
+the repo you'll find them under handouts.
+and what you want for these slides is fly deck D
+starting at slide 29.
+And oh, by the way, before you do that, do you get both?
+Because I did make an update to these slides recently.
+and then you'll get the latest version.
+Okay.
+So those are stacks and queues. That's why they're use their useful data structures. Okay, there are election classes built into python that we could use stacks and queues. But I I i'm still going to implement stacks and queues
+using test trip and development, so you can get a flavor for how test-driven development works.
+So this is what we're gonna do. We're gonna basically
+organize our code. Something like this: this is a very typical kind of structure. When you're doing test group and development, you define some package
+of code that you want to implement.
+and you separately define a tests folder.
+for where the tests will live, you don't want to clutter your code with tests built in You want to keep them separate and distinct.
+So this defines various classes, and this folder defines the tests on each of those classes.
+and
+the naming is important here for pi test it's going to look specifically for a holder called tests. and it's gonna look for programs to run that that are called test underscore.
+So we we kind of need to follow that convention.
+So we'll do that. We'll we'll start implementing some unit tests and
+do test-driven development. And then.
+when we're ready to test, well, there's a couple of ways to do it. Actually, Python, you can right click, and it can recognize that there are tests, and you can just right click and say, run by test. But if you're running it from the command line you can
+get a report of all the test, the number of tests that pass or fail.
+so that'll just give you just a number.
+You can
+get a report of
+each
+outcome
+of each of each individual test. So this is a more verbose report, saying this test, this test failed, and this one passed.
+and etc.
+If you want to get code coverage percentages, then you need to have installed high test code. And now you'll have access to this additional
+parameter. which will give you a coverage report.
+And what's really cool is that as part of that cover. So this will just basically tell you for each class
+what percentage of the lines of code are covered by one or more tests. But if you want to know exactly which lines of code have not been covered have not been tested by your unit tests.
+Then you can get a coverage report
+that identifies.
+user avatar
+Unknown Speaker
+01:05:04
+I don't know why they call it term missing, but it basically identifies which lines of code have not been tested
+user avatar
+John Rachlin
+01:05:12
+by any unit test.
+So this can help you to
+further develop additional unit tests to ensure complete coverage.
+So
+so in general test-driven development you write the tests, and then you write the code. But certainly it is possible that
+the code might be sufficiently complex that you didn't anticipate certain pathways through the code base because it hadn't been written yet, and you would discover that there are gaps in your testing as as a result, and
+maybe add additional even tests as you go. So it can be kind of a back and forth process.
+But the main idea is, start with the tests and then try to write code that satisfies those tests.
+This is an example of what you might get. I should have shown one actually, with some missing lines of code. But maybe we will come up with one. This is a successful test. I define all of these tests.
+and they all pass.
+user avatar
+Unknown Speaker
+01:06:20
+and they all give us a 100% coverage
+user avatar
+John Rachlin
+01:06:24
+and everything's hunky Dory.
+I I should have shown you a report that fails. But we'll. We'll run some reports that fail
+user avatar
+Unknown Speaker
+01:06:33
+in the course of doing this.
+user avatar
+John Rachlin
+01:06:36
+Okay, so so that's the big idea. Here, let's
+let's see if we can't implement this. Give me a second to pull up my notes.
+and I just want to make sure.
+Then i'm
+that I'm, covering all the details.
+Let's see. What do I need in the
+too many windows.
+Okay, there we go.
+Yeah, there we go. So let's close this
+and let's close this
+project. We're done with that.
+And oh, that's weird. Hold on a second. Oh, yeah, Sometimes it
+hides my window. Let's start a new project.
+Why don't we call it? I forget what I called it last time. Doesn't matter. Let's wrong wrong Clients Ds 3,500. I speak t0 3.
+Let's call it. I guess. Pi test.
+Okay, New Project.
+And
+what we're going to do is
+create. Let's say 2 folders.
+So it's really 2 packages
+called one won't be called Data Struct. This is where our data structures will be implemented.
+We don't actually need this in it. Dot pie. I don't know if you've seen this when you create packages. This is basically initialization of
+Oh, my code. that is currently empty and can be left Mp.
+But
+sometimes, when importing a a a library, you want to run some initialization
+on that import, and anything that's written in here will will will be run, but i'm just going to leave this empty.
+We also need a
+You also need a tests folder
+cancel oops. Not test. Sorry about that.
+I can. We need a
+I think it's. I don't think it has to be a package. I think we can just say directory.
+Yeah, which is, I think, all that's that might be all we need.
+All right. So so what are we gonna do here? We're gonna basically imagine
+that we want to implement a few
+you
+classes. So let's go ahead whoops here and let's create a new python file and we'll create. How about a queue?
+Not
+bye.
+right? And don't ask again.
+and let's also implement
+stacked up by
+alright, so
+so, for example. let's see.
+Yeah, that which one do I want to do first? Probably this one.
+user avatar
+Unknown Speaker
+01:10:56
+So, for example, for our stack
+user avatar
+John Rachlin
+01:11:12
+for our stack, we'll define it as a class.
+and
+you know, at some point Well. you know, maybe we start it. We can, you know, have an init
+if I'm just gonna like put past for now, just thinking about sort of the operations that we need to implement.
+we're going to need to have a push
+which will put an element on to the stack.
+user avatar
+Unknown Speaker
+01:11:46
+and we're gonna need a pop
+user avatar
+John Rachlin
+01:11:51
+which will pop an element off the stack
+and s0 0n.
+and there might be some other utility functions. Maybe we want to interrogate, for example, the
+the element at the top of those of the stack, so
+we don't want to pull it off the stack. We just want to know what's on top of the stack. so books or not that. Let's try that again
+the turn
+moment at top of a second.
+Yes. so this is sort of what we're planning to implement.
+Now let's think about this from the perspective of the of the test themselves.
+Oops.
+So what do I need?
+So in tests, i'm going to implement since we're doing stack. i'm going to implement a python file, and i'm going to follow the Pi Test convention of calling this test
+underscore something, and usually he just
+if you're trying to test, stacked up high, and it makes sense to put unit tests for stacked up high in a file called Test Stack by like, so
+okay. and
+let's go ahead and think about
+how how we would, how we would implement a test for that. So
+user avatar
+Unknown Speaker
+01:13:44
+for starters
+user avatar
+John Rachlin
+01:13:46
+we're going to need to.
+So let's let's stop limits and say unit tests for
+stacked up. My. So we're gonna have to. We're gonna have to import stack. Let's
+say something like from the struck.
+not stack I. This is importing
+down the package hierarchy and getting at stack, and the thing we want to import is stat
+import
+stack.
+user avatar
+Unknown Speaker
+01:14:31
+I so that we can use it
+user avatar
+John Rachlin
+01:14:33
+and testing. Now let's
+let's do the simplest thing possible.
+user avatar
+Unknown Speaker
+01:14:43
+We're going to need to
+user avatar
+John Rachlin
+01:14:46
+define certain tests, and probably what you want to do is define a test
+for every single
+user avatar
+Unknown Speaker
+01:14:54
+method.
+user avatar
+John Rachlin
+01:14:56
+but we should probably start with defining a test for the constructor. The instructor is called the nint, but by convention you'll call this
+s constructor.
+And so we're going to need it that make sure the constructor is actually creating a stack.
+so that so that would be a good thing to test.
+We should at some point define a test for bush
+and maybe a test for pop.
+Okay, so far, so good.
+So
+let's just
+let's just actually see what happens if I right click on this, and I say, run, Python tests
+they actually passed right because they did not throw any sort of exception. The tests ran to completion, because they're just empty past strings. They're n0 0ps.
+but they did pass
+so good good start.
+And so let's think about then what
+user avatar
+Unknown Speaker
+01:16:25
+test constructor actually needs to do.
+user avatar
+John Rachlin
+01:16:29
+We want to verify that when we call the constructor.
+we're actually yeah. producing something of type and stack.
+user avatar
+Unknown Speaker
+01:16:41
+Probably we should
+user avatar
+John Rachlin
+01:16:43
+verify that the resulting stack that we construct is empty. And
+And
+yeah, I think that's pretty much it that that you're creating something of type stack and that it's empty. So let's go ahead and create a stack.
+And now let's do a test. Let's assert
+that that the thing we created was, in fact, a stack. So we'll assert that
+that s is an instance of a stack object. and if it's not, then we'll say, did not
+user avatar
+Unknown Speaker
+01:17:28
+instruct
+user avatar
+John Rachlin
+01:17:30
+Stack.
+and I think we'll just verify that it's still is good.
+and everything is still passing, so we are, in fact.
+passing the task. Now we'd also like to verify that the stack is empty. So let's just see what happens. Suppose we want to assert
+that
+that that that that size which is a function we have not yet implemented
+is equal t0 0.
+And if that fails, then
+then what's that is not empty.
+So let's run the tests again and see what happens. This is going to fail, I think. because we got an exception.
+The exception, of course, is that this function
+doesn't exist. Stack has no attribute size, but it doesn't matter why it failed. It just matters that some exception was thrown in the context of running this test.
+And so, as a result in this case.
+you know the the the test of the constructor fail.
+Okay, so we have to fix that. and we go now back t0 0ur stack implementation.
+and the way we fix it is, of course. to implement stack, implement size. So let's just go ahead and do that. Now, what is the implementation of our stack going to be?
+So we have to decide. I think it probably makes sense just to make it a simple list. So let's just say so.
+The
+items I'm. Using underscore to emphasize the fact that this is not really intended to be access directly.
+but rather is sort of quasi hidden.
+and that your only interface
+to the data
+should be through. Well find methods
+all right. We're telling users
+don't count on this internal data structure
+always
+being available in this format.
+Okay. But now we could do
+death signs. So and then just return
+user avatar
+Unknown Speaker
+01:20:45
+the lines
+user avatar
+John Rachlin
+01:20:47
+of self items. Now, now we have a
+a method to compute the size.
+We go back and we run our tests. And now they're they're passing again.
+So you see how like as developers, we're reacting to certain tests. Failing to try to fix our code to make it so that they don't fail.
+All right. That's good. By the way.
+that it is possible to you. You know how
+you know how like when you have
+something like a list.
+and isn't it nice that you can just say length of it of.
+And you know, a lot of different data structures have this right. If I create a set.
+user avatar
+Unknown Speaker
+01:21:52
+I can say length of that.
+user avatar
+John Rachlin
+01:21:56
+It would be nice if we could just call length
+on our on our stack.
+If I try to do that.
+if I say in our test.
+Let's just assert it this way: a search length of S. Equals 0.
+So i'm basically now doing 2 tests
+on the length in 2 different ways.
+But now this fails.
+The test is failing
+because stack has no length.
+but it's possible to implement it.
+Length is a pretty generic function. What it actually is doing when you give it
+user avatar
+Unknown Speaker
+01:22:54
+a parameter.
+user avatar
+John Rachlin
+01:22:57
+What it's actually doing is calling a magic function. Here's what you do. If you, if you want your object
+to be able to be measured for a length. using the length function. What you can do
+is implement the magic function
+underscore. I'm score length.
+It's almost like an operator overloader.
+But basically length is simply calling the underscore underscore
+length underscore underscore function for any object that defines it. And so it so happens that the length, the the list, object, and the set object, and lots of other objects
+implement this magic function, a data frame, a Pandas data frame implements, this method. so that when you call length on a dayframe it returns the number of rows, but it has to be implemented for your class.
+All right. So now this is again just
+returning. So i'm sorry it's turning now the length of that stuff. That items just like the other ones
+right. This is a list list already has a defined link, so we can just call it directly. Now. Stack does, too.
+And so now, when we run this.
+our our tests are back to passing again.
+Okay, makes sense.
+Let's just do a few more. Let's let's keep pressing forward and implement. Let's decide what happens. When we do a push.
+So
+what happens when we do a push. In order to test this. we have to create
+a stack.
+Now we'll turn out this isn't the most convenient thing to do each time. But let's just imagine that we create a stack. So we'll say s equals.
+and then we'll call
+maybe push a couple of of numbers
+onto the stack.
+Okay. So if I d0 2 0f these pushes.
+then
+what My length, my length or size is. Now 2. Let's verify that. Let's assert
+that the length of that is indeed too
+right. We don't have to have a an error message
+we can have. What if we want but
+we don't we we'll still throw a a an error message. If let's just see what happens. Let's. Let's assume that our test was that it better be one, even though that's wrong. This will cause the the test to fail.
+All right. So let's see what happens.
+Think: yeah, okay, so test push failed
+same that we that's not a very useful. So we expected one.
+The actual was was 0.
+That's because we haven't implemented push halfway, which doesn't actually do anything.
+So at this point, even if we're expecting it to be 2,
+we're still going to fail.
+because
+we're expecting, though the length to be 2, but it still thinks the length is 0, and that's because we haven't yet implemented Push
+all right. So now, as the developer, I've got to make it so that this test passes.
+So I go back to stacked up. I
+and I have to implement push.
+So
+so let's do that.
+user avatar
+Unknown Speaker
+01:27:22
+So let's just be very clear about this
+user avatar
+John Rachlin
+01:27:25
+when we're pushing. We're going to think of the
+the right hand side of the list as the top of the queue. So for pushing we're a pending.
+and if we're popping, we're we're removing the last item
+in the list.
+So let's just be very clear about this.
+It goes from bottom
+like. So in armless.
+Okay. So
+so if we push.
+then we're just doing an append right? So self
+the items the append
+next.
+that's all pushes.
+Now. when we run our tests.
+the test pass, because, indeed.
+we were expecting the length to be 2, and
+we were expecting
+we were expecting
+user avatar
+Unknown Speaker
+01:28:43
+Well, so we we were expecting the length t0 2, and it actually is. But maybe this isn't the only verification that bush is working right. Maybe we also
+user avatar
+John Rachlin
+01:28:52
+want to verify that
+user avatar
+Unknown Speaker
+01:28:56
+the top of the list
+user avatar
+John Rachlin
+01:28:59
+is what
+what's the what's at the top of Sorry? What's at the top of the stack? So we pushed 3. It's like we put 3 as the plate 3, and now on top of it we've pushed 4,
+s0 4 should be at the top of the list.
+Right? So let's verify that
+just out of curiosity. Well, all right. We'll come back to it so good. So we have that
+now we go back.
+Oh, no, we run our test.
+It should fail
+because
+because Top doesn't actually return anything. It's not yet implemented.
+and we were expecting, for
+the test is telling us what's wrong with our code.
+so we have to implement top as well.
+Now, what should we? How do we get Top top? Is the last index in the list, but it might be empty. So we have to be a little careful.
+Maybe what we can say is that if
+length
+itself, not items is equal t0 0.
+Sorry should be like that.
+Then what is the top?
+Just to return? Not maybe.
+else
+it can return. The last element in the list. So items
+Okay. So now
+our test is passing.
+all right. So we're just kind of going back and forth. Now, there's one other thing I kind of want to show you. and and that is the fact that that every you
+method that we might implement here
+requires that we construct
+a stack object and then start manipulating it to see
+whether
+it it's doing the right thing, and that can be
+inconvenient to have to implement a lot of startup code for each test function. And so there's kind of a way around that in the world of pi test, and that is to create something called a fixture.
+So what we do basically is we're gonna make it look as though as the we're passing on a a, a a stack to the function, and in a way that's actually what we are doing.
+user avatar
+Unknown Speaker
+01:32:15
+But it's a
+user avatar
+John Rachlin
+01:32:19
+it, it it it looks like we're we're passing an object, but we're really passing a function which will create the object for us. So here's how it works. We're gonna define stack as a function.
+and it's going to basically return for us a stack object.
+and we're gonna further.
+So so if we did this like we would we basically now be able to, instead of saying, test, push.
+and having to create the stack, we could just sort of pretend like we're passing an object that's been created for us, called stack.
+And so now
+this goes away.
+This becomes stacked up. Push. See, it looks like we're passing an object. but we're really passing a function that creates the object.
+So i'm just sort of following the convention here.
+Now, there's still one problem with this. If I run this, let's just see it might. This would probably fail.
+Does it fan pass. Yeah, this fails
+user avatar
+Unknown Speaker
+01:33:42
+for some obscure reason. Doesn't know what stack is.
+user avatar
+John Rachlin
+01:33:47
+Doesn't know how to actually create the option. It doesn't know that when you're passing this thing that it's supposed to call this function.
+We have to tell Pye test that
+user avatar
+Unknown Speaker
+01:34:01
+we're trying to call this function
+user avatar
+John Rachlin
+01:34:04
+when we pass it as a parameter.
+And so what this is going to do then
+is, we're going to tag.
+We're gonna tag.
+so we need to import my test.
+and we're going to tag
+this method with
+user avatar
+Unknown Speaker
+01:34:27
+hey? Yeah, little tag here a decorator
+user avatar
+John Rachlin
+01:34:32
+all the fixture.
+So by tagging this as a fixture, it knows that when it sees this as a parameter, that this is the function that it has to call producing the object which we can then run on.
+I. That's a lot cleaner. We can focus on code
+that performs operations on the object and not having to set up the operator itself.
+Okay, so now I think
+it still doesn't work. Oh, yeah, no, it works now everything passes
+good. Let's just finish this off real quick.
+What's let's implement a test for pop.
+So if we test pop we'll give it a stack.
+We'll. We'll push a few things.
+maybe. Push a the one says it has to be numbers.
+and maybe we touch the
+all right, so
+we should assert, since B is at the top of the stack, we should assert. if if popping works correctly, that's that should give us B.
+Otherwise wrong value pops.
+and if we do it again
+we should now get a
+popping from the top.
+user avatar
+Unknown Speaker
+01:36:13
+and if we do it again.
+user avatar
+John Rachlin
+01:36:16
+then maybe we should get none.
+All right. Great. So
+this fails
+because we're not getting the right value when we pop, that's because we haven't implemented pop. Yet. Let's go ahead and implement Pop.
+and then we'll call it a day.
+So maybe what we can do is
+all those different ways we could do it. How about we try
+to return self, dot items. dot pop. You can pop off of the list that just removes the last item
+at the end of the list. This is going to throw an index error if the list is empty.
+But here's a way to catch it.
+If we if we get an index there.
+because the list is empty. then we'll return none.
+which is exactly what
+the test is verifying.
+All right. So just to verify this. Here's our list. I say, Elder.
+it does, in fact, return the last element in the list. And now L is just one and 2. So it is behaving.
+This is why I made the end of the list the top of the stack, so that I could use this function
+built into lists. and then, when we run our tests.
+something fails. What failed.
+Oh. wrong.
+You see how test tests sort of drive our development. We're not satisfied until everything passes
+all right. We are out of time. That's a that's a pretty decent intro to test driven development. Next time i'll maybe wrap it up and show you about how you can
+test for for complete coverage. but i'm out of time. So have a great weekend, everybody.
+user avatar
+Unknown Speaker
+01:38:31
+and we'll see you next week.
+user avatar
+Natalie Hammel
+01:38:36
+Thank you.
+user avatar
+John Rachlin
+01:38:37
+Thanks.

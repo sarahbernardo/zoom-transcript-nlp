@@ -1,0 +1,1279 @@
+John Rachlin
+00:00:01
+Let's see just a couple of things. I
+i'm starting to think more and more about the projects and getting everybody set up to
+work on their projects. But
+user avatar
+Unknown Speaker
+00:00:14
+no need to panic. We have time, I think. I've experimented with different approaches to projects in this class the first time I ever got this class. I decided to make
+user avatar
+John Rachlin
+00:00:25
+the project sort of a semester long endeavor, and that was that didn't work out so well, because I don't know, you know, sometimes. Yeah. you know you you you're not really sure what you want to do. You haven't really seen the full range of possible techniques and tools and ideas that you could apply to a project.
+And so you know it. It ends up not necessarily being something that's that's fun. And so I I decided throughout all my courses that about a month the like like dedicating sort of about the last month of the semester, to class projects and
+camping down. The amount of other assignments to give you time to work on beautiful projects is
+usually about the right balance that we're going for. So probably over the weekend. I'm going to start setting up sign up sheets, setting up some
+timelines for submitting a proposal, getting your group formed.
+and I'm working on that.
+So? So there's time. No need to back.
+user avatar
+Unknown Speaker
+00:01:35
+Let's see.
+user avatar
+John Rachlin
+00:01:36
+We have from work 3 do Monday.
+and what i'd like is to ask all of you to come to class on Tuesday.
+because what I'm planning to do is take your posters, your one slide summaries
+and compile them all together, and i'd like to like, have a group share and and talk about. You know what what insights you were able to drive and kind of get a sense of the range of
+visualizations and analyses that you can do with a reusable, extensible framework.
+And this might be for some of you Inspiration For project, for example, I think a very interesting project would be. If you've architected this framework right, you can in principle potentially
+integrate other visualizations from other groups or other parsers from other groups, and really create a very broad range, fully functional document, analyzer and comparison the tool.
+It is super critical. As you're implementing this framework that you always remember
+that you're testing this framework on one particular domain that you've chosen, whether it's political speeches or corporate filings or song. There it's whatever it might be. That's just the example.
+But you want to write your code in a way that's independent.
+The particular domain that you're working on.
+Alright, so always keep that in mind. If you find yourself writing functions embedding functions into your framework that are specific to the particular problem you're working on, then you then you Haven't fully captured. The spirit of this assignment, which is to build for reuse and extensibility.
+Probably what I could have done or should have done is had you implement 2 sets of comparisons for 2 completely different domains, just to really show. I mean, if you're if you're really having to implement
+it for 2 domains. Then you're kind of forced to think about what's common to them and what's distinct. But you know that was probably a bit too much work, probably too ambitious to do that, but it would make, maybe for a very nice project.
+Okay, anything else. Any questions about the homework and what we're looking for. So please try to come to class to the live class on Tuesday.
+and I look forward to seeing what you guys came up with.
+Okay, let's share my screen. If there are n0 0ther questions and let's pick up where we left off. We were talking about functional programming.
+How about this screen right here?
+And
+I think we
+we're messing with okay, right? We were talking about palindromes.
+and I asked if anyone could come up with a good functional approach to the question of testing whether or not
+a sequence of letters and the rearranged to form a palindrome. So did anyone come up with anything they want to post their function in chat, and we'll see what we got.
+This was a this, this, this this question was inspired by a by a student who got this question on an interview, and
+you know I think she's loved it as I would have put it under pressure. You know i'm terrible at these sort of whiteboarding exercises. But as I thought about it, and this is so so true of of
+of coding Sometimes you just kinda sort of sit back and really just think about it.
+and and and and not try to rush into I mean the coming up with the answer. And so, if you think about
+What makes a palindrome recall that a palindrome is a word like Kayak, where the word is the same when reversed.
+But here we're asking, is there some generic rearrangement. Is there some? Is there some rearrangement or permutation of the letters that would make a calendar? I mean you. You're not giving it necessarily a palindrome. But you know, if I give you, you know K. A. A. Why
+that could be rearranged into a.
+So what is it about the property of letter sequences
+that make it possible to
+to to form a palindrome.
+I think that's the essential question you have to identify. What is the what is the criteria that we're looking for. and once you've got that, then then maybe it's a little more straightforward.
+Any thoughts?
+S0 0ne thing you'll notice is that so? Get the letter counts of the word, and if all the counts are even.
+or all even except one Jacob, I think that's that's it exactly right, like if you. if you have in this case we have the number of letters is all, even except for one of them.
+And so what we're gonna basically do is distribute the the letters that are even
+to the outsides. It doesn't matter what order right? So you know, we're basically putting the case on the outside
+right. We're splitting them. If I had 4 K's, then you know
+you do that.
+And now we have a's. Let's imagine we have a bunch of a's. How about we have 6 a's.
+1 2 3 4 5 6, so
+you know that's fine. That can g0 0n the outside, 3 0n one side and 3 0n the other. And now we're left with one letter. That
+that that is odd. We might not have any that are odd. That's fine. If we didn't have any
+remaining letters that were odd. We would just that would be our answer. But we are allowed to a one letter that's on, and that would just go in the middle.
+So that's basically it. We're we're just simply asking the question.
+you know, Count, Count, how many letters there are, and and just verify that they're all the the counts are all, even except for one. You could have up t0 0ne letter. That's odd.
+So let's just do that we can use our good friend the collections library and use the counter.
+We get the counts
+right, and then we just we can get the counts by saying number
+user avatar
+Unknown Speaker
+00:08:50
+letters.
+user avatar
+John Rachlin
+00:08:52
+This will produce basically a dictionary where the key is the letter, and the value is the number of times that letter occurs in a string.
+I just verify we have
+counter of Hi, yeah.
+or let's say a day a: let's say, yeah, a. K. K. A.
+Okay, that's 6, maybe some, some some 4 a's, and they're all in a y in there.
+user avatar
+Unknown Speaker
+00:09:29
+That will give us the counts.
+user avatar
+John Rachlin
+00:09:32
+Okay. And then we we basically want our the values.
+We don't really care about the letters. We just want the values
+6 4 0ne.
+not values.
+And then we want to ask the question.
+user avatar
+Unknown Speaker
+00:09:57
+you know, for each value in this.
+user avatar
+John Rachlin
+00:10:02
+Let's convert this to Let's let's convert this to test whether it's odd or even so, we could say MoD 2 that will come back as 0 if it's even, or one
+if it's
+on.
+So now we have a sequence of ones and
+and zeros, and what should the sum be
+of that sequence of ones and 0. So it should be less than or equal t0 0ne, because it should only be at most one letter
+that has an on number of letters in the sequence. So we're really asking. The question is the sum of this sequence
+user avatar
+Unknown Speaker
+00:10:48
+less than already total one.
+user avatar
+John Rachlin
+00:10:51
+And that's that's basically, what we're returning.
+So that's a very functional sort of approach to doing this.
+user avatar
+Unknown Speaker
+00:10:59
+Let's just test to make sure that works.
+user avatar
+John Rachlin
+00:11:03
+So is
+all in drama
+A. A. K. K. Y. Yes.
+If I had 2 0dds, then it would be false.
+and as long as I have that's still false. Of course
+user avatar
+Unknown Speaker
+00:11:24
+there you go
+user avatar
+John Rachlin
+00:11:26
+formally. So this is that sort of the pythonic way of doing it formally. We we were talking a little bit about filter and map and reduce. And if we were trying to leverage those particular functions, we might rearrange this slightly and
+simply say something like.
+user avatar
+Unknown Speaker
+00:11:48
+return
+user avatar
+John Rachlin
+00:11:51
+the sum, and then to create basically that new list. What we're doing is a map
+gonna make this bigger? We're doing a map
+of of letters to letters.
+and we can certainly do this, using a lambda function. It's a simple lambda function. We're just mapping
+each x to X MoD, 2 to test whether it's order. Even.
+So. That's our. That's our mapping function. The data that we're processing, then, is just counter after letters.
+not values as before.
+Okay? And then again, we're just testing whether that is less than or equal to the same thing. Just in one case I'm. Relying on a list comprehension to do the mapping.
+which is very natural thing to do, but sometimes, you know, it can be beneficial to give it a a specific function to do the mapping for you, and if that function can be concise enough to be written as an anonymous in line function. Then I can write it as a lambda function.
+So that's that's good to know.
+I just I think this still works that we should probably test.
+Yeah, it still works
+great
+any questions.
+user avatar
+Jack Krolik
+00:13:17
+Sorry. Could you just g0 0ver the map with the lambda that you did there.
+user avatar
+Unknown Speaker
+00:13:21
+Yeah.
+user avatar
+John Rachlin
+00:13:22
+So recall that the idea of map is basically so the idea of Mac
+is
+it's taking a function and some collection. I'll call it L. For like a list doesn't have to be a list, but it has to be something that you can iterate over.
+And what is basically doing
+is is saying for each
+user avatar
+Unknown Speaker
+00:13:48
+item in Al Transform
+user avatar
+John Rachlin
+00:13:53
+or Mac
+to F. Of that item.
+right? So.
+for example, if I said map of
+Lambda X, where
+user avatar
+Unknown Speaker
+00:14:09
+you're gonna take the square.
+user avatar
+John Rachlin
+00:14:12
+That that's my anonymous in line function, and I give it a list of
+1 2 3 4 5, 6 5 that's good.
+or it produces an iterable over the resulting list
+which we can then.
+and virtual list and get the squares. This is this: in-line Lambda
+is equivalent to having
+explicitly to find, say, a square function
+which returns X squared.
+and then, you know, I could say, Well, here's the the the function. I'm going to use to do. The mapping is the square function, and again i'll just give it this list
+user avatar
+Jack Krolik
+00:14:57
+that's got it. you know. Thank you. Yeah.
+user avatar
+John Rachlin
+00:15:02
+So you know, this is this is sort of a kind of a
+S0 0ne of the common themes, if you will, of functional programming number one that functions can be parameters
+t0 0ther functions
+alright, that's not just something that all languages support. Python does support it. And it treats. What we say is that functions are first-class citizens in the language, meaning they can be passed as parameters. They can be returned
+as
+as a from functions right. We've seen this when we build decorators, we create wrappers and return the wrapper function.
+user avatar
+Unknown Speaker
+00:15:45
+That's basically what a a decorator does. They can be stored
+user avatar
+John Rachlin
+00:15:50
+in
+data structures. All right. I can create a dictionary.
+user avatar
+Unknown Speaker
+00:15:55
+maybe a dictionary of functions
+user avatar
+John Rachlin
+00:15:58
+which which consists of.
+you know, like a name square, and then it can be the value
+square.
+Let's call it s just for demonstration purposes. I i'm storing a function as a value in a dictionary. And so now, if I say the funk of
+Yes.
+that returns the square function we call now applied to the number 5, and I'll get 25
+So what's the difference? The difference?
+Lawn is that sometimes the mapping function
+is more convenient, particularly if
+your function is working off of multiple multiple collections. So you could have, for example, a let's just change this.
+You could have
+user avatar
+Unknown Speaker
+00:16:58
+a mapping function that
+user avatar
+John Rachlin
+00:17:01
+I don't know. Maybe it takes 2 parameters.
+and let's call it just for fun.
+I don't know x plus y. So now we need to give it 2 lists
+about.
+I don't know how about
+user avatar
+Unknown Speaker
+00:17:21
+100?
+user avatar
+John Rachlin
+00:17:22
+100,
+100 100,
+100,
+All right.
+You see, it's just now. Now we have the flexibility to support mapping functions that take into.
+whereas the list comprehension i'm not even sure if it's possible to handle more than one collection. It's really sort of a one t0 0ne mapper.
+which is a common pattern, and so they built list comprehension as a kind of syntactic sugar. or what is
+under the hood. Basically the map function.
+Why does that make sense?
+Math is more flexible? That's the answer.
+Where it's list company. And it is more concise and elegant. Oh, yes, Sierra. the the reason for the less than or equal to minus one is
+when we did this count, here we we are recognizing that wherever we have an even number of letters like I have 6 K's and 4 a's.
+Those can be basically distributed half and half on the outside to form. Remember, we're not looking to verify a particular sequence is a palindrome. We're looking to see whether there is some possible arrangement
+of the letters that would produce a.
+And so the way you could make like the recipe, if you will, for constructing a palindrome given, the sequence would be to take all the letters that have an even count like the K's and the a's. They have 6 and 4,
+and to basically slip them in half
+right the, and and then put them on the outside in whatever order you want. The case could g0 0n the outside, so we'd have 3 case in front, 3 K's at the end. Now I have 4, as I could put 2
+in the front. 2 at the back. But what do I do with with the leftovers? What what about the odds
+a palindrome can have at most? One letter
+that's odd. because it would just go in the middle. or you could have 0 letters that are on.
+So in this case, if this were my sequence. That's the palindrome right? Because you can just distribute the letters, for example. A.
+Oh, sorry, that's that's that's an odd case, so I have n0 0n letters here, so i'll distribute it this way. A a a all right, and then there's nothing. There's nothing in the middle, and then K. A. A.
+So they would just go together, and that's a
+you can have at most one odd letter in the middle. And so that's where the
+less than or equal t0 0ne come from. We're summing the ones and the zeros we've mapped the counts t0 0ne's and zeros using this lambda function
+to to just indicate whether the the number of letters
+in that
+in in in the sequence
+user avatar
+Unknown Speaker
+00:20:30
+or
+user avatar
+John Rachlin
+00:20:32
+our honor, even
+for each.
+user avatar
+Ceara Zhang
+00:20:35
+So does the MoD function like return, like the 6 and 4 zeros. And that's why, yes, yes, yeah, sorry. That's that's exactly right.
+user avatar
+John Rachlin
+00:20:47
+Okay, Thank you.
+0
+and 11. My 2 is one.
+user avatar
+Unknown Speaker
+00:21:04
+This reminder. So the MoD function is the remainder. After you divide the number by the the value. S0 11, divided by 2 is 5, with a remainder of one.
+user avatar
+John Rachlin
+00:21:15
+Okay, everyone on board.
+Good. So let's go back. We were doing some examples we were thinking, pinkering around with with that named Tuples kind of an interesting
+kind of an interesting election
+to know about. Let's just rerun through this. Let's start here, so we import a name to Poll. We created this kind of type.
+This is just a sort of the name of the type which by convention would just be the object name. And then you're giving it a list of fields that the tuple is expected to have. And then we just start declaring tuples
+of that type.
+and you assign the values to
+particular
+fields. So it's like a dictionary.
+but it's a
+immutable dictionary, and we care about immutability and functional programming a lot because we're trying to minimize
+modifications to state variables. We're trying to avoid
+user avatar
+Unknown Speaker
+00:22:23
+really variables
+user avatar
+John Rachlin
+00:22:26
+and and just focus on functions that I don't have these side effects that that it's easier to reason about
+user avatar
+Unknown Speaker
+00:22:36
+operations where
+user avatar
+John Rachlin
+00:22:39
+where you're you're just outputting.
+You know the results. So what I would say is, for example, if you have a list. I don't know, like this
+all right. We know that we can sort that list by doing
+by doing this right? So let's. That's that's an in place sort that is changing the state of the variable. That's a that's a very non functional way of sorting a list.
+The functional philosophy says that if we want to sort the list.
+we're not going to modify state, we'll simply.
+you know, run a function that produces a new result. But notice that we've left the original function or the original list unchanged. That's a more functional approach
+to sorting. And so that's the kind of thing we're we're typically trying to do is we're trying to create functions that can be composed
+and combined together somewhat like what we did with the palindrome function
+to sort of, you know. Do a mapping, then do a sum, then do a test.
+and you just apply those one at a time without necessarily changing the underlying sequence of letters in this case.
+That's kind of the spirit of a functional program.
+Okay, so. And you know why we care. We care because a. It's easier to reason about
+code that doesn't have side effects.
+It's easier to
+and and that's it's easier to produce more reliable code. So number one number 2 0nce we start thinking about multi processing, and
+user avatar
+Unknown Speaker
+00:24:37
+maybe having multiple threads that are multi-threaded applications that are interacting with
+user avatar
+John Rachlin
+00:24:44
+collections in some way that if you've got different threads, kind of writing to and changing the state of those
+those collections, then there will be a risk of creating race conditions that cause one thread to step on the toes of another thread.
+And so we're trying to avoid those sorts of things.
+and frankly, because functional programming often leads to concise and more elegant code.
+So so that's that's why we care.
+We'll see that we can do some really powerful things
+with functional ideas. So we had these sort of 3 functions that we started talking about filter
+and map. and there's also reduce.
+and we'll see how we can use those to to good effect. So we were running through some examples here. Going back to the name tuple we
+we we cared about names, tuples because we wanted a dictionary like object. that that would be immutable.
+Alright, so you guys got me talking about immutability, and why we care. We care because of the the nature of functional programming often emphasizes immutability. The objects
+all right. So here I have a tuple of named Tuples called scientists.
+And then you know, I talked about. Well, yes, you could loop through the the the tuple and out, or you have a tuple of tuples and basically construct a filtered set of tuples based on some condition whether they won the Nobel Prize or not. On that's a very iterative
+user avatar
+Unknown Speaker
+00:26:38
+approach. You're maintaining
+user avatar
+John Rachlin
+00:26:39
+a state counter, that kind of
+loop through each element. And even though you're not changing the underlying set of or tuple of, scientists.
+you are updating and changing filtered. So imagine you were trying to do this in parallel
+and
+feed filtered with multiple threads. It could it could be yeah, you. It could be problematic. You could get.
+you know, duplicate values or miss a value, or they could just clobber each other. So
+user avatar
+Unknown Speaker
+00:27:19
+you know, we would like to.
+user avatar
+John Rachlin
+00:27:22
+maybe not think in terms of constructing a new state variable that has to be updated. But instead apply a function called filter.
+which. and express a condition against which values are are processed.
+So so we did that it's a more kind of elegant way, I think of of doing the filter you just sort of describe the filter condition. Give it the collection, and it's kind of like doing a mapping kind of like doing.
+If we're doing this with one collection and doing it as a list. Comprehension, you might say something like. you know.
+X. For x in scientists.
+user avatar
+Unknown Speaker
+00:28:13
+If it's not noble.
+user avatar
+John Rachlin
+00:28:16
+that would be a sort of a rearrangement
+of of using the syntactic sugar of a filter comprehension to basically implement the same thing, but it under the hood. This is this is basically enabling a multiple filter function.
+all right. So so we have that.
+What else? I talked a little bit about composing multiple filters. I think that's kind of where we left off all right.
+Let's let's press on. and i'm you know I'm not gonna. I just want to run through a few other examples
+it to to do
+all right. So I've already talked about map in the other context. But you know again, it's basically you're giving it a function. You're giving it something that you can iterate over, and it produces the mapping object, which again is an iterable.
+The map object is something you can iterate over to extract the resulting values, which is why I often convert it to a list. Just so we can display the results. But basically the map object gives you
+operations to get the next
+seek value in the sequence, and you can just say next next next.
+I'm not sure what reduces doing in this context. Returns State information for pickling. Okay, I'm.
+we'll. We'll talk about pickling another time. But the key idea is you're giving it a function as a parameter and some collection, and it's applying that function to the elements of the collection. That's that's really kinda all you have to know.
+And so, just as by way of example, here I have our list of scientists, not a list. It's a tuple of
+scientists tuples. Science tests. That was our list of scientists.
+and just wanted to give you like. you know, kind of a another example. Let's suppose that we want to map. and
+the map will take an X which will actually be a yeah.
+a tuple. But maybe for whatever reason it'll be a it'll be a names to all.
+But maybe for whatever reason I want to construct a new dictionary out of this with the name, and i'll just do like.
+Get the upper case name.
+and maybe I want to get their age right. That's not something I have when they were born. I don't have their age.
+So let's say 2,023 minus when they were born.
+That's good enough all right, so that's my mapping
+user avatar
+Unknown Speaker
+00:31:23
+function, which I want to apply to my list of scientists.
+user avatar
+John Rachlin
+00:31:29
+Sorry, my 2,
+and let's convert this to it. Back to what people
+you know. There we go. Now. We have a tuple of dictionaries.
+Okay, so that's the sort of kind of games you can play with that with map. And now it's really dive into reduce.
+Reduce this, though, is the one that's a little tricky to think about
+It's applications are rich beyond the canonical example that they always give
+You do need to import it. I don't know why filter and map are built in
+reduce
+user avatar
+Unknown Speaker
+00:32:21
+phone tools.
+user avatar
+John Rachlin
+00:32:25
+So this is the canonical example they always give You're giving it a lambda function where you're basically adding 2 values together. And so it's taking this list and basically
+pairing them up, one at a time. So in this case. 1 2 3 4 5,
+Yeah. It's repeatedly iterated over
+and reduced, so that we take the first 2 values, one and 2, that becomes 3. So we have 3 3 4 5,
+all right. Now we take the first 2 values, which is 3 and 3. So we get 6 and then 4 and 5.
+This is the reduced operation in action. Now we have 10 and 5, and now we have finally 15,
+alright. So we've reduced the list
+through a series of pairwise operations into something that consolidates that list into some number in this case, reducing x plus y a pairwise basis.
+is the covert to computing the sum.
+All right.
+Now, one thing to notice about this
+is
+it doesn't really matter for plus what order that it takes items from. we should actually just try this. I was kind of curious. What happens if we say, Reduce
+lambda x, y, and and the function is x minus y. Now the order really does matter what happens when I do this, and I give it a list. I'm. Assuming it'll still
+pick it pair wise and do like one minus 2 is minus one. then minus 3 is minus 4, minus 8 minus 13. So it is doing it in that order.
+and
+i'm just not sure, though, like if you had some list, the order doesn't really matter, although it will still you to find a list in that or a set in that order. It's gonna Still, you know. Kind of it kind of knows internally what the order was, so that won't change it. But
+in general you can't presume any particular ordering for a set, and so the reduction that you get could matter is
+but just be aware that
+I think, usually reduces applied when the pairs that you're pairing together to do the reduction don't necessarily matter if you want to get a consistent and expected result.
+So let's let's consider a
+a different way of thinking about reduce
+like, because it's not so clear. Well.
+you know, I guess one way to think of it is that these 2 parameters, X and Y
+are basically like 2 0r random values that they're somehow being combined. A better way to think about it about reduce is that you've got some accumulator.
+some some something where the data is being kind of
+merged together, and in this case the accumulation of the some. That's why i'm calling in the accumulator. It's a it's the it's sort of from the from the days of of
+doing programming at the level of the Assembly language programming where you have, like an accumulator register to manage things like totals and sums, and we've got some value. I'll just call it now.
+and what we're really trying to do
+is essentially describe how the value gets merged into the accumulated object. That's really what we're expressing here, and the way
+it gets expressed or or gets merged in is that the accumulator becomes as the result of merging the value in the accumulation accumulated
+the current accumulated value, plus
+user avatar
+Unknown Speaker
+00:36:57
+the the new value that we're trying to merge into the reduction.
+user avatar
+John Rachlin
+00:37:03
+All right. So that's that's a just sort of a very different way of kind of thinking about what's going on. But it's a it's a way of thinking about it that that might make it
+clear why we're using reduce syntax for other more interesting kinds of reductions. There is a third parameter that you can give reduce, which is the starting value
+of the accumulator. So typically it's basically 0 in this case. And now we've got our 15, but if I given it 10,
+then
+it would have started there and then started accumulating values into
+into the accumulator and starting at 10. So
+So just be aware that there is this critical third parameter that sometimes can be quite necessary to take advantage of.
+user avatar
+Unknown Speaker
+00:38:01
+So so let me give you a an example. So what I want to do
+user avatar
+John Rachlin
+00:38:10
+is
+I just really want to give you the I've got a lot of sort of side examples, but I I just wanna i'm just looking for a like a good one here.
+user avatar
+Unknown Speaker
+00:38:24
+No, that's kind of boring
+user avatar
+John Rachlin
+00:38:27
+I want to do some sort of a a grouper. Yeah, let's let's try this.
+Let's try this. So so what I want to do is imagine a reducer. Let's take our scientists again.
+I here are scientists. What I want to do is basically group
+the scientists. I let's say
+the field.
+Okay. So
+basically I want to know who are all the the mathematicians, who are all the physicists who are all the chemists.
+And so i'm. I'm kind of building
+a dictionary. so I want to sort of construct as the result of the accumulation. I want to construct the dictionary
+through
+reduction or accumulation, if you will.
+user avatar
+Unknown Speaker
+00:39:27
+That looks something like this, the key.
+user avatar
+John Rachlin
+00:39:31
+the the the the mapping is basically the field
+mapping to a list of names.
+That's that's what i'm trying to build through an accumulation. Now. of course, we could do this in a procedural iterative way, which is loop through the scientists.
+We start with an initially empty dictionary
+user avatar
+Unknown Speaker
+00:39:55
+loop through it.
+user avatar
+John Rachlin
+00:39:57
+and.
+you know, keep adding the value to the key. I've got this.
+I think I've got this somewhere.
+I don't but it doesn't matter.
+Let's
+user avatar
+Unknown Speaker
+00:40:16
+let's just think about how we would do it
+user avatar
+John Rachlin
+00:40:18
+using a reducer. So
+if I think about this, I'm: basically trying to form groups using reduce.
+and I need some reducer or group or function
+to tell me how to accumulate one scientist at a time into this growing dictionary.
+All right. So my collection that i'm iterating over is the scientists
+right?
+And I'm going to use a default to dictionary.
+and it's gonna be a default dictionary list.
+all right. So from elections
+report
+the
+sorry your list.
+Now we haven't defined, we haven't, defined, reduced, but reducer function yet. But you'll see where this is going in just a second.
+All right. So this is a Default Dictionary of list. What does that mean? That means, if I declare, for example, let's put the is a default
+dict
+of list. I declare this, and I say the of
+user avatar
+Unknown Speaker
+00:41:50
+A.
+user avatar
+John Rachlin
+00:41:51
+Or let's say mass. Okay.
+user avatar
+Unknown Speaker
+00:41:56
+what comes back?
+user avatar
+John Rachlin
+00:41:58
+What comes back is Well, there was no math value that gave me an empty list. but it created one. In other words, I didn't have that. Remember that the idea of Default Dictionary is.
+if you. if you were.
+if you give it a value great if you. If If if you're trying to look up a value, it doesn't exist, then it'll start an empty list for you.
+which is very nice, so I can always say something like
+the of physics.
+Dot append.
+I don't know, Joe.
+Let's do. Let's do an actual business security
+right now, even though I haven't, yet defined the key. Physics in making this call. If it doesn't exist, it will create one, and then I can do the append.
+And so now we've added Kerry. That's the advantage of using the default that change just avoids having to check whether the key exists or not. Alright, that's a very nice sort of convenient that makes our code a little more expressive.
+So
+you know, and and that's fine if we if we did it again, and we add another physicist. If it does exist great, it'll just return that value, and then do the appendance sally ride
+great. So let's add Sally ride this time.
+And now we've added Sally. Ride to the list.
+all right. So so now let's go back to this. What we're trying to do is accumulate items into something that will basically be
+this dictionary.
+But we're starting. Our Our starting point is the Default Dictionary. That's our that's our starting point for the accumulation.
+So now i'm going to define the reducer.
+And again, I think it's wise to think about a reducer function is taking 2 values, 2 parameters, an accumulation or a accumulator, and the value that has to be integrated through reduction into that accumulator.
+So what are we doing when we accumulate values to build up this dictionary. We're doing exactly what I did before we're saying.
+In this case, take the value field that will be my key
+and append
+the value.name
+all right. I'm. Assuming here the values are are scientists to both.
+All right. So that's telling me how to handle the processing of one scientist in this collection to incorporate it into this accumulating
+dictionary or the full dictionary that we're constructing. And so the result of this, then.
+is that it doesn't work. The result is that I have to return. So I do the accumulation, and then the pattern is returned. The there we go.
+I got to return the accumulator. So make make you the merge
+right. Do the merge.
+Merge now into a cumulator and then return the results.
+Okay.
+and so so that that that's it. That was.
+It does require you that you have a well-defined reducer function but having to find that now your your grouping operation is very elegant. It's a very simple
+way of doing things.
+Okay, let me just see. Do I have?
+Yeah.
+I think that's mostly what I wanted to. There's other ways to do this. But
+let's leave it at that. Okay.
+let's do another example of
+using a reducer.
+user avatar
+Unknown Speaker
+00:46:31
+maybe
+user avatar
+John Rachlin
+00:46:33
+something that has.
+Let's see which one should I do. First. you guys want an example
+from business
+or an example from machine learning.
+Let's have a vote. Do you want a machine learning example, or a or a business example.
+And now everyone wants them out.
+Okay, this actually came up in the at Machine learning class that I teach, i'm teaching machine learning that one
+are some of you in that glass. It it came up, but we were talking about K. Nearest name for learning.
+and the I, the the one of the problems with that
+with that nearest neighbor. Let's start. I you know, I think, what i'm gonna do. Just give me a second. I want to figure out how I want to do this. But but
+okay it. It came up that K. Nearest neighbor. So this is the idea of you're looking through it at your neighbors, and you have some similarity
+or distance score, and you're trying to find the other instances in your data set that are most similar to you, and on the basis of a majority vote to you
+classify a a new point based on the K. Nearest or most similar points to that to that point. That's the idea of Kenya's neighbor. Now let's let's go ahead and start a
+user avatar
+Unknown Speaker
+00:48:12
+Let's start. A
+user avatar
+Unknown Speaker
+00:48:16
+Let me put it.
+user avatar
+John Rachlin
+00:48:27
+I have this
+what I want to do so I should have told you, by the way, on the repo, to do a git pull, because this example requires that we do some timing, and I I through in the profiler code that we wrote last time
+into into the funk
+user avatar
+Unknown Speaker
+00:48:48
+folder.
+user avatar
+John Rachlin
+00:48:49
+So if you haven't done so already. Go ahead and do a git poll on
+on the repo, Pull that down, or or simply copy the profiler dot pi, which is in the I think it's in the Profile Sub directory into your working Directory. So you have it because i'm gonna do an example that that demonstrates
+a technique for making tay nearest neighbor, learning a little bit faster. So so what is the problem? If you've got? Let's say, a 1 million instances.
+So
+sorry. Give me 1 s. I have to. I have to pull up my my notes and make sure they're properly.
+I mean that this
+let's do it this way.
+I'll do it this way i'll make, I term the on all workspaces.
+so that now I should have it
+here. Yeah.
+So let's hide this.
+So the the problem with with K nearest neighbor. Learning is that
+is, that it can be very slow; that that if you've got millions and millions, or even billions of of instances, you kind of have to go through. Each one and figure out can keep track of like. Well, what are the what are the K
+smallest distances?
+All right. So
+let's let's imagine. For example, we have
+a yeah, let's just start a new program. I think that'll be easier. We'll just call it K. And n test. This is going to be a performance test on Kmart's neighbors, and so.
+you know. Let's let's imagine that you've accumulated a bunch of measurements for the distance to these 1000000 0ther instances. And and now your task is to return
+the the K smallest values.
+So you know certainly. What you could do
+is, you could sort the values right. So if you're trying to find the minimum, the the values that are are
+the like, the the minimum, 5 values, let's say, and you and we wanted to use sorting.
+Then here's a list of values.
+I'll give it to the hey as a parameter. So maybe I want the smallest 31 values, or the smallest 5 values, or maybe just the smallest value, which is K. Equals one.
+user avatar
+Unknown Speaker
+00:51:27
+Certainly I could do that by sorting
+user avatar
+John Rachlin
+00:51:32
+the list and then just returning
+the smallest values in that list. Give me the subset of values
+after having sorted the result. a sorting the list. Okay, then then I can just get the the the values at the front of the list.
+So so this works right. It it returns the K smallest.
+user avatar
+Unknown Speaker
+00:51:59
+or I'll just say nearest
+user avatar
+John Rachlin
+00:52:03
+values
+in the list, using sorting. So why is this a problem?
+This is a problem? Because sorting, although it's n log in that log in you, you per you know, component
+gets gets big
+after after
+after a while. It contributes significantly to the time that it takes to find the case, smallest values. and so a different way of doing it
+essentially is. So let's test this. Let's let's go ahead and let's say we have an and i'm just making it a 1 million. 1 2 3 4 5 6, that's a that's a 1 million right?
+And it may not even show up significantly at a 1 million. But what i'm going to do is create a list of random numbers. So here's a list of random numbers R&D. Random
+for ratings.
+I need to import import random. That is R. And D:
+Okay. So so this gives me my list of numbers.
+user avatar
+Unknown Speaker
+00:53:21
+And now, just to show you that it works. Our result
+user avatar
+John Rachlin
+00:53:29
+equals Min. K. Sort. I want.
+say, the 5 smallest numbers.
+and i'll print the result. Make sure it worked
+There, there they are.
+Okay. and they're in order, which is nice.
+user avatar
+Unknown Speaker
+00:53:53
+But I had to do the sorting.
+user avatar
+John Rachlin
+00:53:55
+and at some point this is getting started to get noticeably
+slower. Let's make it
+already all right. That that took a while that took a few seconds.
+user avatar
+Unknown Speaker
+00:54:09
+So another approach
+user avatar
+John Rachlin
+00:54:12
+is to basically do selection sort.
+which is, basically find the minimum value, iterate through the list, find the minimum value. pull it out. Now. find the next minimum value from what
+user avatar
+Unknown Speaker
+00:54:28
+are the left over values. Pull that one out and just do that, K. Times.
+user avatar
+John Rachlin
+00:54:33
+and
+that would be that would work.
+user avatar
+Unknown Speaker
+00:54:39
+You're not sorting the list.
+user avatar
+John Rachlin
+00:54:42
+But if K. Is small compared to log in. Then this is going to save you some time.
+But what I wanted to show you was
+a way to do it using reduction.
+and I don't know if this is really the best way to do it. But I will. I want to think about like, what what are we trying to build here we're trying to build a reduction that basically we're building up this list of the 5,
+4 K small and and so if I think about the the K reducer
+as being
+as being. Basically we have some accumulation, and we have some value. Now we do have this third parameter, which is the K. How, how, how big a list
+we we we want to create here. But the basic idea is for each value in our original list. We want to just kind of merge that into the list of the of the K smallest values. That's what accumulator
+represents here. It's the list of the smallest values. So just to think about it like maintaining a list.
+And now, every time you want to see is this one of the 5 smallest values you're just basically checking to see if
+if if the new value is smaller than the biggest value in your list, and if it is smaller, and then maybe you replace that biggest value with your new
+value, and at all times you're maintaining a list
+of the
+hey smallest values. So here's how it would work, you would say. Well, if if the length of the emulator is less than K, we haven't accumulated.
+say, let's keep in mind that hey might be 5. If you Haven't accumulated 5 values. Yet. Then there's nothing to do but simply append the value of the list.
+Okay.
+But if you've already got 5 values, now, what do you need to do? You need to find
+the the location of the maximum value that's at Max Index.
+So let's find the the index of the maximum value in that list. There might be a better way to do this. But
+user avatar
+Unknown Speaker
+00:57:14
+and then.
+user avatar
+John Rachlin
+00:57:16
+if that maximum about, if it is less than the value at that maximum index.
+then replace it.
+We'll say, a/C. Max. Idx. Now equals that You see what we're doing like. If we do this over and over again. We're always maintaining a list of 5 values that are minimal.
+Alright that's what that's what we return
+as our accumulation. Now, this is a lot more cumbersome, I admit, than simply doing sorted. But
+we're trying to eke out performance
+improvements, and sometimes that requires a slightly more complicated
+algorithmic approach.
+Right? Sometimes that's just like we have. We have this trade off between code, simplicity and correctness. I remember, you know, in the early days of programming, before I,
+you know, really had good collection classes and good libraries for doing stuff, and I just wanted to sort a bunch of numbers that i'd whip out a an insertion sort and do it by hand. And it it was fine because the numbers I was dealing with. You know we're small.
+and it didn't really matter that I was implementing an n squared. Algorithm I just needed to implement it. I didn't want to implement quicksort, and I didn't have access to good libraries for the language I was using to do the sorting for me.
+And so sometimes we take shortcuts in the interests of software expediency.
+But
+as we push the limits of our code and try to address scalability. Then sometimes we need to
+be a little more sophisticated with what we're doing. So, as you can see, you know, this process of.
+you know, finding the maximum. Basically is iterating over the a length list.
+And so it's Still, this is. But we're we're we're basically
+going to be doing, converting an order and long in an algorithm.
+into an order
+basically N. K. But if a is a small number, it's basically a constant. It's effectively. We've converted this into an order. N: algorithm. Right. We've been. We've converted the the finding of the case. Smallest values into a linear time. Algorithm
+that's that's what we're trying to AIM for here. So let me just show you. Now let's do. A result to
+is going to
+is going to use a different approach, which will be called the reduction approach. And again, I'll
+2 5. So let's define what what the that does.
+Yeah.
+In K using reduction or reduce
+again, give it an L. And a. K.
+So
+it's gonna be a one line again. We're gonna use a reducer.
+So
+user avatar
+Unknown Speaker
+01:00:25
+what we'd like to be able to say
+user avatar
+John Rachlin
+01:00:28
+is, basically hey, reducer. something like this
+user avatar
+Unknown Speaker
+01:00:33
+where we give it the list. And the starting point is an empty list. The reason this doesn't quite work.
+user avatar
+John Rachlin
+01:00:41
+What is it complaining about? Oh, I haven't deported that that punk tools
+from from the tools import it's, and while i'm at it from profiler
+import profile and for 5.
+So this is kind of what we're trying to do. We're trying to use this function as the reducer.
+and you know. Give it some starting list, and it will initialize the accumulator with an empty list.
+I the only problem with this. It doesn't quite work. I try to run this. Oh, wait! Oh, it's still. Yeah, it doesn't work because of this extra parameter
+and the reducer functions that you're giving. Expect Take 2 parameters, an accumulator, and the value of your
+user avatar
+Unknown Speaker
+01:01:41
+accumulating.
+user avatar
+John Rachlin
+01:01:44
+But we'll just trick the system.
+and instead, make this a lambda function
+of the accumulator and the value. And we'll just call came reducer on the accumulator the value.
+and we'll we'll. We'll pass the K. That way. We'll get the k from the
+parameter here.
+So i'm just tricking it. So that yes, the reduced function is still accepting a yeah, a function which takes 2 parameters.
+But it's true. Basically I picked it so that it's now calling a function. using a third parameter.
+All right. So let's go back and let's let's
+where's my N. Let's put all this down at the bottom here. so we can see it
+all right. So
+let's do this just to so we can see what's happening here. Print result.
+and then can we result too, so we can really see what happens.
+You can see if there's a time difference. Are you? Probably won't? See that much of a time difference.
+But let's go ahead and let's go back to making it a 1 million. So it's fast. Let's just make sure we're getting the same results, and actually we are, although the way we're doing it with reduce doesn't guarantee that the results are in sorted order anymore.
+which is maybe okay, like in Kenya's neighbor. All we care really is that is that we get the K. Nearest. We don't care that they're necessarily sorted
+in in order. but so just to make sure, make it clear that that
+they are indeed the same items that we're getting.
+Do it this way.
+And now you can see. Yes, they are. I am getting the same 5 values, and you know now this works, for
+you know I want the the the 8 smallest values.
+or the 31 smallest values it, it will still work.
+So let's time this, and see what's going on here to time it. What we'll do is will tag
+or decorate the function with our profiling code appeal file.
+This is the power of decorators.
+and
+I think all I have to do is just generate the report at the end.
+So Profiler dot report.
+So now we can see what happens here.
+0 0kay, I don't maybe need to print stuff anymore.
+Let's actually you know what it's fine we can print, but let's just keep it consistent. We'll do it just fine, so we can see the results.
+Okay, so here we go
+oops. I I profiled the wrong thing. I didn't mean to profile reducer. I meant to profile.
+I'm in K. Binder. Let's run it again.
+Okay, so it looks like
+that sort of slightly longer. Not a big difference. But now let's see what happens as we make it bigger.
+What we should see is that sorting approach takes longer and longer relative t0 0ur linear time. Algorithm so already it's
+user avatar
+Unknown Speaker
+01:05:42
+a bit slower.
+user avatar
+John Rachlin
+01:05:45
+2 s for one and a half. That's just
+user avatar
+Unknown Speaker
+01:05:49
+not.
+user avatar
+John Rachlin
+01:05:50
+I don't want this running for a minute. We'll make it 5 times as bigger.
+and we'll let that. Just run for 10 s or so.
+Let's see 5, and we paid about 15 s. Maybe
+you know more than 15 s.
+Here it comes. Okay, that that was sorting.
+Come on, don't make a liar out of me, all right, so you can kind of see that already. Now, sorting is taking twice as long as the reduction approach.
+And so when you get to high scale machine learning. These are sort of some of the tricks that you maybe want to be thinking about.
+Okay. So so there you go. I'm actually going to end up showing you the business example as well in the context of
+of my next topic, which is. which is
+evolutionary computing a topic which is near and gear in my heart. I've been studying the these approaches to problem solving since I was
+not much older than you guys working in my first job at Ibm Research.
+developing artificial intelligence applications for manufacturing. And we had this approach to using evolutionary computing
+to solve
+user avatar
+Unknown Speaker
+01:07:22
+scheduling problems
+user avatar
+John Rachlin
+01:07:24
+and paper mills and the like.
+user avatar
+Unknown Speaker
+01:07:27
+So that's what i'm gonna i'm gonna show you how to how to
+user avatar
+John Rachlin
+01:07:31
+how to solve hard problems with that by by not writing a complicated algorithm but rather by
+evolving a yeah.
+a
+user avatar
+Unknown Speaker
+01:07:44
+a range of possible solutions Here, just bear with me 1 s.
+user avatar
+John Rachlin
+01:07:54
+Alright.
+Okay, alright.
+good. So to do that. Let's go to
+No.
+Where is it? I gotta find it
+Here it is. Let's let's talk about this. This is this: is these are some a few slides that I had. I have shown in other contexts. But what we're going to be doing in this class
+is implementing these ideas to solve interesting problems, using functional programming
+in python. And
+user avatar
+Unknown Speaker
+01:08:33
+this is going to be basically
+user avatar
+John Rachlin
+01:08:35
+how to solve optimization problems where there are multiple objectives, multiple competing objectives involving trade offs.
+This is very characteristic of a lot of business problems where you have decisions to make, but there are trade offs.
+There are risks. There are rewards.
+You kind of minimize your risk while maximizing your forecasted reward, whether it's managing a stock portfoli0 0r investing in capital expenditures
+or deciding how to prioritize
+customers
+for faster delivery.
+user avatar
+Unknown Speaker
+01:09:14
+We always are dealing with trade offs in the world of business.
+user avatar
+John Rachlin
+01:09:19
+and the solutions
+that we might come up with have to consider
+carefully the trade-offs between competing objectives.
+And it turns out that evolutionary computing, by thinking about solutions to a problem
+as like a population of possibilities.
+provides a very convenient and natural way of thinking about that. about decision making.
+So so what is evolutionary computing basically about, and why is it relevant to data science.
+So evolutionary computing is inspired by the theory of evolution
+developed by Darwin, my personal scientific hero.
+who, when he was
+user avatar
+Unknown Speaker
+01:10:10
+what about 22,
+user avatar
+John Rachlin
+01:10:13
+22 years old. and he decides to g0 0n his 5 year voyage
+around the world
+to to serve as kind of the the onboard naturalist. His job was basically to survey
+various lands. make note of flora and fauna. collect samples. return those samples back to England.
+back to the museums first study.
+That's that was his official purpose.
+user avatar
+Unknown Speaker
+01:10:48
+The real purpose.
+user avatar
+John Rachlin
+01:10:50
+some say.
+was that the Captain Fitzroy.
+being the captain. was not really allowed to
+recognize with the crew.
+and so, being a captain, could be very lonely, and
+I think Fitzroy had a Captain Fitzgerald had a an uncle who maybe had committed suicide, who was also a captain in the Royal Navy, and you know this was a a concern among
+a among
+officers in in the Navy that it could get very isolating and and very lonely, and so, in a in a way, Darwin's real purpose there was just to keep the captain company.
+but but on this voyage he he! He! He left the shores of England for 5 years for 5 year voyage. And interestingly, once he came back in. I don't believe he ever left the shores of England ever again.
+He just studied his samples and continued to work and and formulate this theory. and only when he was about to be scooped mate in in his old, his later years. He finally sit down and and and write out the origin of Species, and
+user avatar
+Unknown Speaker
+01:12:08
+and
+user avatar
+John Rachlin
+01:12:10
+it is now, of course, the foundation for biological thought. It is based on
+the the a couple of very simple, relatively simple ideas. It's almost, you know it's. It's one of those things that I think a lot of scientists believe that
+you know we don't know what life on other planets might be like. but we we do tend to think that they will undergo evolution as a as a process
+for speciation.
+user avatar
+Unknown Speaker
+01:12:45
+And it's based on this idea that the organisms vary, and that those variations are inherited
+user avatar
+John Rachlin
+01:12:53
+in part by their offspring.
+and that organisms produce more offspring than can possibly survive. setting up competition for survival.
+And third. that. depending on your environment. offspring that are more strongly favored for the environment that are more adapt
+at the environment are better better adapted for the environment will tend to survive. live to adulthood
+and reproduce passing on those
+favorable traits to their offspring. Okay? And then around and around it goes that's basically natural selection
+user avatar
+Unknown Speaker
+01:13:44
+survival of the fittest
+user avatar
+John Rachlin
+01:13:48
+inheriting those survivability traits
+and producing more
+overpopulation, creating
+more struggle for survival
+leading to a preferred selection towards traits that are favorable to whatever environment you got. Okay, now.
+if we think about biological systems versus software systems, biological systems
+have certain favorable traits that we would love to be able to build int0 0ur code
+as software developers, right? We we we need to manage complexity. We develop all these different programming paradigms like object, oriented programming and functional programming and logic programming. And you know, we harp on modular design and object, inheritance and
+separation of state and encapsulation of state, and
+all this, all these sort of best practices are aimed at managing complexity.
+and the biological systems are in principle complex and adaptive and resilient and self regulating
+and self sustaining right. We've we've talked a lot about how to write code that's reliable. But think about the homeostasis built into natural environments.
+that that these properties are things that we would like to try to build into
+our. int0 0ur algorithms and our software if we could.
+Most real world problems are like sort. right? There's usually no single optimal solution. They're usually trade offs.
+and
+those trade offs involve.
+basically considering multiple objectives, and then sort of deciding. Well, what are the best solutions based on this
+user avatar
+Unknown Speaker
+01:15:51
+sort of paret0 0ptimal frontier.
+user avatar
+John Rachlin
+01:15:54
+So those of you who have business backgrounds
+it might recognize. This is the kind of utility for or paret0 0ptimal per pareto.
+And you know. in in the
+in the world, in the natural world there are trade offs, too, in terms of of an organism, right? I mean. Some are fast, but you know.
+user avatar
+Unknown Speaker
+01:16:30
+but maybe require more energy, more more
+user avatar
+John Rachlin
+01:16:34
+food. Others might be slow, but but but better at hiding, you know. There, there's always these trade offs that produce or help produce the diversity of
+solutions as defined by different species, living in a
+user avatar
+Unknown Speaker
+01:16:51
+bio, a a biodiverse environment. But just thinking about problems
+user avatar
+John Rachlin
+01:16:59
+in in software and solutions. In software
+we can generate lots of different solutions. We can generate lots of different decision trees or have lots of different machine learning models.
+you know, sorting. Yeah, there's one solution. It's sorted or it's not. But
+but a lot of problems are measured. Their Their goodness is measured in terms of how well they address different objectives like if you're scheduling how to fulfill orders on a paper machine, a paper mail in a paper mill, there may be trade offs between on time, delivery and
+user avatar
+Unknown Speaker
+01:17:38
+manufacturing setup costs, as you transition from one product to another on your production machines.
+user avatar
+John Rachlin
+01:17:45
+You know there some some solutions might create additional transportation costs. Some solutions might create chaos on the factory floor, and the factory floor. Planners are trying to manage all these different objectives
+aimed at trying to maximize profits and satisfy customer demand.
+And so
+so there are.
+There are lots and lots of trade offs, and and this idea of considering trade offs is very central to a lot of thinking about
+about that. The the practice of management, Peter Drucker, was this famous guy who wrote some, some it all works on the theory and practice of management. And he talked about this idea that effective management requires that we consider
+competing alternatives.
+Evolutionary computing is basically an attempt to think about solutions as as individual organisms in a population.
+and that what we're basically trying to do is
+user avatar
+Unknown Speaker
+01:18:50
+evolve
+user avatar
+John Rachlin
+01:18:52
+those solutions
+towards this sort of optimal trade off curve.
+Okay, so we can kind of measure whether a solution is good or not, depending on whether it's dominated by one of these best solutions found so far so, for example, I would say that am. B. Are sort of equivalent. They're equally good, because
+one is better with respect t0 0bjective x, and one is better with respect t0 0bjective Y. It's a trade off.
+But if I compare X to a x is just worse than a it's not a well adapted to the environment defined by these objectives. Because I've got this solution a. That's just better. With respect to every objective I care about.
+And so I probably. you know.
+and not gonna let this solution survive in my simulation.
+user avatar
+Unknown Speaker
+01:19:46
+And so, if I
+user avatar
+John Rachlin
+01:19:50
+tweak this, these solutions, the solutions I want to be tweaking are the solutions among the best that I found so far. Do you see where this is going? Think about trying to find solutions by simply defining the objectives, letting the solutions evolve by modifying them.
+producing variation just like in the natural world.
+measuring their fitness, based on whether or not they're on this trade, off curve or not.
+So the solutions are struggling for survival, and those that aren't well adapted, based on these objectives. They're going to get thrown out.
+and those that are among the best solutions will keep those, and let them continue to evolve, and and you know we'll we'll modify them in different ways. We'll tweak those solutions, and and maybe the tweaks will make the solutions worse. But maybe we'll discover a slight improvement.
+and so we'll, you know we might start with solutions up here, but just keep the process of evolution going over and over again, and gradually we get better and better solutions until we get basically this optimal trade off
+that's the spirit of evolution applied to to problem solving.
+So so this is what this is sort of an
+object-oriented architecture. For how we might imagine
+a framework or solving these problems. I'm going to show you a more functional approach to solving this, but this is kind of the thing, the sort of thing that we used to to do. Back in the day we'd manage multiple solutions.
+We would have various agents that would tweak those solutions in different ways.
+and we had various objectives that we registered with the framework.
+user avatar
+Unknown Speaker
+01:21:38
+and which would measure the goodness of these solutions with respect t0 0ur different objectives or goals.
+user avatar
+John Rachlin
+01:21:44
+So I want you to just think about this for a second. What we're proposing to do then, is solve an optimization problem by describing what makes a good solution
+and using sort of random tweaks to just let the solutions vary. To create variation is easy. all right. It's much harder to It's much easier to like if you're sorting numbers. It's much easier to create Some tweaks to a random list.
+and yeah, maybe it produces a better solution, a more sorted solution, or maybe it produces a less sorted solution. But it's just a random swap, maybe of 2 numbers. That's easy.
+That's a lot easier to do than then to like, write, or define a formal, algorithm correct algorithm for sorting.
+So if we could, for example, simply describe what it means to be sorted
+then. and you know what it means for 1 0ne sequence of numbers to be more sorted or less sorted than another.
+Then we could use evolution to discover the the optimal sorted list
+without writing the sorting out.
+Here's how it might work. So this is sorting without sort. You have some list. Maybe you know you copy it.
+Let's copy the list. This is sort of like reproduction.
+but reproduction involves some variation, introduces some variation, so maybe you swap a couple of numbers. Okay, is that good? Is that bad? Maybe in this case it's pretty good. The 9 move to the end. The 4 moved up a little bit.
+user avatar
+Unknown Speaker
+01:23:25
+Yeah, that might be better.
+user avatar
+John Rachlin
+01:23:27
+Let's measure how well these numbers are sorted. There's some different ways. We could do this, but we could, for example, count how many times we're trying to sort in ascending. So let's count how many times we go in the wrong direction, and how big a step down
+we're we're making. So, for example, we go from 5 t0 3. That's a penalty of 2,
+3 t0 9 is fine, all right. That's in the right order. 9 t0 2 is a penalty of 7. That's a big jump in the wrong direction. 2 t0 8 is fine, but 8 t0 4 more penalties. So this is
+this is a net penalty of 13. Now let's look at this. This is a different solution.
+Okay.
+2, because 5 t0 3 is 2 3 4 is great
+or 2 is another penalty, but then 2 t0 8 is fine, 8 and 9 is fine. So you know, you could just look at these, and pretty much know that
+this sequence is more sorted than the other sequence.
+So imagine just doing billions and billions of swaps. Now the number of different permutations of end numbers is, of course, n factorial, and if all you do is
+swamp.
+you're probably not going to find the best solution.
+and it would be as if
+you know you had this population of objectives, and you just started filling up the solutions, filling up the population with
+lots and lots of solutions. Random solutions. Yeah, you might find some good ones. But you're going to spend an awful lot of time
+just filling up memory with crappy solutions.
+But remember. key part.
+evolution is survival of the fittest. It is that struggle for survival
+that calls unadapted creatures. on average. that favors adapted creatures on average. that that is the driving force
+behind natural selection. And it is the driving force behind evolutionary computing that we're going to continually throw out
+bad solutions, and only
+week the best solutions that we've found so far. we're always.
+We're always
+trying to introduce variation at the frontier of our optimal trade off curve.
+and we're not wasting time with older bad solutions that have been discarded now, like I said, swapping might make the solution worse.
+But but but we'll always be focusing our search on the frontier. and
+remembering that natural selection throwing in this case corresponds to throwing out solutions that, like X that are dominated by other solutions, meaning that they're worse. With respect to every objective
+in comparison, we're gonna continue to call those out so that so that our optimization will process forward.
+Okay. So so that's the idea is that eventually you keep doing this, and by improving the best sorted solutions that you found so far, or trying to improve just the best solutions that you some. So far you could very quickly converge onto a
+the optimal solution the sorted list. Now this would not be as efficient
+by any means as simply running
+user avatar
+Unknown Speaker
+01:27:25
+quick, like merge sort. In this case this is merge sort, but it's in long, and
+user avatar
+John Rachlin
+01:27:31
+this is likely not going to be as efficient. Doing it by evolutionary computing is is likely not going to be as efficient as
+as as merge sort or quicks, but
+it's simpler. And there are a lot of problems for which there are no good algorithms.
+efficient algorithms, for you know they can't just code that in that. Yet this is being a fit. This is efficient, and it works right. There are a lot of problems that require.
+like complicated consideration of complicated trade offs, and you know it's not at all clear what the the right algorithm is. You might implement some sort of a greedy algorithm to solve one problem or another. But threed algorithms Aren't always going to give you the best solutions.
+So so we're going to think about that about doing it with sol solving hard problems, with evolutionary computing. And what it will basically involve
+is defining methods to tweak the solutions. That's very simple, usually.
+and describing or declaring
+what it means to be a good solution. Think about that like what makes sequel in a database so very nice to use. It's that it's declarative. You simply sort of describe to the database what you want or a matching record.
+and how you want it present it, whether sorted or grouped or aggregated, or whatever. And the query engine just does it for you. You declare the question that this the you but you don't describe, like, hey? I want to use
+merge sort to sort my
+my records. All right. You just describe it. Yeah, I want the the data ordered by these columns. That's a declaration. That's a declaration that that makes it easy to use sequel and to get David back the way you want.
+We're trying to do something similar. We're trying to declare what it means to be a good solution.
+And then.
+if we change that declaration, if we have different objectives, then this process will automatically evolve solutions towards those objectives. The objectives are defining our environment.
+and this framework that we're going to build will adapt to that environment.
+That's that's the goal. Now go goals in general or objectives their functions right. They take a solution, and they produce a number
+user avatar
+Unknown Speaker
+01:30:10
+agents in this model
+user avatar
+John Rachlin
+01:30:13
+our functions right. They take a solution and they produce a different solution.
+And so we've got a lot of functions that we're trying to manage here.
+and that's why this framework that we're going to build and use to solve interesting problems is
+is is a we're gonna we're gonna emphasize functional thinking as we implement this code. Now it will turn out
+that one of the tasks that we're gonna need to think about is how to take a set of solutions and that are measured by different objectives could be 2 could be One could be
+10. We could have a we could have a and like a 10 dimensional surface that we're trying t0 0ptimize for
+and but but imagining it in 2 dimensions. What we need is a way
+to reduce
+our collection of solutions to
+the non-dominated paret0 0ptimal subset of solutions.
+That is, that requires
+some functional thinking, and, as I just suggested, it probably involves a reduced operation.
+So th this is your homework for next week. I want you to think about how you would take a set of solutions
+that each solution could be like a tuple
+of of objective values, and you want to find just the solutions that are
+along this optimal trade off curve.
+using using a reduced operation, it will turn out that reduce we can.
+You know. I I used to implement this sort of stuff back in the day, using iterative programming, and i'd loop through like a a loop through a loop, and it was a messy, because I was
+looping through the same. I I you you know you don't you don't want to be removing things from a list as you're iterating over the list. So you're, you know, marking solutions to the deleted, and then figuring out what solutions are march for for death, and then you gotta to remove those marked solutions from the list after the fact. It's a very iterative approach with functional programming and with reduce.
+user avatar
+Unknown Speaker
+01:32:39
+You can write this in one one or 2 lines of code.
+user avatar
+John Rachlin
+01:32:44
+but it and it really, I think, showcases the the power of a functional thinking. But but that's what we'll. We'll start to cover next week.
+Okay, I think. Probably on Tuesday. What i'd like to do is talk about the
+the talk about your homework 3. So come to class, please, and be prepared to talk for maybe 30 s to a minute about your results. So have that poster included in your submission.
+and late Monday night I will pull them down from great scope and create a a presentation, and we'll. We'll g0 0ver those in class to see what was what was possible.
+And then and then, on Friday, before spring break, we'll build an evolutionary computing system to solve interesting problems.
+I think this will will will be
+a wellspring of many ideas for your class project. I I can give you lots and lots of interesting problems that you could potentially solve for using evolutionary and computing, including using it for hyper parameter, tuning and machine learning.
+So
+we'll maybe talk about that next week. All right. That's it for today. Everybody see you next week have a good weekend.
+Stay warm.
+user avatar
+Anthony G
+01:34:21
+Professor. Could I ask you a quick question from my group and
+user avatar
+John Rachlin
+01:34:34
+alright.

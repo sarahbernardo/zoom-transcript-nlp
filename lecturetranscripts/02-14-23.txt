@@ -1,0 +1,1063 @@
+John Rachlin
+00:00:00
+Start the timer.
+All right.
+So welcome everybody. Today I want to talk about
+reuse. No, not so much, but kind of reuse thinking about software that can can be
+extensible. That's that's the word of the day extensible. And what do I mean by that? I mean, basically software that can begin as a kind of framework, or maybe a library, and then be built upon and added to to build
+applications that have in a way kind of plugins, or at least make it relatively easy to add functionality; that the architecture of the of the application is such that adding new functionality becomes a useful thing to do.
+user avatar
+Unknown Speaker
+00:00:59
+and
+user avatar
+John Rachlin
+00:01:01
+so
+we'll we'll come back to the issue of reliability soon, maybe maybe on Friday we talked last time about
+sort of reactive programming where you create exceptions and handle them in a domain specific way, so that
+so that your application can respond appropriately to different sorts of issues that come up
+the that's the reactive way of doing things. The proactive way is to think in terms of test driven development, to define the specs or the requirements of a of an application, or even a single method.
+And then to as you're developing to validate to the implementation of that method by having it pass certain prescribed tests. That's that's a more proactive approach to reliability. So we're going to come back to reliability and test-driven development.
+But
+But today I want to talk a little bit about the projects. So class projects are a thing in this class, and you'll be able to work in probably groups of
+I don't know maybe 4 t0 6 people.
+And so let me say a little bit about the kinds of projects that we could do. And then i'm going to talk about
+homework 3, which is kind of a Mini project.
+and for that project it it'll involve comparative text, analysis, natural language, processing, and for. And it will be an example of building an extensible system.
+So i'm going to kinda give you some starting code today so that you can jump into that assignment.
+It'll be due in a couple of weeks, and I'm planning to have a lightning round presentations where everybody presents their project in about
+one t0 2 min at most.
+Okay. So why don't we begin talking about?
+Let's talk about just general project ideas, and i'll put up a deadline. I'm: i'm thinking maybe you'd be good to have a proposal before spring break.
+and then that'll give you like a full month or so to to flesh out a project.
+So let's start by.
+I think i'll share. I need to share something.
+I got too many Today's the day where I have 2, just too many. Damn
+user avatar
+Unknown Speaker
+00:03:31
+them folders and files open at the same time. Okay, let's share this screen
+user avatar
+John Rachlin
+00:03:38
+here.
+Good.
+Yeah. And let's bring out the slide. Deck
+project ideas. And i'm going to move some stuff out of my way.
+Good.
+All right.
+So this is an advanced class. I you know, kind of have high expectations that you'll. We use some of the the techniques and tools and libraries that you're learning in this class
+that you'll incorporate things like advanced visualization with plotley, maybe, or that you'll build very object-oriented frameworks re usable extensible frameworks that you'll kind of
+kind of go to town and and and not just do. For example, you know, grab a cackle set and do some machine learning. That's
+you know. We wanna we want to try to be novel and innovative here and really push yourself a a really good project kind of pushes the limits, and sometimes the the results are maybe underwhelming. But but it's a a process discovery, and
+we find that you know, just diving into messy data and
+trying to discover through through trial and error, the insights help within can can be.
+can be an interesting and worthwhile process in its own right. But just realize this is science, and sometimes the answer is, No.
+So let's just talk about some ideas.
+So here's an example of what I mean by a project which
+you know sometimes it doesn't go quite as well as we expected, but it's still. You learned a lot from doing it, and that's building a chess engine or or some sort of game playing engine a lot of to good techniques and object oriented programming. And
+you know there's a lot that you can bring to bear. It's not necessarily really data science. It is artificial intelligence. To be sure.
+this is, by the way, is a very famous picture, and it's a picture of Gary Casparov, who, losing in game 6 to Ibm. Deep blue in 1,997, I believe.
+And the funny thing about this picture is that that's me right there sitting there.
+and this is my brother sitting next to me. I don't know if you can see that very well. I i'm just poking my head out over there. Look at all that hair. And
+the funny thing about this moment was that about 30 s earlier my brother turned to me, and he had a little hand held chess with him, and my brother is much better chess player than I will ever be.
+Eddie says to be something of the of of fact of oh, by the way, I gary Casper off! Can't play this move because it's a known trap, and blah blah, blah, blah and i'm like, yeah, right. Our thanks for letting me know. And then on the very next move Gary Kasparov played that that move and just sort of walked into this known problem. I think the the
+back story of that was that he didn't really think that the that that Ibm Deep Blue would be programmed with the opening book necessary to
+necessary to actually carry out that sequence. But
+nevertheless that was pretty much the end of the match right there. So if you want to build a chess engine, i'll tell you what I've always told the students who have attempted this, which is, you get an automatic, a for your project. If you can build a chess engine that beats me.
+Okay, now I am. I am pretty much a potser at around.
+you know, for those of you who might know chess ratings. I'm about a mid level 1,600 level player. My brother's more of a 2,100 level player. If you can beat me. Automatic a for the class, not for the class for for the project, just for the project.
+All right. There are other things you might want to do. A number of students have attempted stock trading algorithms. So a lot of your business students
+and building dashboards for stock analysis or going a little further, and building algorithms or models for stop trading based on looking at historical data and trying to decide
+when to sell, when to buy and how to manage your portfolio effectively for for future uncertainty. It's very interesting problem. Pandemic simulators. We're gonna talk a little bit about animation and
+dynamic visualizations, and we'll. We'll play around with the boxes and rabbits and building pandemic simulators could be interesting in to do an Lp. Analysis. You can.
+as I said, extend the homework 3 that i'll explain a little bit later in the class today, and you'll see
+hopefully how it could be extended quite readily. Lots of stuff in bioinformatics. If you're a biology major or a biochem major, there's this known problem of multiple sequence alignment which is basically taking snippets of the genome from different species and trying to compare them and line them up
+so that you can really detect where there have been evolutionary changes in the sequence, and from that you can derive an evolutionary history. And this is really important in studying viruses and bacteria, but also just understanding the general history of life on Earth.
+And it's an interesting optimization problem. There are algorithms for doing this for coming up with a solution. But really there's a lot of different
+solutions that that might be viable that that might reveal trade offs between different measures of alignment fit.
+I mean, i'll usually a little skeptical about studying Boston Prime. It's a very common sort of Ds 2,000 kind of project where you download some data from Boston, Gov: and you build, you know, do some analysis of prime, and when it occurs and what not, and it's been done to death, and so i'm a little skeptical of it. However, the first time I taught this glass and or a top dashboard, somebody built
+a really very, very nice dashboard
+or visualizing crime in in Boston, and you know I I'd like you to do something, maybe a little bit novel, and i'll post some titles from some past projects. But you know building dashboards in general. Very. I'm: i'm very open to that sort of thing.
+And yeah, let's just kind of move on. But here just some of the general ideas that I had in mind
+with respect to natural language, processing, and text analysis, there's a ton of work going on in this area, For example, in the health care space.
+When I worked at Optimum I was not doing
+AI. I was really doing data engineering. But
+you know there was a whole group dedicated to natural language processing of electronic medical records. Why? Because of doctors notes because of these free form notes that doctors add to electronic medical records which need to be parsed and interpreted, and
+that the data or or diagnoses, or or comments or observations that are embedded within those free form notes kind of need to be codified and made searchable
+in that
+in a, in a, in a electronic medical record system.
+So a lot of interesting things there.
+user avatar
+Unknown Speaker
+00:11:54
+applications in analyzing tweets and using it to predict stocks or stock movements, perhaps
+user avatar
+John Rachlin
+00:12:02
+trying to look at. You know, customer sentiment in general based on based on blog posts or social media. Or what have you Lots of things you can do?
+user avatar
+Unknown Speaker
+00:12:17
+Okay, so that's that's that. I mentioned stock market trading box, so maybe come up with a way to manage portfolios.
+user avatar
+John Rachlin
+00:12:27
+or maybe optimize the portfolio to reveal key trade offs between volatility and return. That could be something that's sort of interesting here.
+I know a lot of you love basketball and love sports in general, and there's a lot going on in sports analytics. To be sure, I've had at least one student in this class
+recently. She, she, I think, was I forget if it was a Co-OP. Or maybe it was a full time job after graduation, but she ended up working for the both for Orioles organization and led an effort in this class to build a kind of a dashboard for baseball analytics, which was kind of cool.
+I've mentioned this before, but
+i'm very interested in sort of time, series, analysis and dashboards and astronomy. And there's a lot of interesting work going on in the study of variable star patterns.
+And so that's something that could be.
+I can point you to a lot of data on variable stars if you're interested in maybe building that some sort of a
+Time series analysis dashboard for that.
+I've mentioned these ideas of connected knowledge and building databases at with with interactive exploration of the knowledge network.
+So you know, Sankey diagrams sort of provide, maybe a way of visualizing some of these connections. But there are other things that you might explore as well. You could.
+you know, incorporate dash tables and build some searching capability, and really create a way of
+of not just looking up
+genes in a database, but but really understanding their associations with diseases and pathways and functions and and whatnot.
+And then we're gonna talk about functional programming in this class and I haven't that introduced that this to you yet. But i'm. I'm really interested in optimization, using a technique known as evolutionary computing. And the reason I introduce this approach is because it's
+it's an it's an it's an approach to artificial intelligence that that gets maybe short shrift a little bit, but also because it's a fantastic way, I think, to introduce some of the ideas of functional programming in python.
+So
+user avatar
+Unknown Speaker
+00:14:52
+we will.
+user avatar
+John Rachlin
+00:14:54
+We will talk a little bit about using a so called nature inspired computing, or evolutionary computing to solve interesting optimization problems.
+Often these problems have multiple objectives, and what you can do is produce not one solution, but many solutions that show a an optimal trade off. Some of you who are business majors and maybe have studied economics, might recognize. This is a kind of paret0 0ptimal utility curve.
+and we we can talk about. You know how to build extensible frameworks for evolutionary computing, but the basic idea is, you have a population of solutions. You have agents that
+act like forces of evolution, trying to modify, mutate, and produce new generations of solutions, and they live or die according to how well they are adapted to their environment. What does adaptation mean in this context? It means
+satisfying certain goals or objectives.
+and the better that they satisfy these objectives, the more likely to go be to survive and reproduce. And over time we evolve solutions that that
+sort of address, whatever objectives we have declared, which is a very
+interesting, I think, approach to problem solving very different from like working out a very complex algorithm, you know, and
+and you know, just having sort of a one off solution to a particular problem. Instead, you're kind of allowing these populations of thousands, or maybe even millions of solutions to kind of
+explore the
+landscape of possibilities, and and to find the best solutions in that. It's a really neat problem solving approach that I I learned about when I first got
+we in my first computer science job which was working for IP and research. Back in the day.
+My manager introduced me to this idea, and we used it to solve problems in manufacturing, which was kind of cool.
+All right. This technique is more than just dry scheduling optimization and or traveling salesman type problems. They can be used maybe to do hyper parameter tuning for machine learning. So here's a
+a distance measure. That's kind of like utility in, but you maybe you have additional weights on the features. Maybe you're not squaring the results, but maybe raising to some arbitrary power of our, and you could think about trying to come up with the best.
+Say, K. Nearest neighbor learning algorithm where you're tuning, K: your tuning. Are you tuning these feature weights and trying to basically discover what is the best model for producing
+basically the best accuracy as measured by a number of different accuracy metrics.
+So that's that's a possible approach to using evolutionary computing in in
+machine learning, and there's been some work on evolving neural networks. So, instead of having a fixed architecture and using something like that propagation to figure out the weights on the edges. Maybe what you do is evolve the topology of the network itself.
+Interesting possibility there trying to find the optimal decision Trees based on trade offs between.
+You know, things like predictive accuracy versus depth like you want. Maybe not a a a decision tree that's not so deep because very deep decision. Trees tend t0 0verfit the data. And this is why we introduced lots of different kinds of
+information, theoretic pruning algorithms to improve your decision trees to reduce the complexity of the decision tree. But my philosophy is, why not just generate millions of different decision trees, and look at the trade offs between complexity and
+user avatar
+Unknown Speaker
+00:19:11
+and accuracy as measured by different criteria. So this would be a very interesting project. I think it's to kind of explore hyper parameter tuning in machine learning, using evolutionary computing. And again, we'll talk more about evolutionary computing another time.
+user avatar
+John Rachlin
+00:19:27
+Okay. let's
+let's talk about code reuse a little bit. I want to sort of hearken you back, if I can.
+to an old assignment that most of you may have, or some of you may have done. Maybe you can tell me, did you do this as i'm in? This is from Ds
+2,500, and I usually give this assignment when I teach the class, but I haven't been teaching it in a in a while. And so I don't know they're still doing this assignment or or variations on this assignment, but it was. Basically Take some
+texts from Presidential inaugural.
+or you could do the poets. The the poems that are, I think, there have been like 6 0r 7 in no inaugurations, Presidential in all girls, so I should say, just by way of background
+for those of you who are international students in the United States. Whenever a President is elected they give a what's called an inaugural address. Sorry my cat is
+being annoyed, and and and this is basically the President on the day that he becomes or she becomes President.
+basically gives a speech to the country
+into a large crowd in Washington, DC. And basically lays out their agenda and their vision for America going forward. And it's usually a very positive.
+and
+you know, passionate, and it's kind of interesting to think about what the key topics of the day were. If you look at these over many decades, and you can maybe get some insight into kind of historical trends and changes in social values of this country over time.
+And so we give this as kind of a one-off assignment. Take these texts
+and have at them, and see what you can do in terms of comparative text analysis, you know, do they, You, you know, does do the the common words in the tax change over time.
+Does the the tone or the sentiment of the
+of these
+speeches? Have they changed over time, or is there a distinguishing
+difference between say Republicans and Democrats. These are sort of some of the things that you can do. So just out of curiosity. Have any of you done this assignment.
+Anybody anybody at all.
+user avatar
+Unknown Speaker
+00:22:07
+We did a modified version.
+user avatar
+John Rachlin
+00:22:10
+That's too bad, Emily. They don't use it anymore. Oh, to bring it back. I I invented this assignment, but you know there's so many good assignments you could do. It's hard to pack everything in.
+So sometimes you did it. You did something like it, or some modification of it that's cool.
+Okay. So So what is
+good and bad about this assignment? What's good about it is that you know it's it's an interesting topic. You learn about natural language processing compared to text analysis. But i'm willing to bet that most of you when you implemented this assignment.
+You know you were just trying to.
+You. Were just trying to sort of solve this particular problem, you know. Get the homework done and move on right. And what I want you to think about is.
+you know whether or not some of the
+user avatar
+Unknown Speaker
+00:23:04
+text, analysis
+user avatar
+John Rachlin
+00:23:06
+and visualizations that you created to support this assignment or an assignment like this whether you could have potentially reused that code
+and applied it to completely different
+corpus of of of documents. And so that really kind of brings us to the vision for
+for for homework, 3 in this class, which is. how can we build? How do we move away from Basically, building, doing a one off analysis, right? Data. Scientists love their Jupiter notebooks and they read some data. They process that they generate some visualizations. You're done
+all right. But in this class. We're thinking about libraries and frameworks, and and how to build applications that can
+have broader.
+more long term use.
+and that have have greater flexibility
+to address different needs.
+and that are fundamentally reliable. And so in this context, I want you to think about a general framework for comparative text analysis.
+which is kind of agnostic to the particular documents that you're trying to to analyze.
+All right. Now
+that seems very open-ended.
+And there may be some limitations about what we can and can't do. But what I want you to imagine is, suppose you had a general framework, a general application, or tool or library that would have allowed you to just register the the Presidents right in boom, boom, boom.
+and you know, then produce
+several different standardized comparative visualizations
+of
+of those documents, and then, you know, All right. You apply it to Presidential inaugural. But now you you that was fun. But now you apply it to.
+I don't know eighteenth century novels or blog posts. Somebody once did, looking at the apologies of
+corporations following a
+major security breach. Right that you could. It's kind of interesting from a marketing perspective to see how how sentiment
+and corporate communications are kind of managed, and how kind of uniform they are, in some sense.
+when a major
+breaches occur. But you could basically take a collection, any collection of related documents and register them with this framework, and then produce
+your analyses and your visualizations based on whatever documents you you included. and in principle
+you could, for example, take the documents from another group. I won't make you do this, but in principle, you could take the documents from another group, plug them into your system and and reveal the visualizations or analyses that your framework supports.
+and and they could do the same with your documents so, and as you want to add more visualizations or more capabilities to your framework, then there should be a nice, well-defined, well prescribed way of adding that functionality without going back and having to rewrite
+and that's kind of what we're aiming for in this assignment is reusability
+and extensibility, the ability to extend the functionality of a framework in this in this particular domain out today, i'm going to write some starting code for you and i'm going to kind of show you
+at a high level the the architecture of how this would generally work.
+and so I won't leave you completely hanging. But there's a lot of opportunity for creativity here in terms of what data sources you you pick. Let's come back to some of these other requirements in a second.
+But you have a lot of things you can do in terms of some possible data sources. Okay, Don't do presidential on our rules. We've done that one but pick pick something else. National constitutions. That's kind of interesting compilations of tweets, corporate filings.
+news articles may be on a particular compact religious text, philosophical tracks. All of these could be
+potentially a wellspring for applying
+data science to
+understanding more deeply the written word.
+And so I yeah, I encourage you to be creative.
+Now I will say upfront like, I said.
+You can work independently on this, or you can work with up to groups of
+for people. So i'm doing that because
+even though I mean, you know, I'm going to give you a couple of weeks to do this, and 4 people is a lot, and you know it could be may mean. Basically, each person is developing one of the visualizations or doing some of the parsing or whatever you kind of have to coordinate and break it down. But i'm doing this because I want to give you the opportunity. If you want to start getting to know other people in the class.
+Because when we do the yeah class projects like I said, you're gonna have a groups. You can't do independent projects for the class project. It's
+I I just don't have the bandwidth to great so many projects, so I
+so i'm going to want you working in in groups of like 4 t0 6 people for the project. So this is a chance to maybe get to know some people
+I want you to be using.
+get and be managing this Mini project, using. Get
+so that you can become accustomed to really coordinating a programming effort
+across multiple users. So like, I said, You can do this homework independently if you want. But i'd encourage you to start thinking about, maybe working in at least Paris to start learning how to effectively communicate and coordinate your development efforts
+because most people who work in industry aren't working in silos, they, I mean, there may be project groups that are silos, but most people are are working as part of a team on on one thing or another.
+and then you'll produce a one slide, poster, one slide, exactly one Pdf. Side, no more.
+no less.
+user avatar
+Unknown Speaker
+00:29:56
+And i'll compile them all into a big presentation, and we will do a like, I said. Well, dedicated data just doing lightning presentations.
+user avatar
+John Rachlin
+00:30:05
+Probably. Let's see. I forget when I made this. Do I think I made this do in a couple of weeks, so i'd like to maybe have them done by then, so that we can
+do the the Andlp presentations the next day.
+Okay, so that's that's basically what this this homework is about It's I'm going to give you a general framework
+and general architecture. You don't have to follow it exactly.
+user avatar
+Unknown Speaker
+00:30:33
+but I will explain. I will explain a little bit.
+user avatar
+John Rachlin
+00:30:39
+I I repeat it here, but I'm going to sort of describe to you how you would probably want to parse the data and store
+information key information about the different texts in a state variable inside a class which then the various visualizations would
+would use to render themselves.
+I have in mind that you would have a method that would load
+a file. You just specify the file, and it will load that file. It will process that file, parse it and store any relevant data that that that the visualizations need in order to render themselves.
+You're probably going to want to be able to filter the text for stock words or so very common words. And so, being able to define what words you're excluding from the analysis, could be a useful thing to do like to make that a method in a in a class that you just handle that.
+user avatar
+Unknown Speaker
+00:31:41
+Now, the loading and processing of text, I should go back. And say, this, you know
+user avatar
+John Rachlin
+00:31:48
+that's a pretty open-ended requirement, right? Because well, the text format could be anything even just regular so-called text files might be structured in some way that requires kind of special purpose, parsers to
+process those particular set of documents.
+And so the way we're going to handle this is, we're going to allow the user to specify a parser
+or whatever file
+or set of files you're processing. So if you had a very unique
+structure to your data files.
+Then maybe you have to provide the parser to
+to to handle that data. Now, if it's just regular text, and then maybe all you need is a general.
+It's sort of a default, parser. and you'll want to implement the default parser.
+regardless of what set of documents you use. But having this ability to allow the user to specify. The parser
+makes this framework a little more broadly applicable, I think.
+All right. So there's some you registering the files. And then there's going to be basically 3 visualizations that I want you to create. And
+you know we we we can talk about them later. But one is basically using a San key diagram to map common words to the
+user avatar
+Unknown Speaker
+00:33:16
+text
+user avatar
+John Rachlin
+00:33:17
+that those common words occur in.
+And then the other visualizations are pretty much up to you. but
+I kind of have an idea that one of the visualizations should be like a single plot, but with some plots
+all right, you should know how to create a plot that has subflots in it. and
+we we can talk about that. But or you can look it up. But in general. I'm looking for something, for example, like a word cloud for every for every document. All right. So what i'd like to see is not just one word cloud after another, but an array of word clouds, showing really the differences between the different documents.
+and then some sort of a visualization that overlays. So it's not a subplots, but it overlays data from different visual from different texts in a way that makes comparisons interesting.
+All right. So i'll i'll show you today an example of creating
+creating some very, very trivial and simple, much too simple for this assignment. But at least it'll give you the idea of how you create a visualization that relies on some internal state
+that is constructed as you parse the different files.
+All right. That's that's where we're going. Extensibility.
+user avatar
+Unknown Speaker
+00:34:42
+Okay.
+user avatar
+John Rachlin
+00:34:43
+it's a good word. It'll be on your Sats any questions about what we're we're gonna do what we're trying to do.
+Let's just talk a little bit about imperative text analysis.
+which is, I'm looking at slide deck to be here, and I have posted updates. If you do a git pull
+you'll get the latest slide decks slide the comparative text analysis. I have some slides starting on Slide 93 0f slide that could be
+I mentioned this already. but there are many, many different use cases for natural language processing. and you know everything from
+understanding.
+You know sentiment over time
+in the analysis of tweets looking for keywords or patterns in text or in records that might indicate fraud.
+analyzing for
+business purposes the yeah. the
+corporate filings or other communications from businesses
+trying to read blogs and reviews and analyze sentiment to better understand.
+You know where your company stands in the marketplace. looking at
+scientific papers and trying to extract information
+and data from those papers
+to catalog and
+and and compile
+searchable structured data from
+the results of the millions of scientific papers out there. tracking fraudulent claims. I mean everything there's so much that you can do. I haven't even mentioned. Well, I guess I maybe I did somewhere in here
+just thinking about like how much better things like Alexa and Siri and the these sorts of tools for understanding
+human, you know, human text, human human
+speech, rather converting speech to text, and then interpreting it all right. It's not perfect, but
+it's improved dramatically, I think, over the last 5 0r 6 years.
+So lots of applications for natural language processing.
+and what I'm mainly interested in is sort of comparative text analysis in this context. So you've got a bunch of texts, and you just want to understand how they vary, and
+in in what context it could be an historical analysis. It could be
+a political analysis. Republicans versus Democrats. It could be.
+user avatar
+Unknown Speaker
+00:37:55
+you know
+user avatar
+John Rachlin
+00:37:56
+it could be looking at. say, the study of cancer in scientific publications over time, and seeing what techniques
+or or what genes were of of of particular interest, or any of these sorts of things There they've been done some really interesting things with that Nlp. And literature. This is basically
+using text analysis to construct networks of communication between characters in a
+in in Shakespeare plays. I don't know really what this tells you other than maybe that some general insights can be had about the structure of Shakespeare and plays, and whether a given play is
+perhaps written by somebody other than Shakespeare. You know there's been some speculations about that.
+user avatar
+Unknown Speaker
+00:38:53
+But it, I think, in this visualization. So every yeah, every
+user avatar
+John Rachlin
+00:38:58
+circle or node is a character, and i'm not sure what the edges represent I'm. Assuming it represents one character talking to another, and the thickness might be, how many lines.
+or how many scenes they occur in together, or something like that you can kind of see. I mean, there's often a central character.
+but there's also sort of this cloud of related characters around
+around the the main character
+political speech I mentioned. So this is sent Subjectivity versus polarity
+based on speeches, or maybe it's tweets by Biden versus trump. So I think every.is a tweet. That's kind of interesting.
+So looking at diagrams and the frequency of different diagrams, and again, this isn't comparative text analysis. But you could extend this to compare diagrams in one document or another.
+rendering diagrams as a kind of network could be useful.
+Looking at diagram frequencies.
+I don't know I I. Some of these are kind of trivial, and some of these are are kind of interesting, and what i'm hoping you'll do is really sink your teeth into this Mini project, and really try to come up with something creative.
+Jack you can use. Let's see you. You. You're talking about using the public Github. so I don't see why not, but it just. I just need the
+we just. We need access to it, because the the Tas are going to want to.
+We still want you to submit your code to great scope, but we're also going to want to just see that you used Github to manage your project.
+So if you could, you can make it public, or you can add a list of tas, including me, actually
+to your repo, at least temporarily, so that we can have a look at your your work. But yeah, I think that's fine.
+More comparative analysis Left Wing versus right-wing news outlet reports on different topics. Okay, so that's kind of interesting kind of looking for.
+I mean, what's the deeper insight here? Not so clear. Just looking at this data, but I see where they're going with it. They're really trying to look for differences in
+content and tone by different major media outlets.
+user avatar
+Unknown Speaker
+00:41:35
+and seeing to what extent
+user avatar
+John Rachlin
+00:41:38
+our media is pulverized.
+There are certain properties of text that are kind of interesting. I don't know what it's good for, but it's kind of interesting that if you look at, I mean there are certain patterns like the the total number of words as a phone, or the number of distinct words as a function of the total number of words. And basically there's this thing called Heaps Law, which
+predicts a certain curve. and
+you could sort of verify that
+across different documents.
+I suppose. And then there's also zip sl. which speaks to the rank of the words in terms of its frequency.
+and
+s0 0n and so forth. So there's some mathematical analyses you can do, certainly, of of these texts that that might be. That might be interesting to them. For all right, I'm gonna give you some examples today
+of of a plot, just to show you how I plug in a a visualization. It's gonna be a very simple bar chart. That's not what I want you to do for this. I really want you to try to create visualizations that reveal an insight.
+and I am going to want you to write up a little research report 2 t0 3 pages
+summarizing your work. Okay.
+So I you know, I think when it comes down to it. There's not a huge, huge amount of coding you, but you want to really plan it out and architect this the right way, and then.
+you know.
+and I figure out what you want to do. Now suppose you want to work in a group, and maybe you don't know anybody. Let me just stop sharing for a second. Then what I recommend you do is
+user avatar
+Unknown Speaker
+00:43:25
+leverage piazza. The answer can be your friend, and
+user avatar
+John Rachlin
+00:43:30
+basically
+announced that, hey, this is a group of documents that i'm interested in working with anyone want to join me, and you'll almost certainly find that there are people out there who are interested in the same thing, and who want to work with you. So use P. As to kind of
+figure out
+who who you're working with. If you want to work with other people in the group. Maybe maybe you already know some people in the in the class, and and you just want to work together. That's fine.
+like, I said. You can do this independently. but but maybe use this as an opportunity to get to know some other folks in the class and
+start very soon. I'm gonna want to start you forming groups and
+fleshing out a project Proposal for a class.
+Okay, good. So
+let's let's let's dive in and and
+and think about how we might architect this framework. So i'm going to actually build
+a very
+the starting prototype for framework, which I call textastic, because that's such a Dorky name that I had to keep it so textastic
+is an app which kind of demonstrates the broad architecture of how you might go about doing this. Let me go back to sharing, and let's start up
+pie charm and write some code.
+and, you know, feel free to comment critique
+or suggest alternatives. Alternative approaches. I I hope you all know that you You're always free to do that. It doesn't have to be just. You know me
+writing code and sort of feeding you code that you know I I am always very open to
+to critique of my own code. I think I've benefited greatly from being open to
+alternative approaches and hearing people who were
+more experienced than me
+do code reviews of my own code, and I look back on code. I've written a year ago, and often want to change it. Anyway, it's just, I find, for whatever reason.
+user avatar
+Unknown Speaker
+00:45:59
+learning to program is not something you just do, and then you've done it's it's an ongoing
+user avatar
+John Rachlin
+00:46:05
+iterative process, and you just get better and better as you go.
+Better and more opinionated. I think.
+Okay, so let's close down some stuff. Don't need that. Don't need that.
+Let's move this out of the way.
+Don't. We don't need any of this.
+Let's start up by turn
+and
+let's. Let's start a new project.
+Not here. It's in Ds: 3,500, Sb. 23, and
+user avatar
+Unknown Speaker
+00:46:51
+Nlp.
+user avatar
+John Rachlin
+00:46:56
+And I'm. Using
+user avatar
+Unknown Speaker
+00:46:58
+not that one. I'm. Using my data science interpreter.
+user avatar
+John Rachlin
+00:47:05
+Great
+good. Feel free. By the way, if you want to use and Lp. Libraries
+to support your
+visualizations or your analysis. This is not
+trying to. I'm not trying to teach you. You know sentiment, analysis. We've done that in other classes. or I'm not trying to teach you how to use Nlp libraries.
+What I'm really focusing here is architecture and reusability and extensibility, and how you frame how you create a framework
+to make your code
+easily extendable for new functionality that might come along All right. So let's start
+my thinking this through here. What do I want to start with. I think I want to start with
+user avatar
+Unknown Speaker
+00:48:02
+with with a class.
+user avatar
+John Rachlin
+00:48:06
+So i'm going to create a class called Textastic
+Dot. I. You have to come up with your own name for your framework, and it can't be homework. 3. Okay. I don't want to see any homework. 3 eyes I want. I want to see like good creative names.
+and you can't use text as it's taken. It's online.
+user avatar
+Unknown Speaker
+00:48:28
+So
+user avatar
+John Rachlin
+00:48:31
+good. Don't: Ask me again, please.
+So this is this is going to be basically the core framework
+user avatar
+Unknown Speaker
+00:48:42
+class
+user avatar
+John Rachlin
+00:48:44
+or and Lp.
+comparative analysis
+written by yours. And
+okay, so what I have in mind is a class
+which will manage the State information. So let's just define it as a textastic. And
+you know we're going to have an
+and
+inside this we're we're we're basically going to manage
+data about the different texts
+that that we register with the framework.
+In other words, we're going to parse the data and extract it into a form that makes it convenient
+to generate visualizations.
+All right. So
+that's where the State will be initialized. Why, Don't, we go ahead actually and actually create this we'll call it self dot data.
+And what I'm going to do is use a Default dictionary. We talked about default dictionaries. It's going to be a dictionary, where
+where the
+the the the the keys will be words and the values will themselves be dictionaries. So it's going to be a default dictionary of dictionaries. Actually.
+all right, so it'll become clear what I'm doing as we go along. Here, let me just grab this from collections.
+Import the default all right. The the structure of the data will become clear at this shortly.
+Actually, I don't need this past now. That's all i'm. That's all I need, really.
+All right. So
+let me just say that
+the
+the here I had it actually 1 s. I did want to show you one thing.
+I'm just sorry. Open. Yes, 3,500.
+Yeah. So back in the homework I I made mention of this
+of this data dictionary that
+I'm: sorry. So I explain this this structure in the homework, but I'm I'm going to sort of implement it here right now. So the basic idea is, we need a way to
+manage information about different elements of the different elements that that we might care about. Word counts word, lengths, sentiment, scores. I don't know any number of things.
+and We want to also keep track of this information
+for every text that we register with the system.
+So the way I've structured this is as a dictionary and dictionaries kind of within dictionaries. So here's our main data dictionary.
+The key
+or keys are different
+attributes of the data that we care about, such as word count. or this could be average word, length.
+or this could be total sentiment score.
+Okay, now, okay, you you might have.
+You might want to be storing sentiment, sentence by sentence. So maybe this isn't one score. This is a list of scores or something like that. But the point is that that
+at a high level. There are different pieces of information that the parser needs to extract. and it has to extract it for every text that it's processing.
+So if we were to imagine word count as the key.
+Then, if I wanted to know the word counts for text one.
+I would go to text one and get the word count, and then for text 2,
+and get the word count
+all right. So i'm again embedding a dictionary within a dictionary, so that I have, so that I can register as many text as I want.
+and it's up to the parser to extract
+this information.
+but once extracted.
+the word counts, for all of the texts are in one place.
+and the word lengths maybe average word lengths. I don't know why you would want that, but i'm just making this up would be available for all of the texts and the sentiment scores in one place they're all available
+4 for all of the texts.
+Do you see how how it's working? Yes, Jack.
+user avatar
+Jack Krolik
+00:54:08
+Yeah, I'm just the
+do you. Are you assuming that every every file that's entered is a text file like a txt, or
+we're we're gonna come back to that. So it it doesn't necessarily have to be a text file a txt.
+user avatar
+John Rachlin
+00:54:26
+But to the extent that it's sort of a very customized
+document for your set of documents. You're gonna have to define a a parser to handle that format.
+and
+your your objective will be to extract whatever information you need in order to realize the 3 visualizations that you need to produce. One of them is going to have to be a a word, count
+What what else you extract depends on what visualizations you're trying to produce.
+But, for example, if you were reading Pdf files, and maybe your purser consists of using some sort of P library and extracting the text and going from there.
+So i'll. I'll give you an example of this, where the text is maybe a. Json file, all right. And so you have to
+are in a unique way. That's unique to this corpus of documents.
+And so we will talk about custom parsers in a little bit. But the basic idea is I'm. I'm sort of describing the state.
+The key
+is the a string representing the kind of information you want to extract.
+and the value is a dictionary where the key is text, and the the value is the the resulting
+high level attribute
+for each text.
+Okay, so that probably this would be a dictionary to mapping word to
+to
+word, to
+frequency.
+right. And this would be a different word to frequency, count, etc., etc. But now you've got all the word counts for all the documents
+and and and you have data. You need to implement one of these methods specifically, this word count method.
+Okay.
+So
+so that's the general architecture. Here is we're storing data about the text that we registered in some state variables. And then
+we're
+implementing some visualizations that should be neutral to the origin of those documents, as well as the number that you've registered.
+I did say that you should be able to handle
+up t0 10 related text files. In other words, I don't want you to write this code in a way that assumes
+anything. If you can try to make as few assumptions as possible, I think it's reasonable to limit the number of comparative text files you're doing. You don't have to limit it to this, but
+it should be able in principle to.
+I should be able to feed your program 10 text files and have you generate results.
+In fact, I could have done that, and maybe I should have. I should have given you all right. You can pick whatever text set you want, but you also have to produce your visualizations for this text set, and just to show that it really is reusable. But I didn't do that.
+I'm just gonna ask you to write your code in a way that is agnostic to the particular data source.
+That's what you're trying to do here. All right. Does everyone understand that everyone embrace that philosophy?
+Don't. Make any assumptions that just because you're working on, say, corporate filings. Your code shouldn't assume that that's the only thing that it can handle. You should write your code in a way that in principle it could support
+different sources of text.
+Okay. So going back t0 0ur code here.
+this is this is our our our
+data dictionary. And the reason you can see why I made it a default dictionary is because
+Oops wrong one. There we go, because because I have in mind.
+Oh, sorry! Where is it? Here I have in mind
+that the value is a dictionary.
+If key as the as the as the
+name of the file or the name of the label you're associating with the each text. This is going to be the label that ends up showing up in your same key diagram
+where the key is. The the text labeled file, name, or whatever. And the value is the actual content of data that you extracted all right. But but the values of this are
+per our dictionaries.
+Okay. So
+user avatar
+Unknown Speaker
+00:59:19
+so we have that we need a way
+user avatar
+John Rachlin
+00:59:22
+to load
+load the text. I can call this something else, but that's a good enough load the text. So i'm going to give it a file.
+and it's just gonna to parse it.
+Let's not even worry about how we handle custom parsers.
+Now we could use the file name as the key as the label, but maybe you don't want to use the file name. Maybe you want t0 0verride it. and use your own label for a particular text
+who identify that text in your visualizations.
+If you don't specify it, maybe you just use the file name
+all right, and i'm going to put it in here.
+Parser equals none. Which means that if you don't give it a parser, then there's going to be some default, parser that you need to implement.
+Maybe you write a default parser which
+handles generic txt files
+and assumes nothing else of them that it's a text file.
+but you might want a custom parser that maybe filters out
+header information if I were processing. Say, plays
+right. There's collections of plays out there Shakespeare plays. I might want to first out
+character, names, or stage directions, or something like that, so I might need a custom purser so as not to my word, count into counting things that it shouldn't count.
+But in the absence of a parser our framework should have a default parser which handles basic text files.
+and that produces and populates
+whatever attributes I'm trying to extract
+all right. So
+so let's let's assume, for now
+that the parser will be none so if Parser is none.
+in other words, do default parsing
+of standard thext file.
+So we're gonna have to write that. Now, i'm not actually going to write a parser. I'm not actually going to write a text, Parser, i'll let you do that.
+But what i'm going to do is implement a starting like a stub which generates the data that we need. All right. So
+this is not a correct implementation of the
+but i'm gonna let's just call it default for, sir.
+And again, since this is probably kind of a method that's not really intended for public consumption. but is a utility method, so that is supporting low text which is public.
+So
+let's put some documents here. Register a text file
+with the framework.
+not a text file. Let's just call it not necessarily a text file, right? Register a document with the framework.
+Okay. I'll leave it to you to fill in the prams and whatnot.
+S0 0ur since this is a helper method. I'm going to use the convention that this is kind of not intended for public consumption. So i'm putting an underscore in front of it, just to emphasize that this is.
+But this is a
+Let me just think about this for a second. Here.
+let me just think about this. Yeah, You know what this is not interacting with the State.
+So I think I don't really need a self parameter. I'm just going to give it a file name, and i'm going to declare this as a static method. You guys remember what a static method declaration does.
+It's Basically, a step. A method is static. If
+it
+is basically independent of the internal state of the class.
+We don't. We're not going to write data to to to.
+user avatar
+Unknown Speaker
+01:03:55
+We're not going to update this this data directly. We're just going to produce
+user avatar
+John Rachlin
+01:04:00
+a result that will then get saved into this. But this is just gonna we're basically the return of dictionary.
+So let me just show you what I have in mind here. So imagine you read the file. You open the file, you read all the lines, you split the lines you extract word counts, or whatever.
+Now i'm not going to write that code for you. You can write that yourself. but at the end of the day, it would produce some results
+which are going to be in the form of a dictionary. Okay? And so, for example, the word count
+could be the result of could be, could be the like a dictionary.
+But let's let's create such a dictionary. It's it's pretty easy to do. What i'll do is
+just for fun will import.
+Oh, it's part of collections import the so we can just grab the the calendar
+the Counter Library. That's a great library to know and use. so it just generates word counts. So if I took that, for example, to be or not to be.
+and then I split that
+on spaces, then it would produce a count. A word, count of this phrase
+B would be current twice. Other words will be occurring once and s0 0n.
+Are you guys all familiar with the Comfort Library? You've seen this right
+just to show you Oops.
+But, by say.
+you know counter, and I give it a list.
+Lots of ones. Let's not do less numbers.
+Let's do like a
+the
+the be
+all right. So it basically counts the number. The frequency of every element in the list
+and produces a dictionary
+if you want it's really produces a counter object. Okay. But you could convert it to a dictionary. You don't really need to, but you could.
+So here i'm just splitting up a phrase, and this is Fix i'm just creating a template just for starters. It's it's always producing the same result, regardless of what file they might give it. I'm just demonstrating that at the end of the day your purser has to return
+some results
+where the this is what you're you're gonna store as an attribute, and this is the value for this file Name
+All right, so let's let's add, add another attribute
+num words, oops.
+numbers.
+and this could be just some random number.
+user avatar
+Unknown Speaker
+01:07:23
+Let's
+user avatar
+John Rachlin
+01:07:33
+all right, so let's just generate a random number
+to to mimic like you read some document, and it produced
+it produced you. You counted the number of words again. This isn't a very interesting piece of data to extract. But i'm just you. You You could have as many, you know. as many as as many dot dot. You can have as many different attributes that you're extracting with your parser, as you want whatever attributes of the data you need in order to render your visualization.
+That's what you would extract.
+You're gonna definitely need some sort of a word, count. I don't know what else you're gonna need. But I just threw this in as a possible attribute of the text that you might want to extract the total number of words in the text.
+Okay. just for demonstration purposes.
+So
+user avatar
+Unknown Speaker
+01:08:28
+my default parser basically
+user avatar
+John Rachlin
+01:08:32
+generated this set of results. It parse the file and produced this dictionary, and then it returns the results. Okay.
+you'll have You'll You'll implement this yourself to re generate these results and return them
+all right. But now we want to take these key value pairs and
+integrate them
+into this data dictionary. This is data. This whole thing is data. all right. So we've got a word count for one text.
+We've got a word count, and we've got some other score for that same document.
+All right. So we have to kind of add, or that document. We have to add that word count
+into the dictionary. That is the value for this word count, attribute
+This is this confusing? Well, any of you or some of you, most of you.
+You see kind of where what we're trying to do. Here we're trying to come up with a data structure that is, could could handle any number of texts it's defining specific attributes that we're trying to extract.
+Let's just press on
+it. It'll it'll become clear when I start running some of this through and actually printing the data dictionary. So you can actually see what it would look like.
+Okay, but for now we're imagining extracting these 2 attributes a word count and the number of words from every file.
+and I've just hard-coded the result every time.
+So
+now, having
+having written our our sir, we're ready. I think to get the results so results
+equals we're going to call our default. Answer. Since this is a static method, we'll just say Textastic x that's stick. What a horrible name! Dot default person.
+the full person, and we'll just give it the file name.
+All right. We got the file name. We might as well use it
+all right now. We'll worry about
+the case where we we give it a a a person later.
+But you can see what's going to happen.
+how let's just implement it. Else what are we going to do? We're just going to say results equals. We'll just call the parser on that file, then that's it. It has to produce the same results.
+Whatever results your visualizations need have to be generated by this person
+in a. In a way, your framework is gonna imagine. It has documentation that declares if you're using the custom parser, you have to produce this dictionary of results from the data.
+That's what we need in order to register. In order to enable these visualizations.
+All right, so we will. We'll come back to default our alternative pursuers later. But basically one way or another, you're getting some results either by calling the default parser, or by calling a user to specified person.
+But now, what about this label? This label is what I really want to be using for
+this this, this key here text, one text, 2. These are the text labels. This is so that I can look up the data per word count for a labeled document.
+Now I can just use the file name if I don't have a label.
+but I think it's going to be good to sort of when you register the document.
+label it, identify it with a concise spring.
+you know it could be dot one dot, 2 dot 3 0r you know it could be if we were doing Presidential inaugural. It could be like, I don't know
+Obama a 8 from 16, whatever whatever you like.
+but this will be useful because I think you're gonna want to identify these documents in legends.
+And then. you know, sand key diagrams as nodes. And you're not gonna want to have a big, long file name.
+So
+so that's why, yeah. going back. That's why we're probably going to want to. Let's just set the label. So we'll say if label is equal to none. but it's not.
+user avatar
+Unknown Speaker
+01:13:23
+then
+user avatar
+John Rachlin
+01:13:25
+Oops label is none, then label is just equal to the file name. We'll just use the file name in the
+all right, and then
+our task is
+2, save
+the data we
+extracted
+from the file
+into the internal
+state of the framework
+right? We have to save, or maybe a better word is integrate
+the data we extracted from the file into the internal state of the framework.
+so that the visualizations have the data they need
+to execute themselves
+all right. So somehow we need to save or save that data. So what i'll do
+is
+just call
+save results
+which I not get created, but give it the label, and i'll give it the results.
+That's how i'm going to integrate it. So let's go ahead
+and think this through. It's actually a one-liner.
+It's a two-liner.
+Yeah.
+say results. Again, this is an internal utility method
+that does need access to the internal state. So it's not a static method.
+But what did I say? I say you give it the label, and you give it the results, which is a dictionary.
+So let's let's just document this: so integrate. integrate parsing results
+into state into internal
+and let's just indicate that label
+is the unique
+label for a text file
+that we parsed and results are
+the data extracted
+from the file.
+As a dictionary.
+The dictionary is
+well as a dictionary. The key is the attribute.
+I don't know it's called attribute. and the value is
+is the raw data.
+or that attribute
+Okay, so to do that with like we've already got so that I imagine. Oh, sorry. sorry about that. Let's make this a little lower.
+We've got the results coming back like as a dictionary. Right now. We just want the word count
+that this raw data will be associated with
+with. But whatever label we give it, by the way, there should be a comma here Shouldn't: there.
+Okay.
+So to save the results.
+all we have to do is just extract
+the keys and the values from the results.
+All right. So get ready.
+Are you ready?
+Self. That data
+of the key
+all right. That gives me access to a dictionary
+whose key is what?
+Thank you whose key is the label.
+and whose value is
+the value
+drama.
+All right.
+so let's let's try this. Let's. Let's see what we're we're getting here. We've done enough. We we! We've written way too much code to not have tested anything yet.
+but I think this is pretty straightforward.
+It's the idea. It's the architecture that i'm trying to convey to you. It's not so much that this is a fancy
+syntax for python. It's it's really about thinking about architecture
+that's the that's the word of a day.
+All right. So let's imagine we actually are writing. We've got this library available to us, and we want to build an application that sucks in some data and generate some visualizations. We haven't written any visualizations yet. But let's see if we can suck in the data and produce results.
+So how about we create a new
+program, and we'll call it? I don't know app, or that's the gap. not to handle that
+bye. So what we'll do is
+we'll just grab a
+the class, so they have it.
+I'm going to also import the pretty printer.
+but i'm trying to print dictionaries and dictionaries, and I think it'll look better if I pretty print the data
+all right. So this is how it will work. We have a name.
+You'll you'll have a similar name.
+and you'll initialize.
+So initialize framework.
+What are we going to do? Initialize the framework, and then we're going to register
+some text files.
+and then we're going to. you know. produce
+some visualizations which I haven't written any yet, but
+we'll do the next best thing. Okay, so let's do this one step at a time. First thing we need to do is
+create a bit, a framework instance.
+and
+then that's it. Then we have to load some text. So Tp: the load text. Now, i'm not actually parsing any real data here, so I can just put file one txt. It's not actually opening this file looking for this file. It's just generating that static
+dictionary
+just for demonstration purposes. This is what has to come back from the from the parser.
+So it doesn't really matter what I call this. But all this, all this document a
+right, and you know how about Document B and C as Well.
+just so. We can see
+right the way I did this. They're all gonna have exactly the same word account, but the numbers will be some random number
+all right. So that's cool.
+And at this stage
+all I want to do for visualization. It's not really a visualization, but i'll just output.
+So i'll just say P. P. T. Print
+Tt. Data.
+Why, that's a funny line of code. Never thought I would write that.
+So i'm leveraging the fact that Python breaks
+the
+true notion of object Oriented encapsulation by allowing us to just access internal state data in a public way.
+But that's okay. Let's run this and see what we can
+who thinks it's going to work
+anybody whenever I say that it never works. I think i'm Jinx and myself.
+Okay, didn't work for counter.
+Dot split has no attribute Split.
+Oh, I put the split in the wrong place. Yeah, I sure did.
+And again.
+Okay. So this can kind of help you visualize what's happening.
+Right? So in our data we have num words for a, B and C. And remember, it was just a random number.
+and then for work, count, we have word counts which are stored as a counter object, but could be stored as a dictionary. But
+you have access to the the the word counts for a B.
+And see, I don't know why it
+didn't just put it all on the same line there, but
+that's that's how we're structuring our data. Do you see how this lines up with what I told you to do in the homework? This is data. This is self, that data. You have different attributes.
+Each value of that attribute is a dictionary where the label is the key and the raw data is the value.
+Okay. sound good.
+Do you see Why, this is naturally like you could register as many documents as you want, and you could.
+you know, have as many different kinds of data extractions as you want.
+Now, there you do have to keep your
+parsers and your visualizations kind of in sync.
+right like the visualizations need to be able to find word counts in the data.
+If if you're going to produce something that visualizes word counts, and so
+your visualization, you can't just have arbitrary parsers, and that return whatever they want, and arbitrary visualizations
+that plot, whatever they want, all right, you have to parse and produce results
+which the visualizations need
+in order to fulfill themselves.
+Okay, let's let's talk about custom pursuers. Let's imagine we we still want to extract number of words and word count.
+But we our data isn't
+some regular text file it's maybe some weird format.
+Let's let's create one. Let's create a
+Let's create a Json file.
+So what i'm going to do is just say, yeah. new file. And what did I call it? I called it
+about my file.
+not Jason loads Json data and let me. Just grab it real quick. and i'll just post it into the chat.
+All right. Here's some Json data.
+You make sure
+Oops, hoping.
+Let me make sure it works before I host it. Yeah. So there's my Json data.
+Okay, it has keys and values.
+and we're imagining that the text that we really care about is embedded in a field called text.
+Okay, this make I don't know. Maybe your tweets come back in some form like this, and you're trying to analyze Tweets
+more power to you.
+So
+user avatar
+Unknown Speaker
+01:26:24
+let me post this in the chat for you.
+user avatar
+John Rachlin
+01:26:30
+and let's imagine that this is one of our texts. Now
+our parser.
+our purser doesn't. It can be defined for every single
+we we could have a collection of documents. Some use one parser and some use another Parser, the the the parser that you're overriding doesn't have to apply to all the documents.
+Right? That's actually
+implied by this signature, which says that the parser is an attribute for parsing this specific file name that you're registering with the text so in general, but I could imagine is that I've got a a fourth file that I want to register.
+and I will give it the actual file. Name my file, Json.
+and we'll call this J for Jason.
+So
+now this is this is gonna crash and burn on the default, Parser. Probably your default. Parser is probably a generic text processor.
+So
+it's going to make sense that we construct, or that we feed it.
+A: yeah.
+A: its own parser. I'm going to start. I haven't finished this line of code, so I have a syntax error there. But i'm going to just start a new library here called the
+All the I don't know text static.
+I'm going to just maintain a separate library of parsers.
+and in this code I'm. Going to import.
+Keep these together. Import textastic
+parsers as Team Pete
+and I'm going to implement in that file a parser called Json.
+All right. Do you see how like I could imagine for my framework?
+Maybe I have a a default parser. Maybe I have a library of commonly used parsers that provide a convenience for
+users.
+or maybe you, as the developer writing your own are, sir.
+But
+I could well imagine trying to manage a whole library of commonly used parsers, and so i'm going to keep them contained
+in their own file.
+So this is what our
+Jason. Looks like we basically
+user avatar
+Unknown Speaker
+01:29:26
+for this purpose. Don't really care about the file name or the authors. We just want to extract the text.
+user avatar
+John Rachlin
+01:29:34
+Okay, so let's just implement this simple Json person.
+And again, it's. Assuming we're we're making the assumption that the
+text that we want to parse is in a
+field called text, and it may not be. It may be something completely different in your case. That's okay. So textastic parsers, we need a textastic purser.
+user avatar
+Unknown Speaker
+01:30:03
+So this is Jason. So we're gonna want to read Json data
+user avatar
+John Rachlin
+01:30:10
+report, Jason.
+We don't want to do word counts. So let's grab that.
+Yeah. And so now we define our Json parser.
+We're going to actually open this file.
+I yeah, I can just do it this way. File line
+the meeting.
+and then we can be the raw Jason.
+and then we can extract out the text
+from that field.
+and i'm really like spelling out every line here, and then we can split that
+again a list of words. and then we can get our word count.
+and then we can get
+user avatar
+Unknown Speaker
+01:31:28
+the number of words
+user avatar
+John Rachlin
+01:31:30
+like i'm really spelling it out. Are I
+all right? Those are the 2 attributes that our visualizations need.
+And then, once we have that, we'll abide by the contract and return
+word Count
+Wc.
+And Num words was these 2 attributes that all our partners have to support.
+And there's going to be more for your visualizations. Maybe you have 10 different things that you're extracting out from the data I don't know. But for for demonstration purposes i'm imagining we're always extracting these 2 advocates.
+What is it complaining about here.
+Oh, like some little white spaces. I don't know if I like that.
+Okay. that's fine. and probably we should that
+close the file. I don't think I did that.
+And what is this about expected to? By the How funny! All right, so great! So we have that let's run it again. We have our parser. Let's run and see what happens.
+and lo and behold. it works
+just fine. So we now have.
+We now have it pulling out the number of words, and the word counts
+for
+this for this data. Good.
+So I have just enough time, I think, to very quickly d0 0ne trivial visualization. Again, please, Don't, assume that this is what I'm looking for for a valid visualization. This is to demonstrate how
+we would implement a visualization that uses this data
+all right. So I will imagine in my textastic class that I have
+a visualization. I'll go ahead and implement it here. So I've got all this load data.
+Now, when I start implementing visualizations. Now, if I really
+Oh, sorry. Yeah, you got it. Import textastic.
+user avatar
+Unknown Speaker
+01:33:55
+actually. And why Don't, I just
+user avatar
+John Rachlin
+01:33:59
+also just copy that real quick.
+So you have that and
+user avatar
+Unknown Speaker
+01:34:11
+sorry.
+user avatar
+John Rachlin
+01:34:14
+And you have. You have all this.
+Okay? So now
+going back to testastic. If I were really being good about this. I would be able to simply register visualizations with that.
+with the the the class low load visualizations all right.
+user avatar
+Unknown Speaker
+01:34:42
+and I have to give some thought about how how best to do that. But it's okay. For now.
+user avatar
+John Rachlin
+01:34:47
+if we're not
+flexible in that regard, and I have to give some thought as to the right architecture to do that. The tricky part is that these visualizations are going to be accessing internal states of this class.
+and so i'm not sure
+what the implications are of that of trying to have plugins for visualizations. But we won't worry about that. Let's just define some visualizations that are built into this framework.
+So maybe what we want is a visualization that compares the number of words
+all right, and it's kind of dumb. But it would it will. It will work
+so. If i'm going to have some visualizations. I probably should import my good friend Matt Block Lab.
+and this is the simplest, dumbest visualization I could come up with for demonstration purposes. So let's extract the data. Num words
+is a self data of num words.
+Right? This is a dictionary, right? I'm: basically extracting
+I'm extracting this dictionary
+all right. So now I've got 4, and
+I want to create a simple bar chart.
+So easy enough to do
+for label comma number of words in num words
+the items
+Lt. Bar label
+number of words, and then at the end. And now, all we have to do is. did you get that here? Let me.
+I did that a little fast. Let me just post it in there.
+That's that's my visualization implementation. Yours is going to be much better than this.
+much more interesting. You want visualizations that give you insights. I don't know what those visualizations are. but your task is to implement a framework. make it extensible.
+Generate some visualizations, and write up a report that shows me what insights you derive from those visualizations. I don't think you can get much information from this Dorky little
+visualization, this far chart. But let's now to generate the the call.
+Right. Make sure I do it right.
+Okay.
+Numbers that wasn't too difficult.
+Good. There we go.
+narratives.
+I can build as many visualizations as I want that Use this data
+all right. What do you think
+you know what you need to do? This makes sense.
+You get the big picture.
+be creative with it, have fun with it
+and enjoy.
+I think I gave you 2 weeks to do it.
+That that should be plenty of time to form a group
+and to dive into this Don't. This is not the kind of thing you want to wait till the last minute to start working on.
+Figure it out. Now, what are you gonna? What are you gonna pick for? Visualizations for? For? For? Yeah, for visualizations? What are you gonna what? What data sets, what documents are you gonna analyze and who's gonna work with you to to build this thing?
+All right. That's it for today, Everybody we're out of time.
+user avatar
+Unknown Speaker
+01:38:51
+We'll see you Friday.

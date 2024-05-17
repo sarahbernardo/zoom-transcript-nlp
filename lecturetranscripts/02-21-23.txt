@@ -1,0 +1,1243 @@
+John Rachlin
+00:00:04
+So I want to d0 2 things today.
+First is that I want to wrap up talking about
+test-driven development. We'll do a quick, a very quick review.
+and just wrap up a couple of things that we were working on last time.
+And then I wanna dive into functional programming as a paradigm in Python and show you how
+functional programming can, that we will make you a better programmer, and it will allow you to write extremely what I think, is extremely yeah elegant code. I think that's sort of one of the goals
+is to by by some sort of subsuming state in in some ways. Yeah, Object Oriented programming does that, too. But it's a paradigm. We're thinking about processes and calculations in a way that enables you just to think
+more streamlined. I think about a about how you Code, and so I want to talk about
+Python as a functional programming language today.
+But first I want to show you something kind of cool. I was thinking. You know you never in in in the software business. You always have to kind of be learning new tricks, and so I wanted to show you a new trick. As I get going. Here, let me share my screen.
+user avatar
+Unknown Speaker
+00:01:27
+Let's see, I want to share this one.
+user avatar
+John Rachlin
+00:01:31
+So i'm always complaining and moaning and groaning about how I have too many.
+too many windows, and i'm always like moving windows around, and that must be very distracting, and I just decided I didn't like that. And so I just did the simple thing and introduced workspaces into my Linux environment, and so watch this boom, hey? Hold on!
+Oh, wow! It's a little. It's a little laggy, but i'm just gonna use workspaces to switch between different things that i'm doing, and hopefully that will make for a little more little cleaner.
+a cleaner presentation here. Good. So let's let's just remind ourselves where we left off.
+I guess I should ask. First of all.
+user avatar
+Unknown Speaker
+00:02:18
+were there any questions about the homework
+user avatar
+John Rachlin
+00:02:23
+building? The Nlp. Framework
+I didn't require? As I laid out to be. Yeah, the assignment in the Pdf. It occurs to me that I never required that you have visualization plugins using the technique that I showed last time. But I can encourage you to do that.
+And I want you to be thinking we're gonna we're gonna talk, probably on Friday. More about the projects. I'm gonna try to get everything sort of starting to get organized about the the class projects and getting you formed into groups.
+And one of the things that I think you could do as a class project certainly is to really build on this assignment, develop new visualization. Techniques really go deep in
+enabling a broad range of functionalities.
+and one of the ways that I think you can achieve that is, by using visualization plugins
+using the techniques that I showed you last time rather than hard coding fixed visualizations into your framework, but it's not a requirement for the homework 3. You can just lay it out
+still. Need to have plug inable pursers. But you don't need to necessarily have plug in visualizations, although, as you saw it's not that hard to do.
+it's a nice way of thinking
+about scalable and extensible
+user avatar
+Unknown Speaker
+00:03:44
+software.
+user avatar
+John Rachlin
+00:03:45
+Okay, good. So let's just do a quick review. Here we were talking about the difference between exploratory testing, which is what we all do when we're trying to get our homework assignments done, and that and and test and development.
+And by the way, yeah, I mean, when i'm writing code preparing lectures. I'm. Also mostly doing exploratory testing. I I appreciate the fact that it's
+kind of the most practical thing to do. You're you're writing code. You need to to to do something, and once you've got it written, you want to test it and make sure that it's working. Okay. But you gotta put yourself into the frame of mind of some day. You guys are going to be working in industry. Many, many of you, most of you.
+user avatar
+Unknown Speaker
+00:04:34
+and you're gonna be working in development groups that require coordination
+user avatar
+John Rachlin
+00:04:41
+and that require rigor when it comes to software reliability.
+And so you will see test-driven development, being a frame of mind
+where specifications for what a program must do are defined upfront, and you have to develop to that test.
+And so it's a really good thing, I think, to to know about these different sort of philosophies, of how we build reliable code.
+All right. So we we usually do this. We run it over and over again, and we try things, and we depend very much on the skill of the test. That's that was an exploratory testing. That's what we mostly all do. Then we introduced the idea of automated testing, which is simply having a test plan.
+running it against running a series of tests against that test plan to make sure that every time you make a change you're still running through a prescribed sequence of tests that give full coverage over the
+all over the the the code base. and then we introduced pie chest, which requires a couple of installs.
+The core. One is pi test itself. Pi test coverage allows you to analyze exactly how much of your code is being covered by your various tests, and if you have any gaps in your testing, are there execution pads that you're not covering when you do
+when you, when you define your various unit tests. And so we want to identify those to make sure that every line of code, every method, every function, is being covered by some test.
+So we introduced this very nice library, and then we started building a yeah
+user avatar
+Unknown Speaker
+00:06:26
+sort of a test Driven approach
+user avatar
+John Rachlin
+00:06:29
+to to writing a couple of data structures, stacks and queues. We focused on the stacks. Now.
+test-driven development is like automated testing right it, it defines a series of tests that you will run every single time.
+But the one step further, that we're going with test-driven development is to say, we're going to write the tests first, typically, and you're going to be. We're sort of writing code in response to
+to to making those tests pass.
+Okay. And so, in a way, the formulation of the test is kind of like writing a specification
+that needs to be communicated to all downstream developers, and that's why we want to do it. And in the next assignment, by the way, it will be we're gonna have a little
+user avatar
+Unknown Speaker
+00:07:26
+competition and to to try to solve a hard problem. And we're gonna come up with some solutions and measure the quality of our solutions objectively.
+user avatar
+John Rachlin
+00:07:38
+And this is going to require that we all implement those objective functions
+the same way that we are are doing it correctly. Because if you're not of evaluating the the solution correctly. Then you're misleading to thinking. Maybe you have a good solution when really you don't. So I will define for you some tests that need to pass, and then you will implement those
+various objective functions in response to those tests. And you'll you'll see really the benefit of having kind of a common agreed to standard for satisfying, for for defining that a piece of code is correct.
+All right. So we had. We were gonna talk about these data structures, stacks and queues. We're focusing on stacks. I mentioned a couple of different sorts of algorithms where stacks and queues become important.
+and then we structured our code like. So. So we have a a project. We have a package.
+and we have various files. And then for each file we define a test underscore file contained in a
+test directory typically called tests. And the reason we're following this convention is so that ides like py charm can automatically detect when you're setting yourself up to do tests and can trigger pi test
+within the Id directly. But I will show you actually that. Not sure if there's a way to trigger coverage analysis through pi charm there probably is, but i'll at least show you that you can also trigger. These test runs through the command line.
+hey? But this is the basic structure you You define a package. You define a sub folder called tests. You create a one t0 0ne mapping between each file and each
+test program with the test program being called test underscore something, and then within that, as you saw
+right
+over here, we.
+user avatar
+Unknown Speaker
+00:09:47
+where is it? Let's open it up. We we define.
+user avatar
+John Rachlin
+00:09:51
+We define for each method a test underscore method that that that basically exercises that method and verifies that it's doing the right thing.
+Okay?
+Oh, isn't this fun switching back and forth. That's that's very clean.
+user avatar
+Unknown Speaker
+00:10:11
+I'm so proud of us. All right. Let's see what else. So we have a few different commands that we can run as as I was mostly doing yesterday. I was right clicking on a test folder, I think, or a file, and just saying, Run the tests. But that's a pie charm feature.
+user avatar
+John Rachlin
+00:10:28
+probably available, and other ids as well. But, as I said, sometimes you really just want full control over the test reports that you're generating. And so I really kinda want to show you coverage today.
+And then you run this and it will tell you. Basically yeah. you know, for each test everything is running. and and what coverage do you have?
+And
+you know what passed and what failed. And if you had any fails you'll it'll tell you. If the the test may pass. You may not be exercising all of your code. This missing column will basically list lines of code that are not being exercised by any test. And so you update your test. Now you go back and
+and and update your tests, or
+or or do whatever you need to do to make sure you have a 100% coverage of everything.
+Okay, good. We don't need to talk about that. Let's go back to here.
+and
+we were actually pretty close, I think, to doing most of this. If I look at if I look at the let's go back to stack. We don't need queue.
+We don't need this. I look at Stack.
+user avatar
+Unknown Speaker
+00:11:51
+We had basically a pretty simple implementation for a stack.
+user avatar
+John Rachlin
+00:11:56
+So it was basically a list where the left most item is the bottom of the stack, and the right most item is the top of the stack.
+and we use underscore items here in order to emphasize that items is really an internal state, variable and yes, Python will let you reach it and grab that item and access it directly. But this is a queue to the
+user of this library that
+Don't do, that that you shouldn't do, that that this is a hidden variable subject to change, and that you should abide by the principles of information, hiding and abstraction and encapsulation.
+and simply use the methods to find on the object to interface with the state
+of the the object.
+Okay, so we had size. We had a redundant method length which allows us just to say length, and then give it an object, and it will tell me how many items are on the stack. This is just a convenience method.
+We could interrogate the top element. We could push and we could pop.
+Okay, so we were pretty close to testing everything. If I just run. I just run run python tests.
+Oh. I screwed something up. I should have checked this.
+Let's I I I I I messed something up with yesterday when I was running, setting this up, and I don't remember exactly what I did to screw this up. But let me just try this.
+Okay, it doesn't matter. You know what it's fine. I I still want to just show you how to run tests
+from the terminal. So let's just do that as well, and and and begin. So what do we have here? We have tests.
+or push and pop. Here we have a test constructor. We introduced
+user avatar
+Unknown Speaker
+00:14:06
+the notion of a fixture
+user avatar
+John Rachlin
+00:14:09
+which is a way of injecting a stack object into a parameter
+as a parameter
+in in our various tests. So this helps us avoid, for example, having to construct a new stack.
+and
+you know configure it the way we want the the by. By doing this by defining a fixture. When the Pi test sees this parameter.
+It looks like it's a parameter, but it's really kind of a function call that is generating or building for us a new stack. And this could be a complicated series of operations. This looks kind of trivial in the context of stack testing. But imagine, like
+that we we're trying to monk some interface. Maybe we have to do a database call, make a connection, run a query. build the data frame. There could be a lot of stuff that we have to do to
+in to to set ourselves up for testing these various methods, and we don't want to go through that rig and roll each time when we want to test the method. So we define this fixture which does our initialization, our object initialization.
+And then we essentially call that fixture. But we're really it looks like we're just passing this anonymous stacked object to to the various methods, and then we can start playing with them.
+And so it just makes our test code very clean.
+so I see. Push up
+and the constructor. This is conventional that for the constructor you call it test underscore constructor. The the the constructor test verifies that. Yeah, you actually created a stack that it's empty
+bush. We pushed a couple of items and wanted to verify
+the
+user avatar
+Unknown Speaker
+00:16:04
+we wanted to verify the the size and what was on top
+user avatar
+John Rachlin
+00:16:10
+and pop. You want to see what happens when you pop, pop pop
+and you want to verify that when you pop an empty list none is coming back. Jack. Why don't you call the function when passing it through?
+So I think that's what Pi test picture is actually doing with this decorator. It is. See, the idea is.
+think about like You've constructed these tests. But you haven't imagine we don't have this fixture. Okay? And so you have 2 choices. You could define a test
+with
+no parameters
+kind of like what we did with the constructor here. No parameters. But then you have to construct the object
+as part of each test. and then maybe initialize it. And and this could be a fair amount of code redundant code that you're performing each time. So that would be one option.
+user avatar
+Unknown Speaker
+00:17:12
+The other option would be to somehow
+user avatar
+John Rachlin
+00:17:15
+like. Define a main somewhere, maybe, where you initialize the stack and then pass that object to
+the function. But remember, all you're doing here is defining tests and leaving it to the I test framework to just call those functions. And so where would it be getting that stack
+object from? It's not like we're running a program Here we're just defining tests and leaving it to the driver program inside Pi test to run the different that methods. And so somewhere, the objects that we want to
+test against need to be initialized. And so what Pi test is doing is allowing you to define this fixture, which is sort of a centralized
+function for creating and setting up
+the object. And you could have different fixtures and basically call different fixtures for for different tests if you wanted.
+But that. But that's the idea is is that we're just trying to
+keep the test code.
+consisting of just tests with no like means. It's, not a program that we're running. It's just Test Co test functions that
+that are being called on demand. And the fixture is telling us
+basically how to construct the object to be tested.
+Are you convinced Jack. Or does that? Does that make sense to sort of the way Pi test works at the end of the day?
+Okay. Okay. So what was missing. We we didn't have that top. We should. We should. We should be testing top.
+Let's just go ahead before we write anything here. Let's just run through some some commands we had them listed
+Here.
+let's go ahead and just run these
+and just see what they do.
+All right. So this is the way we usually run Pi test. You guys like Python, Mysm.
+and it will basically
+telling you that it
+ran 3 tests, and they all passed no details about what the tests were just something right.
+Let's make it a little more interesting, and add it for both flag. And now it's at least telling us the specific tests that ran
+All right. So that's a little more information and that they all passed. So yeah, this is gonna be important when something's failing, you're gonna want to know what failed. That would probably be a default way of doing it.
+Let's add the coverage flag.
+And now it's telling us that that stack is not actually, we're not actually executed
+user avatar
+Unknown Speaker
+00:20:26
+all statements.
+user avatar
+John Rachlin
+00:20:28
+In fact, we missed the statement one out of 18 lines of code. So the question is, we go back and we and we're wondering, all right. Yeah, I've got 18 lines of
+I mean, it looks like I have 30, but I guess it's not counting spaces. So
+user avatar
+Unknown Speaker
+00:20:48
+so somewhere in here there's a line of code that's not being run
+user avatar
+John Rachlin
+00:20:54
+and let's just now add the last option. Here we can say.
+make sure I get it right. Boom
+Cove report term missing. That's what I want. I want to add to that.
+I again. This does require that You've installed
+Python Cove as a library.
+Oops didn't do that. Quite right.
+all right, there we go.
+and now it's identifying for us the lines of code that are not being executed, and it's in stacked up high Line 19 Aha!
+Top! So it looks like when we test for the top
+of the stack. We are not testing what happens if the stack is empty.
+so
+good. So now maybe this requires. We go back t0 0ur test
+cases and and make sure that our test cases are giving us full coverage. Let's go back to test stack. and indeed.
+we never implemented pop tests
+or or or top test. We. We rant top, but we never explicitly tested the top function.
+which is. which is maybe an issue. Now, I could address the coverage issue by not testing Comp.
+And I could perhaps
+do an assertion here That, says. assert Stack. Dot top is none.
+I think
+that's that.
+Should it be empty, but
+it's not. I think, Oops, that's not the one, but
+it's not. That's fine.
+I think that will address the coverage issue, but it's still. Probably not. Let's try it and see that's true.
+user avatar
+Unknown Speaker
+00:23:16
+And
+user avatar
+John Rachlin
+00:23:18
+yeah, so it it addresses the coverage issue because I am now exercising that line of code. But just as a matter of principle, every method should have its own test functions. In other words, i'm. Sort of relying on the success of top to make sure that Pop
+succeeds. And so that's just that's probably not a
+not not a great idea. I should just be testing top explicitly. So let's just go ahead and just quickly add that
+and easy enough to do.
+We'll. We'll define a test. Pop
+top, rather not pop top Test top will
+make the fixture run to create for us an empty stack.
+And just by the way, you know, Jack, if if for some reason I wanted to run these tests against a non empty stack like you notice that for both of these push and pop in order to run them.
+I had to like. Push a couple of things before I can pop. I have to push a couple of things, and so I pushed different things.
+But you know, if I wanted I could make it so that
+user avatar
+Unknown Speaker
+00:24:38
+instead of just initializing a stack.
+user avatar
+John Rachlin
+00:24:42
+I could have done this. I could have said something like s equals
+stack, and then, you know S. Dot push one.
+and and then, you know, return as
+right. I'm. I'm not actually gonna do that. But the point is that if I wanted to make my setup
+of the stack a little more involved, and I didn't want to have to do that sort of a overhead that initialization every single time. Then i'd
+I could have written the stack. The the Pi test picture that way
+looks like they're all passing stack as a parameter. Really stack
+is
+a function that's being called to create a stack object.
+And so, in a sense, what the picture is doing is injecting
+the stack object into the parameter which we can now access in the test itself. But is that object the same for both push and pop tests? Yes, it is. If I wanted it to be different.
+I could define a new
+fixture, maybe called Stack 2, or you know
+I could. I could call it. Let's say I could have a I could do this. my test fixture.
+and I could say death stack.
+Well, let's call it stack 3 for, and and what i'll do
+is
+is is to find a stack.
+I'll push 3 things
+desktop bush, one
+The current s
+all right. So now, if I if I wanted
+let's say, Huh! Maybe we'll test this
+if I wanted top t0 0perate
+on the initialized stack with 3 things.
+I would give it that as the parameter. And so now high test is going to go to the function
+whose name is the same as the parameter name.
+Generate that stack, and that's what's going to get injected into test.com
+Does that make sense?
+Yeah, I Haven't tested this. So let's see if i'm completely full shit, or if i'm, if what i'm saying makes sense. But this is my understanding of how this works. Let's let's give it a shot.
+All right. So test Pop has 3 things. So we should assert
+that
+that stack 3 dot top
+is 3
+user avatar
+Unknown Speaker
+00:27:55
+value on top
+user avatar
+John Rachlin
+00:27:58
+Alright, and
+so without any pushing initialization on the yeah.
+on the
+test function itself, I'm: i'm leaving it to the fixture to do it, and I just want to make sure. Did I do this? I I define them both as fixtures.
+I think that's correct. What is this complaining about
+user avatar
+Unknown Speaker
+00:28:21
+2 lines.
+user avatar
+John Rachlin
+00:28:24
+Da asked if if we should be enforcing that style guidelines in grading. and I told them i'll tell you what I told them, which is that I I I said to my ta that I talked about Pep
+in class that I do think it's important.
+We're probably not going to penalize. If you have Pep style violations, but you should take them seriously, nevertheless, just to
+conform to
+to expectations and make your code more readable.
+All right. So I think
+we have everything we need. Let's run it and see what's happening here.
+Oh, there it is! That's what I was looking for. Yes, so you see, the test top did pass.
+but it was making assumptions about a different stack than the one that we gave it.
+Okay, so you can control what you know you could have many different fixtures for for different tests.
+Hmm. Is there anything else in you saying? Oh, yeah, I wanted to actually finish testing the call. So that's fine. So let's also make sure we're exercising all of the code. If I do a stack, 3 dot pop.
+and let's do a 2 more pops.
+Now we should assert that stack 3.com
+is equal to
+user avatar
+Unknown Speaker
+00:30:12
+one right. We did 1 2, and 3. Let's just make a mistake and make it to
+user avatar
+John Rachlin
+00:30:22
+and just make sure the test is failing
+all right.
+user avatar
+Unknown Speaker
+00:30:28
+I mean. Obviously, when a failure occurs.
+user avatar
+John Rachlin
+00:30:34
+is it because the code was wrong or the test was wrong. and we are sort of relying on the fact that the tests themselves are have been validated. But
+you know
+it. It could happen that the test itself is wrong.
+All right. In this case it is wrong. One is actually at the top. and then let's just d0 0ne more stack, 3.com. And i'm doing that because it's really really in top
+that we are testing
+for the empty case.
+Okay. and going to back.
+Now.
+user avatar
+Unknown Speaker
+00:31:26
+we have full coverage
+user avatar
+John Rachlin
+00:31:28
+of all of our files. and we didn't need to really address the coverage issue
+here. This is really
+this isn't really a
+I guess you could say it's kind of a test for a pop, so i'll I'll go ahead and leave it. But the point is that I didn't really want to address the coverage issue in Pop, because the missing lines were in top. So I I thought it was appropriate then to have a
+a test dedicated to to to each method. And so that's what I did.
+Okay, so that's that. That's kind of what you'll need to do. You'll need to define test cases. and
+you know your fixture for for an upcoming homework. Your fixture will be basically to read in a solution to a problem that i'm giving you. And then in evaluating it, you'll want to make sure that when you call those evaluation functions that they're producing the correct scores
+right there. They're going to be a little more a little trickier than just, you know. testing items in a stack that involves some calculation.
+Don't worry. It'll be fun. and it'll be good.
+user avatar
+Unknown Speaker
+00:32:44
+Yeah.
+user avatar
+John Rachlin
+00:32:45
+I'm going to teach you how to
+how to solve interesting problems
+by leveraging the power of
+biology and and evolutionary processes.
+Okay, so what pie command did I run, so all of the commands are in the stack. A. A. Deck. B
+slide. 38 has all the commands this is the command that I ran.
+And somehow I fouled up my
+high charm. I I've messed I we were just right-clicking and saying run pi tests, but I've I've I've run I've messed something up in my Ted Pie charm configuration. I don't really want to bother figuring out what the heck I did wrong here, so I have to fix that. But
+but you know it's it's very typical to
+user avatar
+Unknown Speaker
+00:33:53
+run stuff from the command line because
+user avatar
+John Rachlin
+00:33:56
+it's independent of any particular
+ide.
+Okay, any questions.
+I think pi test is pretty cool. Actually. it's not that hard to to do it. It takes patience.
+Okay, let's move on
+2.
+I I wanted to show one more thing. One more thing if I could. So we built this stack. Let's do something fun with the stack.
+and what I wanted to do
+is First ask the question. Let me stop sharing for just a moment.
+So here's a question for you, Oops. I don't want to end the meeting. Cancel
+Ansel. shoot where the heck. Is it?
+Okay? No, I stopped sharing. Good.
+I I wanted to ask you. Do you know
+what the greatest handheld calculator is of all time.
+and the answer, Of course everybody agrees the HP.
+41, Cb. Which I got in high school. This is this: sucker is not going to tell you how this sucker is, because
+because but it's it's pretty old. You can look it up. It still works when the batteries, when it has batteries it still works.
+It is an Rpm. Calculator. And the way that works basically is you don't say 2 plus 2 equals right. You You say 2 enter 2 plus.
+or, you know, if you want to divide, you know 5, enter 3, divide. You enter the the operands first, and then you enter the operator. Now
+this was great in high school, because people I do in the library, and people want to borrow my calculator and be like sure, you know. And then, you know, 30 s later they would bring it back, and it was just it just drove people nuts if you weren't familiar with Rpn. Then
+then it was it it was.
+it was not your friend, but
+but the the great thing about Rpn. Notation which says, reverse post-s, notation or or reverse Polish notation. The the the idea of entering calculations in this way is that it avoids parentheses. You don't need parentheses
+at all. If you if you have complicated calculations. You just have to enter the upper ends
+in the right order, and then, you know, you could be entering a whole bunch of operands, and then, and then your operators would just be entered, you know, plus divide, minus whatever, and it would carry out the calculation. But you have to do it in the right order, and you have to think you thinking
+I can get through. Let's just use our stack
+and quickly build just a very. This will be a very short program. Let's quickly build a an Rpn. Calculator.
+So what i'm gonna do is share my screen again.
+Share screen. I mean, you know You've gone to all this trouble to create the data structure. You should use it for something good.
+all right. So. And I won't. I mean, I could set up tests and stuff. But I don't think i'll bother to do that.
+I think i'll just create. How do I want to do this? Let me think about this.
+Yeah, let's just go ahead and create a new python file. I'll just call it Rpn: I
+and I will import. How about we'll import stack
+user avatar
+Unknown Speaker
+00:38:08
+from
+user avatar
+John Rachlin
+00:38:10
+he struck. Not
+import stack. So I have a stack.
+all right, so not going to worry so much about testing here. I just wanted to do I mean, since I've gone to all the trouble to create these, you very usable functional collection classes. We just do something with them.
+So let's create a stack object.
+Let's remember
+all name.
+and let's imagine that we have a few operators. These are my my operators. We have
+those, and that one, and that one is good enough.
+right? The reason I'm listing them is because when I,
+when I enter something it's gonna want to know. Did you just enter a number, or did you enter an operator? And if I entered an operator, then I need to perform some calculations. So this is how we use a stack
+for Rpn. Calculations. So you just go into a repeating loop here.
+and i'll get some value
+from the command from the from the user input
+and if if I just entered an operator, then i'll d0 0ne thing
+otherwise.
+user avatar
+Unknown Speaker
+00:39:39
+If I entered a number.
+user avatar
+John Rachlin
+00:39:42
+then what i'm gonna want to do is simply push that number onto the stack.
+So
+to do that, let's just. I'll be very explicit about this. Let's convert it to a flow, because when we do inputs, Of course we get strings
+and then float X. I'm. Just being very explicit about it, and then we're going to push X onto the stack.
+and just so we can see what's happening.
+Let's just print the value that we just pushed, and i'm gonna be sneaking and
+and just display the contents of the stack
+i'm violating good object-oriented design principles. But I don't have a method to print the contents of the stack.
+I could define a string method. I guess that's probably what I should do. But let's just leave it. Okay. So so operators don't do anything but numbers get pushed to the stack.
+Let's go ahead and and just make sure what we have so far works right. So here I am. or 5, 6, 7,
+right? They're getting added to the stack.
+So now what happens when you enter an operator?
+When you enter an operator you take the the top 2 operands off the stack, and then you apply that operator.
+all right. So we've got 2 values the B one. Well, let's just think of it as V. 2 first P 2 equals s stop pop.
+user avatar
+Unknown Speaker
+00:41:29
+I'm since they're coming off in reverse order.
+user avatar
+John Rachlin
+00:41:32
+Let's write it this way.
+Okay. and then it's just a matter of you know.
+If X equals plus.
+then then then what happens?
+So what happens is we'll just do plus and minus. We compute a result, right results, or oursl t equals a. V one plus V 2.
+Okay. and let's just d0 0ne more L. With X equals minus.
+then.
+or S. L. T. Equals V. One minus me 2. This is why it's important to like. Understand?
+You know. What is it you're doing when you do subtraction? It's really V. One minus V, 2, not V, 2 minus V. One.
+So that that's why I I sort of assign the variables in that way. Now, when you do that. you produce a result. What happens to the result?
+Does anybody know like? Where does it go? I mean it's displayed on the screen. But but where does it go?
+In other words.
+is it on the stack, do we? Do we? We leave it on the stack.
+or with we haven't, we haven't put it on the stack, do we put it on the stack.
+or do we just display it in print it?
+Think about it this way. If I wanted to add one plus 2, plus 3, I would say, one push, 2, push, 3 push. and then plus. Plus.
+So the result of our calculation actually has to go back onto the stack.
+And so we'll right now we're only supporting. I guess it doesn't. Take that long. Let's just
+throw in multiplication
+and division
+there. We did them all. Now, having performed the calculation.
+we'll push it the result back onto the stack.
+and as before, we'll print. This is sort of mimicking. Here's what is being displayed on your screen. And here's the current state of the stack.
+So we just so we can see.
+Okay, so that's let's make it. So we can see the whole thing. That's basically our Rpn. Calculator.
+So let's give it a shot.
+So, for example, if I say.
+I told you before, 1 2 3,
+now we do plus
+right. So it takes the last 2 items off the stack
+computes plus. and then puts the result back onto the stack. And now we do.
+Oops, how am I doing this?
+There we go plus again, and now we've got our result.
+Now, if you were doing something like, let's say you wanted to do
+3,
+i'll say 10 divided by
+2 plus 3, alright, so that's 2.
+So let's make sure that works. So how are we going to do that? Well, what you're gonna do is you're gonna do
+it doesn't matter. That 6 is sitting there on the stack. Now let's let's make it 10.
+Let's just go for
+plus. There, now, we have 10 0n the stack.
+I want to divide by
+2 plus 3, so I say 2.
+Push that to the stack. 3. Push that to the stack. Add them up and then to find.
+and then we get to you. See how it avoids, like the
+the the use of
+parentheses.
+Okay. So now, do you all agree
+for extra credit? Then
+the each piece
+41, Cb. Is the greatest calculator. I I hope you all agree.
+Let's kill that and let's move on
+to
+talking about functional programming.
+and
+let's hop on down. I think I kind of, maybe briefly went over some of these concepts. But let me just do very quick review.
+And what I'm going to do today is is maybe introduce a new kind of data structure which is
+of a named tuple.
+Functional programming
+often relies on the notion of immutability.
+and
+as such it can be helpful sometimes to have data structures. That
+sort of our like dictionaries.
+but that was a good one, too. Actually, I think I had the T. I 90. I had one of these.
+I had one of those
+text instrument was pretty good, but it wasn't ourpn.
+user avatar
+Unknown Speaker
+00:47:51
+So what was I saying?
+user avatar
+John Rachlin
+00:47:55
+Functional programming?
+We were talking about name tuples. So i'm going to introduce named Tuples name. Tuples are kind of like dictionaries that have
+that aligned to name the various elements of the tuple.
+But tuples being tuples, are immutable objects, and so they're kind of a
+handy thing to kind of know about, not critical, that we use game tuples, but it's again part of the portfoli0 0f just understanding all of the different kinds of collections that the python supports.
+So with functional programming
+user avatar
+Unknown Speaker
+00:48:34
+we emphasize immutable data structures. We build our code around
+user avatar
+John Rachlin
+00:48:40
+these 3 0perations, even when we're
+like, as you've seen, with like list comprehensions that is effectively a mapping operation. So sometimes our our our our emphasis on mapping isn't explicitly calling the map function. But there is a map function that can be useful sometimes
+by emphasizing immutability, it enables us to more cleanly implement
+user avatar
+Unknown Speaker
+00:49:09
+parallel processing.
+user avatar
+John Rachlin
+00:49:12
+because we're not
+worried about 2 processes in, you know, trying to affect a shared
+memory and clobbering each other. We don't have to worry so very much about the concurrency issues that might arise.
+user avatar
+Unknown Speaker
+00:49:27
+There's a much greater emphasis on recursion rather than looping
+user avatar
+John Rachlin
+00:49:33
+lots of list comprehensions.
+and I think most importantly. functions are first class objects. They can be
+parameters to a function, and, as we've seen with decorators, they can be the output of a function.
+so
+it's a
+It's a paradigm of programming designed to make code
+more beautiful, I think, more elegant. but also to reduce bugs that often arise by
+you having to deal with, but or by not so much dealing with side effects
+of of code and part of the problem of validating code is that code produces side effects. It assigns variables, it, it creates state, and
+that state is
+sometimes difficult to keep track of.
+which can lead to box
+functional programming kind of tries to avoid
+notion of a of a yeah. of a, of a state variable that can change, that can be assigned new values.
+and it's one of many programming paradigms. I do believe that learning a few different paradigms will make you a better programmer, that it will just
+sometimes you just want to think about a problem in different, more creative ways. And in general I've come to believe over the years that the source of
+creativity people what is having an appreciation for the connectedness of ideas.
+and to see different ways of having different ways of of thinking about a problem
+can be, yeah.
+user avatar
+Unknown Speaker
+00:51:31
+can help you understand trade offs
+user avatar
+John Rachlin
+00:51:34
+and help you make good decisions.
+as well as to
+open your mind to approaches that you might not have thought of. I mean, that's you know, away the essence of creativity.
+So we have lists and dictionaries, and we use those to the hilt in in our programming classes in the past immutable objects.
+Of course we have tuple instead of dictionaries.
+We have strings which are like list of characters, but you know you can't do an assignment on a string. You can't just replace the third character in a string.
+because strings are immutable. It is their immutability, by the way, that allows us to use them as keys in a dictionary.
+and then we do have this new type that i'm going to introduce today. Call a main tuple, which is kind of interesting.
+all right. So filter map and reduce. The idea is of of the filter function
+user avatar
+Unknown Speaker
+00:52:44
+is that you give it a function
+user avatar
+John Rachlin
+00:52:47
+and then it up. And that function, basically yeah
+is a some sort of a test. and that test gets applied to each element in a collection
+producing a new
+I've described it as a set, but it's a new collection, such that every element in the collection passes the test. All right. That's this is kind of funky notation, but let's just break it down. So it's, producing a new collection.
+such such that every element in the collection it's passed through that test function
+and the test function must return true.
+So, for example.
+I have a list of numbers, and I'm going to test
+using an an anonymous lambda function. Whether or not the element is even.
+and the result is the subset of even numbers.
+Okay, May, you could write a loop.
+You could do the test. You could build a new filtered list by appending all the elements that passed your test.
+But this is just a more kind of
+I'm. Applying a function to the list, and that function is automatically being applied to every element.
+and the result of of of the test decides whether I keep the element or not. It's the functional way of thinking about it
+rather than an iterative way.
+Something the other way is wrong. It's just
+this is avoiding right. Having to think about this, the state. Variables Are you looping over the all the right elements.
+you know, by thinking about the filter function as a parameter. It makes it more flexible to kind of compose, more complicated kinds of operations by simply passing different filter functions to the same.
+to the same method.
+all right. And then we have map same sort of philosophy. Here map takes a function. and that function gets applied
+that each element to produce a new function. So here I had 1 2 3 4 5, and the map, the the operator is to square it.
+And so the squaring function gets applied
+to each element producing the squares. And again.
+this could be
+this doesn't have to be a lambda function. You could define a function called square, and then just pass square
+as your element. The point is very often
+it's just sort of a one liner, and you don't need the excessive overhead of defining a function that's only going to be used in this context. So in this case, maybe putting it as an anonymous in line function.
+makes a little more sense.
+And then, finally, we have reduce and reduce. This is sort of a canonical example. But as you'll see
+at its core.
+what we're basically doing is taking elements from one collection and kind of merging them incrementally into build up a new, a new collection, and it's kind of, I think, the diagram sort of captures what's going on in general.
+but it's a way to do.
+grouping and filtering and
+aggregation
+very elegantly. often with one or 2 lines of code. without having to
+run a loop. Do a lot of tests. Keep track of a complicated data structure. You'll see some examples of this.
+All right. Map
+and filter are kind of built into the language. and I don't know why reduce is not, but reduce does require that we import it from funk tools.
+So so keep that in mind.
+This canonical example, basically what it's doing. Let's look at it closely. So this is basically summing up the elements in a list. All right. You could just call some. But that's not the point. The point is to understand the process that reduces going through.
+and then see how we can apply that process t0 0ther more complicated kinds of calculations.
+So
+what's happening here is we have a lambda function which takes 2 parameters
+and simply adds them together.
+And what reduces basically doing on this collection is taking 2 elements at a time.
+and performing that function on those 2 elements. and it just keeps doing it until you're down to one thing left.
+and that's your result. This is a little bit like the Rpm. Calculator: right? It takes 2 things at a time off of the collection.
+It
+performs the operation or the function on those 2 elements, and and replaces those 2 elements
+with that
+with the result.
+And now we just do it again. 6 plus 4 becomes 10,
+10 plus 5 becomes 15.
+So how does lambda work again? Right? Great question. Thanks for asking Sara Lambda is a keyword that identifies an anonymous
+in line function.
+So it's basically equivalent to in this case. If I had defined.
+Let's do it over here. If I had to find a function
+square
+X
+for an export.
+Right? That's that's a function I've named it.
+user avatar
+Mirza Nayeem Ahmed
+00:59:25
+And now I can, you know, run it
+user avatar
+John Rachlin
+00:59:29
+and get 9.
+But what lambda and like in a. In the context of of our map function. Hey? Sorry, somebody's unmuted, Could you just make sure you're all muted, please.
+In in the in the context of our map function
+we could say square. and then give it a list. 1 2 3,
+user avatar
+Unknown Speaker
+00:59:57
+all right. This actually produces an iterator
+user avatar
+John Rachlin
+01:00:01
+over the list, but i'll just convert it to a list here. and so you see it just square each number.
+But it did require in this syntax that I define the function. And sometimes you don't really need the function for anything else other than just to
+of call map.
+And so this is absolutely the same thing as just simply give it
+sort of the definition of the function, and in in sort of hard code it in line it doesn't have a name. We're calling it, Lambda, but that's sort of like
+an anonymous
+user avatar
+Unknown Speaker
+01:00:40
+function name
+user avatar
+John Rachlin
+01:00:42
+it's sort of saying, i'm defining a function that has no name.
+I think that was a song.
+So the function
+takes one parameter and produces this result.
+And and now we again give it. Let's give it some number of different numbers, 4 5 6,
+And again let's convert it to the list. So we can see the result.
+and it works So it's just a Lambda simply means an anonymous, unnamed function
+function that has no name. But that is defined sort of in line with your code.
+hey? Can I explain that? Okay, Sarah.
+you can have. You can have
+lambda functions that take 2 parameters or more.
+We'll see examples of that. No. But
+why is it called Lambda? That just comes from sort of the theory of functional programming when I was having to learn about functional programming languages, I I don't know they were always talking about lambda functions, and Lambda is this sort of generic
+function. That's that's a terrible explanation for why it's called Lambda. But there it comes from the lambda calculus
+of which is sort of the foundation of
+functional programming, paradigms and functional programming design.
+Okay.
+that was reduced.
+So we're applying. Oh, so that was an example of taking 2 parameters.
+Yeah, that's fine. And we're just taking basically 2 2 values at a time. It doesn't have to be a a list and doesn't. If it is a list. It'll take it from the front.
+but if it were a set it would still work. It would just. I don't think you could presume
+which 2 elements it takes
+at once, and so this could get complicated if we were doing like subtraction, the order mattered.
+and then applying it to a set might produce
+unpredictable results. Okay.
+Okay, anything else I want to say about
+No, I don't want to talk about machine learning or parallel programming today. Good. Let's move over to here again. No, not there.
+No, there we go. Let's go back to here, and
+just give me a second here
+somewhere.
+No. here, let's close stuff out
+all right. My My attempt at workspaces has a has a beta flaw, which is, I forgot where. Oh, here it is. I was just looking for my notes. They were embedded on the same screen. Okay, so good.
+Let's let's just start a new
+N0 0kay.
+And we'll call it that
+a functional programming time.
+and I just wanted to introduce a named Tuple. I might just copy and paste some code
+right into the chat just to save us some typing.
+user avatar
+Unknown Speaker
+01:04:28
+So a need to basically is a tuple where the fields
+user avatar
+John Rachlin
+01:04:33
+I have names, and
+in a way, it's kind of like defining a Java being. If you've ever. If you've ever programmed in Java, where you've got like a basic object, and you've got a bunch of
+internal values, and you just want to be able to get at those values by the name.
+user avatar
+Unknown Speaker
+01:04:56
+It's a little like that, maybe, but it's just a collection of of named attributes.
+user avatar
+John Rachlin
+01:05:02
+So you don't have to keep track of
+of it's like it, you know, just like a dictionary. He, you know, every like. The the name of the field is like the key, and then the field value is the value, but
+it is a immutable object, and sometimes we really want immutability.
+So let's go ahead and talk about. and to both.
+and to do this will
+import the names to both
+from the to bus.
+And here's how you do it. Suppose I wanted a
+a named Tuple, and it's kind of like defining a class.
+I'm gonna call my named tuple scientist. So i'm going to create scientists
+which are like objects. And I'm going to basically define.
+I'm going to define the means to both
+which had, which is of the scientists class.
+and it's gonna have a bunch of fields like a name
+Field will be like what field of study they were, in what year they were born, and maybe whether they won the Nobel prize.
+And so those 3 fields make this wider.
+All right. Okay. So great. Now.
+So what's what's the good of this? Well, so now, for example.
+I could have
+data.
+I could define a scientist to pull where the name is.
+hey? The Love Lakes
+user avatar
+Unknown Speaker
+01:07:07
+on the field with math.
+user avatar
+John Rachlin
+01:07:10
+She was born in 1815 and no about goals.
+And
+what can you do with this? Well, you can.
+You can do all sorts of fun things with this.
+I'm just trying to think what? How is the best way to do this? If I just say, yeah needed a field.
+it will just give it to me. So it's in a way, it's kind of like data frames where you just have now have columns, and you can just kind of specify them in that way.
+I I'm: just curious. Does this work?
+No. So it it. It is expecting that the the values be
+user avatar
+Unknown Speaker
+01:08:04
+that that that the attributes be defined in this way.
+user avatar
+John Rachlin
+01:08:11
+Okay, it is possible to convert this to a dictionary by saying
+that's not it by saying
+user avatar
+Unknown Speaker
+01:08:22
+I can do what theta dot
+user avatar
+John Rachlin
+01:08:25
+underscore as Dick and I believe. Yeah, that will convert it to a dictionary.
+user avatar
+Unknown Speaker
+01:08:33
+But again, this underscore is really kind of telling you
+user avatar
+John Rachlin
+01:08:38
+that method is
+sort of discouraged. It's it's an internal helper utility, but subject to change.
+and it could become obsolete. Or
+or you, you don't, necessarily want to count on it, but
+it does it does work. I am also curious
+like, Does this work?
+No, it doesn't like that.
+Okay, so that's how you convert convert it to a dictionary.
+user avatar
+Unknown Speaker
+01:09:13
+Let's go ahead and
+user avatar
+John Rachlin
+01:09:16
+and create a bunch of scientists here. I'll just throw this into the chat
+and let's just think about
+how we would go about
+writing code to let's say.
+maybe I want to extract the Nobel Laureates and put them into a new.
+a new tuple.
+So you know I could do something like this. I could say filter.
+user avatar
+Unknown Speaker
+01:10:07
+you know, for x in
+user avatar
+John Rachlin
+01:10:10
+scientists
+x dot noble. It's true.
+I just say x dot noble, but that's all right, you know, filtered
+out of hand. Thanks.
+And now so there is that all right? That's a list.
+user avatar
+Unknown Speaker
+01:10:33
+So
+user avatar
+John Rachlin
+01:10:36
+let's make it a tuple
+all right. So now it's it's a tuple It's immutable. This works. It's an iterative approach.
+Bye.
+we do have our filter function.
+Let's learn about it
+by typing help. Do you know you could do that. You can, in fact, help in Jupiter notebooks and get
+get information about
+about the function and what it does.
+So let's just use our filter method.
+The filter method would just say.
+Filter
+Lambda x. Ex noble.
+I think I need to say, and then just give the list of scientists.
+and again it produces an iterator
+over which we can then just
+produce our result. Right? That's a little bit more direct.
+Then, having to think in a procedural way.
+user avatar
+Unknown Speaker
+01:12:00
+does the name tuple? Just assume the data type that it's given?
+user avatar
+John Rachlin
+01:12:05
+Right so it is
+you are. You are both naming the field and naming kind of the type of the tuple when you when you define it up here.
+And I think this is just kind of convention.
+like if I called this.
+I don't know
+something else like
+like I don't know plumber. What would happen. I've defined the type as scientists. But internally i'm not sure that this really even matters for anything. This is still.
+you know, just gonna do the same thing.
+You know. What's key is that I've declared
+this combination
+as being a scientist kind of class or or object type. And so the internal. Well, let's see what happens if I said i'm i'm just guessing here
+you're kind of seeing me, Tinker, this is how I learned to program. I tinker with things, and I try things like I said, type
+how you doing. Does it come back? You see, it comes back as plumber. So that's probably not what you wanted. So I think, just from purposes of
+of convention.
+This is really defining the type. But the name of the type is defined here.
+And so we really want to just use the same name.
+Okay. so good.
+What else?
+I'm: just looking. Yeah, that's all done.
+Huh? So one of the things that
+that that we might want to do is
+basically chain operations together. So
+this is sort of a very common kind of unix Linux Mac OS sort of
+way of thinking about commands.
+If you.
+if you you can run, you can run Bash commands. I think you just have to say like Bash. It's like a magic function, and then you can just run
+commands, and we'll get you and get you a list of of of program programs in this current working directory.
+But here you know what let's. And while we're at it. let's just
+let's just create
+one more. I'm just gonna just bear with me 1 s.
+actually where My.
+user avatar
+Unknown Speaker
+01:15:27
+No, it's fine. I'll just leave it there.
+user avatar
+John Rachlin
+01:15:30
+and this is just gonna cause confusion. But what I wanted to say is the idea of sort of a functional
+methodologies in operating systems really does apply that. For example. we have this ability to basically
+pipes together the output of one command and feed that into
+another command. You know what? Here, here's what i'm going to do. I just wanted kind of it's a it's a nice principle. Let me just see if I have something that can really show this more
+clearly. How about
+You know. you know. I'll just find some data set I have in some other course. Here's an Iris data set all right perfect. So
+I
+have the ability to display the contents of this file.
+I
+and that's all well and good.
+But maybe what I want to do is take that output and do something.
+and you'll notice this is sort of very specific to the
+philosophy of functional programming as well as the philosophy of Unix commands when I run, commands like that I know. Wc: Iris, dot. Csb. You'll notice that all right. This is called where this is the word counter, and it basically counts the number of
+of lines, words, and
+characters
+in this file. Notice that there was like almost No. there was no like header information. I had to know that that's what Wc. Was doing.
+and it's very typical for
+unix commands and Linux commands
+to have very terse names, but also to have very terse help us.
+They don't give you a lot of descriptive information about what they're doing, and the reason they don't do that
+is because they want you to be
+able to take the output and feed it into
+some other.
+some other
+input. So, for example, I think if I said Wc. Iris, dot Csb: and then I said Wc. Again, it would basically tell me
+in my output how many lines. how many words? All right? One
+to
+3 4,
+and then how many characters 24 characters. This
+pipe operator is extremely powerful. It's it. The idea is that we compose
+and take the output of one command and feed it into it the other, and basically compose functions together to produce new functions.
+That's something that often
+we we very much want to be able to do and
+and and so we'll. We'll see elements of that when we're when we're programming in with with functional programming as well, I think
+Well, let's maybe try to do an example Here, let's go back.
+So we had this filter.
+and it was producing a result.
+Now, if we wanted to, we could
+have additional commands
+or additional additional constraints on our on our filtering. So let's do something like this.
+Let's say
+user avatar
+Unknown Speaker
+01:19:30
+x dot noble. maybe.
+user avatar
+John Rachlin
+01:19:36
+and
+maybe
+next up field
+equals chemistry.
+so we can. We can do that.
+but these are all plumbers now.
+Oh, sorry, yes, the 24 Jack was the number of characters that's what Wc. Does it tells you the number of lines, words, and characters in the file words is defined by spaces.
+So just sort of pass it up and see how many words you have.
+So, for example, if I say echo, Hello.
+world. and then pick that into Wc. I gave it one line with 2 words and 12 characters.
+and if I do something like just fyi at
+Iris Csv: that just displays the contents.
+Maybe I want to sort it. What sort?
+Great.
+user avatar
+Unknown Speaker
+01:20:49
+Now, I've sorted the data. The header ended up at the bottom.
+user avatar
+John Rachlin
+01:20:54
+Maybe I want to extract out
+a couple of fields cut.
+using a comma delimiter
+and give me just field one and 2. I think I can do that.
+I can take that and say, let's only give me the unique lines. You see, this is the sort of thing where this is very functional thinking, where you have
+individual operations that do very little in of themselves, but that are designed to make it possible to
+kind of compose them together. I'm trying to come up with a good example. I'm just noticing my like my i'm i'm fumbling a little bit here because my notes. Don't really have a good example. But
+but the basic idea is okay. We could sort of embed more complicated kinds of things into it like that. or
+you know you could
+do something like I i'm gonna just try it. There's there's no good way to do it. But just to simply try it. I'm gonna say this.
+but this will be the result of
+line. A filter.
+Lambda X X dot field equals chemistry.
+I this is a more compilated way of doing it. But the point is
+that you've sort of taken the output of one and feeding it into another. and
+and and that that does the sort of the same thing.
+So by having kind of these well-defined inputs and outputs, you're taking the output of one, feeding it into the next, and just allowing yourself to to compose things, as you call them. Let's
+i'm gonna maybe talk about mapping next time. I I wanted to actually do a little exercise that I thought might be sort of fun. This actually came up, and this will get your attention. This came up once because one of my students in this very class had a
+had a job interview, and they made her do some whiteboarding exercises, and they asked her about. You know how to determine palindromes
+and asked for some funny questions about Palindrome. So I wanted to show you something about Palindromes real quick here. So let's just
+do a new python file.
+and let me just run through a couple of examples. So
+first of all. suppose so. A palindrome right out. Palindromes are
+our words that are
+user avatar
+Unknown Speaker
+01:23:54
+spell the same
+user avatar
+John Rachlin
+01:23:56
+forward and back. Hi.
+for example, the word I
+same book forwards and backwards. That's a.
+And so if you were to want to write a function
+to test whether a a word is a palindrome.
+There are different styles of programming that would allow you to make this test. There is
+very much a sort of the pythonic way of doing this.
+which is to simply say.
+test whether the the word
+is the same as as this
+that actually works.
+And the reason it works is because
+if we have. let's say, yeah. what we're effectively doing
+when we. when we do this. if we're reversing the word.
+and the reason that reverses the word, if you think about it is because we're using slicing to define a range. But the range like this by itself
+gives us copy of the word.
+and if we wanted to increment by 2 we would get every other letter we're effectively, saying.
+Give me the complete range. but increment backwards. starting at the end.
+So that's actually the very iconic way of testing. If you have a palindrome, it's just to test if the words the same as the reverse. Okay, but that said
+it's still worth exploring a couple of way different ways that we could implement this that maybe don't leverage the fact that Python just happens to have this built in
+method for reversing strings.
+So how would you? How would you do the test?
+How would you do it
+So
+there's a couple of things you could d0 0ne would be
+palindrome.
+Define, palindrome.
+Let's do it this way is palindrome. Let's do it the iterative way. I think it's worth seeing. The
+iterative approach to kind of see
+when you encounter these patterns in the course of your regular programming, you might say, okay, this is a very
+I know. I'm clearly using an iterative approach, and there might be a better way.
+Alright, so the iterative approach again. We give it a word
+would be to say something like, Well, let's start at position 0,
+and we're gonna to loop through the the word character by character. So maybe it's a while loop.
+while the position is less than the length of the word. I don't have to go beyond length of the word divided by 2,
+because if I can verify the letters, have a corresponding letter at the end up to the middle of the word that i'm done
+so. What am I testing? I'm basically testing if the word
+at that position.
+if it's not equal to. If I have a if I have a mismatch with word of.
+And you, you know this takes some thinking to really see why this is true.
+but work it out in your head, or do some examples, and you'll see that it is basically getting
+a matching the first letter with the last, the second to the
+the second letter, with the second to the last element, and s0 0n. If that ever that test succeeds out of meaning, we have a mismatch, then we're going to immediately return false, and if we get through
+all of the first half of the letters. Then we're golden, and we can return. True.
+Okay. So let's just verify. It is Oh, I mean your own iterative. ABC. That should be false.
+But if we give it
+Hi, and that would be true.
+All right, Good. So what's another way to do it?
+What's another way to do it without looping?
+I'll give you a hint. It involves recursion.
+How many of you you but you're uncomfortable with recursion
+person is one of those things that
+people we talked about when we're talking about the definition of factorial function
+right?
+And then it comes up
+in factorial, because that because the definition of factorial
+is recursive in nature right
+recall. But it's N. Times
+n minus one
+and n minus 2
+and
+3 times 2 times One
+I. That's n factorial.
+but that's the same as saying the n factorial is equal to N.
+Times, and then notice that this is just n minus one factorial.
+So
+So we're kind of recursively defining and factorial.
+suggesting them that we could define this as a.
+X. Here let's use. And so we're consistent, so N. Times factorial and minus one. All right, that's close. The problem is
+user avatar
+Unknown Speaker
+01:30:54
+so. This is a recursive call. We are calling the function
+user avatar
+John Rachlin
+01:30:59
+inside itself.
+but this, of course, is going to
+cause us to go into an infinite loop.
+Sure, let's try it.
+And now we get a recursion error maximum recursion depth exceeded. In other words, we got a stack overflow.
+That's where the term stack overflow comes from. When we pass
+parameters to a function, those parameters are getting put into an into memory
+in a location allocated for passing parameters called the stack.
+and as we leave functions we pop off those elements because we no longer need it, and the the operation of pushing and popping helps us to keep track of
+not only what functions we're calling, but which functions call those functions so that we can backtrack and return to the function that called that original function
+another application of stacks.
+So we have to fix this, maybe, and say, yeah. something like if
+if in, let's say is
+equals 0,
+then just return them with.
+else make the recursive call.
+The reason for this, by the way, is because 0 factorial is by is defined as one them. So now.
+now, now it still doesn't work. What did I do? Wrong?
+Oh.
+factorial return one else 8. What's wrong with that
+unsported operands for type int and none type? Oh, I didn't return it.
+I'd say, return.
+There we go. all right, so that's 10 factorial
+and 30 factor.
+If you have 30 cities that you want to visit
+and you and then return back to where you started. That's how many possible routes you can take. This is why the Traveling salesman problem is a hard problem.
+all right. So So I've given you the hint that you could write is palindrome as a reverse of function.
+or in a functional style. And remember, a functional style often relies on on recursion, because we can write it in a way that avoids
+having to kind of maintain loops and counters and whatnot. So you know it's the this factorial function
+it's not maintaining like I could have looped over from one to N and could accumulated the result. But that would be a an iterative approach to factorial
+that requires that I maintain a counter.
+I wrote it in a recursive way. which
+is more in line with the natural definition of factorial, and avoided the maintain maintenance of a state there
+all right. So that's what I'm aiming for. Here is how and wrong
+functional the functional approach
+and a functional approach
+uses recursion
+to text. If a word is a palindrome. and
+user avatar
+Unknown Speaker
+01:34:59
+let's make sure we spell that right.
+user avatar
+John Rachlin
+01:35:04
+This was kind of clumsy. What we did up here right this having to make sure this is right, and it's just ugly. It's. It's not very readable. but let's think about recursive definition of palindrome, which is
+that
+the the first value the first letters, the same as the last about the letter, and and what
+the first letter is the same as the last.
+and then exactly they. You've got it.
+And then, if if that's true, and what's in the middle of all that is also a palindrome. then
+then we should be good right like when I say kayak is a palindrome. That's true. because the K's match
+and
+it's a calendar on me.
+That's kind of what I'm going for. That's the basis for the recursive call.
+So I think we can say basically our test condition is that it's also right. The condition. Well, let's start not with the exit condition. Let's just say.
+user avatar
+Unknown Speaker
+01:36:21
+let's return
+user avatar
+John Rachlin
+01:36:23
+the tasks word 0.
+It's equal to word minus one the last word. and
+is palindrome functional.
+Of what was it in 1 2 minus one. That's right.
+That's not gonna work.
+And you're extracting all the middle letters starting at the at at index one and going up to, but not including index minus one.
+Okay. But this won't work quite right, because we do need the exit condition.
+Which is it? The length of the word
+is less than or equal t0 0ne, because it's a palindrome. If you have just one letter, and if you have no letters left.
+because you stripped off the end. Letters like. If you have an even number of letters.
+then
+then return
+true.
+Okay.
+user avatar
+Unknown Speaker
+01:37:31
+Else
+user avatar
+John Rachlin
+01:37:34
+so notice there's no there's no funky maintaining state. There's no weird comparisons. It's just a natural definition of using what it means to be a palindrome
+to express it recursively.
+is palindrome functional word.
+No yeah, sorry.
+Okay. So let's again Make sure
+this works is
+Oops
+word.
+I'm an idiot. What's going on here and function is not subscripted. Well.
+user avatar
+Unknown Speaker
+01:38:32
+right.
+user avatar
+John Rachlin
+01:38:34
+I have to give it. That's the word of that right.
+That's what happens when I rush.
+All right. You should be false.
+all right. So here is your assignment
+for next time, or just about out of time. Your assignment is to write a function called
+is PAL, and
+word, or let's call it letters.
+I give you a sequence of letters.
+You have to tell me, not whether it's a palindrome, but whether it could be made into a palindrome by the rearrangement of those letters
+so return True.
+right, turn true.
+If we arrangement
+into a PAL when it is possible
+that that's your Simon for Friday we'll see you. Then everybody have a good one.

@@ -1,0 +1,1138 @@
+John Rachlin
+00:00:02
+I think I was in 40 below once.
+It was hard to breathe.
+We were visiting a customer. I was working for Ibm at the time, and we were visiting a a customer in Ontario, Canada in the middle of winter.
+And Boy was that
+was that brutal I just. I I never wanted to experience that again. I I hope I hope you all stay warm and safe, and this is the beauty of online class. You can just do it in the yeah comfort of of your dorm room. So
+do do say, stay safe, all right today. I want to talk about databases in the past when I've query this class.
+even though many of you are sort of data science miners or majors, or maybe dual majors, you may not have yet taken a class in databases. Maybe some of you have. That's great.
+But even if you have taken like Cs, 3,200, I find that it's it's sort of a mix as to whether or not you cover working with databases programmatically.
+And so what I thought I would do today is
+kind of give you a crash course in just working with traditional relational databases what they're all about, and how to how to
+specifically work with it in python. And
+you know, and why you would want to do this. You know. Usually when we're working
+in industry.
+the data that we're interested in doesn't live on some nicely prepared Csv. File.
+It's
+probably in many different locations, or it's being managed centrally by a database with a dba, a database administrator
+providing sort of security and configuration and access control.
+And granting you privileges to look at specific databases. Or sometimes you can specific tables or specific problems within that table, there's a huge like security model built around the the traditional relational database.
+So let's have a look at this now. I I asked you if you had time to
+install Mysql.
+If you if you haven't don't worry about it, it's it's not super critical right. Now i'm not sure that i'll have
+specifically a an assignment
+validating your understanding of databases per se. But I think working with databases is something that you might want to think about
+as you as you develop a project, and and we'll have more to say about the class project as we go forward here.
+But do you know, it is sort of like I always ask, my friend, you know. What do you want me to teach it this year to my students, and it's always pretty much the same answer. Teach them how to stand up dashboards and teach them how to connect to databases and
+and and then the the all the stuff that happens in between is is just golden.
+Okay. So let's start by
+sharing this screen here
+and let me just give you like a crash course overview about the world of of databases. Just real quick
+Again, if you've seen this
+great, if you haven't welcome to to to a world which is diverse in some in some respects it's a a source of. I mean, there's a lot of innovation going on in in database technologies these days.
+but it's also, in some sense like
+one of the foundations of of computer science and of the software industry is just how you actually manage data in a rigorous way that enables you to
+ask questions and drive your business.
+So
+our our focus today will be on the so-called relational databases relational databases were invented in the 19 seventies largely due to this guy here. LED, your Frank Cod, or Ef. Cod, who is sort of a personal hero of mine, he's just one of those guys who, like
+you know, had had a vision for what?
+In this case databases could be, what? How to? How to store and manage data, and you know it's it's not obvious what really the best way to do that
+is, and there were a lot of sort of AD hoc ways that had been tried, and they were tied very much to sort of the model for storing data, which was these, like, you know, take driven systems, Everything's on sort of a linear tape. And
+you know he started thinking about mathematical models, set theoretic models of of data and data management, and he was himself, I I believe i'm a mathematician over the background in in set theory, and he proposed this idea of the relational model.
+and
+it was not well received originally. I think he, ibm didn't really want him to to even bother. They had their other initiatives going on in database technology. But you know, he he pressed on, and within 10 years, you know, you saw the emergence of companies like Oracle, who did recognize the potential for this, and you know, by 1,980. Already there were standards for querying these things like sequel.
+and you know it was really off and running.
+So what is a relational database? It's just
+the idea is just to manage data as a collection of tables.
+and
+in a in a table
+we have
+user avatar
+Unknown Speaker
+00:06:22
+basically attributes just like a Csv file, right? We have rows, and we have columns, and the columns represent specific attributes.
+user avatar
+John Rachlin
+00:06:30
+and the rows represent records or instances of those entities. Okay, so to see different names for these things, columns, fields, data, attributes, rows might be referred to as records, but it's just basically how to render
+the the the content as a collection of tables. Now
+there there are cross references between these tables, and and these are called foreign keys. All right. So here we have a staff table, has a bunch of employees, and then we have a column dedicated to identifying which branch the
+the employee works at.
+and you might just say, Well, why don't? Why, don't, why bother splitting it up into 2
+tables. Why not just
+include the street city and post code right within the staff table? Wouldn't that be easier, and the the problem with that is that when you have in this case multiple employees working at the same address.
+they you're basically repeating the information over and over again. And it's not so much that that causes storage overhead. But the problem is, whenever you start introducing a lot of redundancy into your able design.
+you introduce the possibility of inconsistencies creeping up like when you update one address, you better update all of them wherever they are used. And you, delete one, maybe the branch goes out of business, or whatever you better address the fact that
+that all of those employees need an updated address.
+So
+this led to really thinking about how to lay out data and structure it. And we learn in database design about techniques called normalization and entity relational into the relationship diagrams and and the like. And and we're not going to cover any of that here today. But
+that's that's the core idea here is that everything is basically rendered as a collection of tables with cross-references, to allow you to join information together to answer deeper sorts of questions
+a lot of the
+the the success of relational databases is due to
+basically 3 things. One is this very robust, mathematically founded model of storing data called the relational Model, which, as I said, treats everything as tables, but at its core it's really thinking of the tables as
+user avatar
+Unknown Speaker
+00:09:07
+as sets and
+user avatar
+John Rachlin
+00:09:10
+as records, as as sort of tuples of attributes and the operations for joining data and filtering data can be kind of framed in terms of the set set operations.
+Okay, so so that's
+one reason it was. It was just a very clear, mathematically, that based foundation for representing data in a consistent way as Number One number 2 was the emergence of sequel
+or SQL view of our, which was a query language that was kind of mimicking a. You know the way we would ask questions in English.
+Right? Give me these columns filtered in this way, sorted in this way. Group the data that way. You're sort of declaring
+how you how you you what what you want to as an answer, and you're leaving it to the database to
+solve that question, and to actually perform the aggregations and the orderings and the filterings for you. Okay, it's not like sequel is not like a programming language where you have to specify every single step. It's a declarative language where you ask a question
+essentially, and then the database comes back with the records that satisfy the constraints of your question, and that proved to be extremely powerful, and a lot of what we do. It turns out when we're programming against a database is basically formulating a query.
+and that query then produces an answer which will come back as a table
+all right. And then there's this thing called acid or Acid Compliance. And
+you know we won't. Say a lot about that other than that. It is basically a way of maintaining consistency when you have
+user avatar
+Unknown Speaker
+00:11:00
+transactions against the database.
+user avatar
+John Rachlin
+00:11:04
+and you need to support a concurrency, and you need mechanisms for recovering from incomplete transactions which can happen right. And so much of the world of relational databases was built around.
+you know, security and really strong strict consistency of the data, you know. Think about the early adopters of these technologies were like banks, and you know, financial institutions needed absolute rigor and reliability in their data and needed to support
+operations or transactions where
+where hundreds of thousands or millions of users were maybe hitting the database from atf machines all over the world, or or, you know, performing, you know, over the wire trans financial transactions. So thinking really strictly about consistency, became kind of a dominant theme
+about data storage. You can't just put stuff like this into a file system, right, and hope that it'll support consent consistency. It it won't, and it it won't support, concurrency.
+You know you need. You need
+big software systems to really make it to really enable the kinds of high throughput transactions that happen in business today.
+Now, relational models are not
+the only way of representing data and modeling data, and there are other kinds of databases, and we'll, we'll learn about those if you ever take my Ps. 4,300 class. We we go into other kinds of models for data storage, but they are by far the
+the most dominant. If you look at this is a dB. Engines, basically a yeah.
+a a database of databases. Actually, you know what this is a little out of date. Let's pull up. I have it right here. This is the the current ranking of databases.
+and there's hundreds listed here in in this table, but we're just focusing on the top. 10.
+It's pretty much what you might expect to oracle right my SQL,
+which is an open by oracle. Now you'll see the Microsoft and Ibm. dB. 2 spin or
+user avatar
+Unknown Speaker
+00:13:24
+around a long time.
+user avatar
+John Rachlin
+00:13:26
+In fact, ef Cod's work was kind of a precursor to to dB. 2.
+So you see, relational relational, relational, relational. These are all pretty much the dominant database technologies today, but creeping into this top 10 list are other models like you may have heard of Mongo.
+or is it? It's a. It's a different way. It's it's it's a
+collections of documents. Those documents are Basically, Json.
+and it's just a very it's a much more flexible schema.
+but it doesn't it doesn't it doesn't use sequel right? And similarly, Redis a key value store just basically stores data like a hash map. And again, there's no query. Language that is anything like sequel. You can run commands.
+but to do very specific sorts of things, but it's it's not at all like the relational model.
+But but you know they have a role. These these so-called non-relational databases or no SQL databases do have an increasing role in big data environments and
+and and they're very interesting designs and worth studying.
+So
+so that is kind of the world we live in today is that, thanks to ef God pretty much, I would say, 90% or more of all databases are relational databases.
+And yeah, they all have their own features and security models, and you know their their their their sequel might vary from slightly from
+from vendor to vendor. There are different dialects of sequel oracle will provide additional features to the language to make it easier to use, and thus, in some sense, perhaps, introduce vendor, lock in right. The more you use oracle, the more you gotta use oracle
+that's by design. But
+but you know basically there is this dominant standard of sequel that pretty much everybody learns at some point in their computer science career, and it is a sort of a
+it creates sort of an inertia to a radical change in the way in which we manage data today, although, like I said, the No SQL movement is making inroads into this area.
+all right. So
+this is
+kind of what we might do if we're building a database application. We have a database over here, and we have a database management system that is
+managing access to the data. It's a server, and when you
+want to access this database, you submit queries to the server. The server has a query engine which
+answers the question
+and brings back
+an answer in the form of a table or a result set, and it's it's kind of important to understand here this separation of responsibilities here. Think of it like an object model where you have
+a state and internal state, and then you have methods which serve as the Api, or application programming interface to that internal state. That's a really important and foundational concept in object oriented programming. And the same is being applied here. We are really trying to relieve the developer from any understanding or awareness or knowledge of how the data
+is actually stored
+on disc right. It's just as far as
+as as as far as the user knows, there's just some data stored somewhere in in tables, and you're gonna formulate a query to to get
+your question answered. But the the order of the columns or the the the actual format of the data by Byte, as as rendered on
+disk is is something you don't have to worry about. Okay, you're leaving it to this big, heavy duty database management system, this server to sort of manage access for you and to basically keep
+keep the heads on the data and to support things like security and concurrency. And all of these additional features.
+Okay, but you, as a developer.
+are, basically you know, just just posing questions. Or or maybe you're calling Apis, which in turn, you know, submit queries to the database, all right. So there could be multiple levels of abstraction. Here
+one of the challenges that software developers face when
+working with databases is
+this thing known as the impedance mismatch problem. And this is something we might encounter depending on the complexity of our database.
+The problem is that as software developers, we're used to thinking in object oriented terms, right, we create objects. Tweet objects, you know, when we want to post a tweet
+or patient records.
+or
+you know it could be anything right. And and you know, customer orders, as in this example. And and the problem here is that
+you might have like in your application an object
+which is in this case a customer.
+user avatar
+Unknown Speaker
+00:19:06
+our customer order.
+user avatar
+John Rachlin
+00:19:08
+But
+remember that so much of the consistency guarantees of relational modeling
+comes about because we've adhered to this process of normalization. And so what that ends up doing basically is breaking down these nice aggregate objects into bits of data that have to be stored in separate tables.
+Alright, so there's this, like you're ripping apart your object and storing it in that
+different tables with cross-references to identify that these order lines are part of this order, and this order was
+submitted by this customer who had these credit cards, and it's just every entity. Every component of the order
+is an entity that is very specific to one
+kind of data
+in the in the object. But programs don't usually think like that. They think in terms of the whole object.
+right? And this, this process of ripping apart your object and storing it in the right tables can be
+a little bit of a challenge. This is known as object relational mapping, and there are tools out there that can help you with this.
+But but that's that's an issue to be sure.
+this is one of the things that has really driven in some sense the the the no SQL or non-relational database movement it's it's that these relational models are very inflexible you have to define the Schema upfront. You have to define all your tables before you can start
+inserting data into them.
+and you have to
+define
+for each table what are the columns?
+What are the attributes? What are the data types that every value in a particular column must adhere to, whether it's a date or a string or something else.
+Right? You have to define your schema up front, and then
+fit your data to that schema.
+whereas no SQL takes usually a much more flexible. Hey? Just give us the data, and there there may be inconsistencies in the types of the data that you're giving me. But you can give me hold documents. If it's a document store, he give me the whole order as one thing. I could represent this order as a Json document.
+And yeah, sure, i'll take that in. And oh, your your document didn't include some payment details. Okay.
+that's fine. If you know it's it's whatever you need to know you want to give it much more flexible, and it turns out much easier really to write code against these sorts of databases.
+No, SQL, in some sense is serving the needs of the software development community. But there is this tug of war, right? Because.
+you know, traditional
+hardened.
+relational databases
+are there for a reason because of the security guarantees because of the security model that enables a Dba to maintain exacting control over who has access to what data and for their consistency guarantees
+user avatar
+Unknown Speaker
+00:22:29
+in lieu of
+user avatar
+John Rachlin
+00:22:31
+massive concurrency. That relational databases
+user avatar
+Unknown Speaker
+00:22:35
+enable.
+user avatar
+John Rachlin
+00:22:39
+Okay, so we'll go beyond, maybe not in this course. But if you take it again, like 4,300 will will.
+The world is going beyond the relational model, and and some of these other ways of representing data are becoming increasingly important key value stores, thinking of it just as a as a like a hash map of data, very, very simple database, but extraordinarily fast
+and relatively simple to work with.
+and
+much more scalable, it turns out, but
+it loses, maybe some of the acid compliance guarantees that traditional relational databases might support some really with document stores very easy to get data in and out. It's almost like an object oriented database. You can put objects formulated or or serialized as Json strings.
+but you can just take those and put them into various collections and and manage them that way, and quick and and query look for documents that meet certain field requirements. Again, it's a different query language than what
+relational databases we'll use, but it is there. There are query languages for some of these graphs fascinating model. Everything's now just nodes and edges, and those notes and edges have
+properties.
+and you can write sort of graph. Theoretic queries.
+Find the shortest path from Node X to Node Y, which can be useful if you're trying to build a recommendation engine, or you know it's a it's a natural model for social networks, and so on.
+And then, you know, there are other ways of rendering data. Why, column stores.
+or
+or you things that kind of do what what document stores do, but enable you to have tables that have
+thousands or even millions of columns, something that you can't really do with a traditional relational database, or there's going to be some limits
+to
+You know how many columns you can have in a typical relational database may maybe upwards of a 1,000, and even that would be
+probably
+untenable from a practical standpoint.
+And so no SQL in some sense, is
+offering other ways of modeling and storing and managing and querying data.
+And some of these models really make it
+really enable very, very interesting.
+interesting insight into the data, like biological databases. For example, there are a lot of
+like a lot of that
+gene interactions can be just naturally modeled as a graph, for example, or, you know, establishing the connection between, say, a chemical compound, and what gene it targets, and the connection between those genes and what disease they're involved in.
+We're looking at Jeans and their function. Like all of these things, these these kind of massive connections. Yes, they could be stored in a in a bunch of tables.
+But graph databases might enable you to ask questions in a way that is sort of graph centric. A little hard to explain what i'm trying to convey here. But
+just think about it this way. If you, if you've taken an algorithms course, you may know, you may have run into graph algorithms, and and sometimes those algorithms are recursive in nature and require kind of exploring or finding paths through the data. And that's something that sequel is not really well suited for.
+So just some problems are just more naturally represented as a graph.
+All right, that's all i'm going to say just by way of introduction. So the key takeaways are that
+relational database. Technologies
+are
+ubiquitous and their
+1 50 years old. At this point they've been around a long time. It's a very mature technology. It basically involves storing data as a bunch of tables.
+and they are the predominant model that you will see today.
+Good.
+So what I've done here is, I I want to sort of build a database very, very quickly, and what I've done is
+if I go to the
+if I go to our repo, if you do a get to
+you'll see that there's a Bb folder that's been created for you, and i'm not gonna use all of this stuff in here. But I I wanted to create a little database with with 3 tables, and Gad is going to be one of those tables.
+and
+I i'm actually not going to use these files for building the database. I I I included them there as sort of as a reference. But
+if you really want to stand up a database really, really, quickly, You can't pretty much do any faster than to restore from a backup. And so this is what I've done. Here is I basically created a backup of the database that I wanted to build.
+And now there are other, of course, ways of importing data into a database, and to build your tables. From these Csv files there are utilities that come with my SQL: there's
+standard SQL. Commands that allow you to load data into a into a target table.
+But
+you know we we're not gonna worry about that. I just want to get us up and running as quickly as possible. And again, if you're not following along. If you don't have my SQL installed. That's quite all right. Just just watch and get a feel for what what goes on here.
+This bio setup is basically a SQL script that runs a bunch of SQL. Commands, creates tables that those are SQL commands, creates tables, Does a lot of inserts
+of data originally from these Csv files into those tables. We were just to look at this.
+you know, just
+kind of.
+you know, looking at it at a high level you can see it's creating a new database called Bio, and making it the active database, and there's a lot of junk in here. Here we go, creating a table. So it's defining, what are the
+what are the rows, or or sorry? What are the columns going to be, and what data types do they have?
+So, for example, we're going to need to create a table that has a a phenotype, and it's a type text or a DNA start and in position for the gene, and those will be integers, and so on.
+And then you can see it's doing, inserts. Insert into this table these tuples of information, and it's all you know, strung along and hard to read. But
+user avatar
+Unknown Speaker
+00:29:57
+you can just basically see that
+user avatar
+John Rachlin
+00:30:01
+you know a database is a collection of of tuples of records
+and just lots and lots of those reference. And then it would create a new table and insert the data for those.
+Okay, so that's what I'm going to do. I'm just going to recover of the database from
+from the saved backup instance. And so i'm just gonna go into. I've opened up a I a root connection.
+Only root has permissions to create databases.
+So I've opened up a root connection. Don't need 2 of them.
+and i'm just gonna open up that
+that
+backup file
+which lives somewhere
+right there.
+And there it is.
+So this what i'm using here is called the Mysql workbench. It's basically a client interface for working with the Mysql server which I have running in the back.
+I see you
+you have a server that's that's your Dbms running somewhere, and then you have a client that allows you to connect to that server as a particular user and ask questions. So here we go. We're going to run all of these commands.
+and there there's quite a lot of them.
+But here we go. Let's see if this works. I'm going to just execute the entire script.
+and
+and how it's executing the query.
+All right, I think it ran.
+Oh, all right, Give me a second to see? It's a little slow.
+maybe because i'm morning zoom
+all right. I think it it ran.
+Let's let's do this
+our action output
+and make this screen bigger.
+I'm just trying to get it.
+being very finicky on me.
+just trying to make the output window bigger. Let's try this. Let's start a new query.
+And
+basically, i'm going to go to schemas here and refresh this. And you can see it did create a bio database with a few different tables in it
+all right, so I've just opened up a new window here temporarily, and i'm gonna say
+use bio, meaning Make this the active database and I hit control. Enter. No shipped enter.
+There it goes all right. I've got to figure out why it's not showing. Maybe if I do this, let's just say, select. Saw our from gat meaning Give me all the records from the Gad table, and we'll execute that query, and then hopefully.
+Yeah, all right. That's what I wanted to see. So we've got. We've got a a of information coming back at us, and and you will see this, and it's going to be important later to to remember this, that every time we and we ask a question of the database we're coming back as a table.
+And it looks basically like a data frame. And so we're gonna maybe develop some utilities, if not today, than Tuesday, which enable us to submit a query.
+perform or execute that query, pull back a table of results and then just get back a data frame, because data scientists like data frames and it's a nice convenient way to to work with databases is just a Semitic query. Get back a data frame with the table of information that you wanted
+so good. So we we have this ability to query the database. Let's just for fun.
+Select
+star
+from Gene. Let's see what's in that
+table.
+Did I do it?
+You know i'm not hitting the right.
+It's really slow.
+This was not happening to me earlier, but it's all right. We Won't need to do a ton with this. So it's just a basically a table of gene symbols. And then the last one is select from go.
+Oh, I know what the problem is. I
+I was running all of the queries again, not just the one that I wanted. Okay, so go is an interesting little data set. It is basically
+a database of
+gene functions or or gene annotations which include what function they play, what biological process these
+genes are involved in, and where they're found, where they're
+where they're expressed in different locations of the cell.
+And so you know, basically what's been developed over the years is kind of this ontology or language for describing in consistent ways
+the the the role, or annotations or functions of these genes. Everyone needs to be kind of describing function in a consistent way, so that the the scientific literature is made more consistent, and everyone understands what we mean when we say
+cholesterol metabolic process over g protein coupled receptor. You may not know what those mean I don't know what those mean, but but that's not so important.
+What is important is that there is a well-defined language for describing what these genes do
+all right. So
+so we have a a with a with a few different.
+a few different cross connections here. So, for example, if I looked at the Gad Gene Disease associations. Maybe i'm interested in a particular disease, and I want to find what jeans those are involved in.
+And then I want to find for those genes what functions those are! Those genes are are playing what we, what roles those genes are playing inside the cell, so you can kind of start to join up the data from different tables and ask deeper and deeper questions about your data. That's what
+a database is really enabling you to do. It's not just about the storage and recovery of
+of
+of of data, but it's it's about enabling us to ask interesting questions as data scientists.
+All right. I'm going to do one other thing here, which is, so I've created the database.
+I'm gonna go. And as the administrator, i'm gonna just create a user account for this bio database that I just created. And the reason for that is
+when.
+remember, there's a big security model built around relational models, typically relational database servers impose certain security expectations about access controls, and and what privileges you have, whether to read data or insert new data.
+or what kinds of tables, you specifically have access to right. And so
+this means that the database management system, the server has to manage user accounts, and rather than connecting as the root account, which wouldn't be very secure as a software developer. You wouldn't want to do that instead. You'd ask your Dba to set up an account for you a development account
+which will have specific access to particular databases managed by the server.
+So that's what i'm doing here is. I'm going to just create a little bio-user. Let's say, add, user
+user avatar
+Unknown Speaker
+00:38:20
+we'll call this user account
+user avatar
+John Rachlin
+00:38:24
+Bio user.
+And i'm gonna give it a super secure password. How about bio underscore P. At sign Ss. W. Or R. D. It's the at sign that makes it security, you see. So bio
+Underscore, p. At sign
+ss. W. Or Rd.
+Think I did that right?
+All right, so great. I've just created a user.
+And now what i'm going to do is as the database administrator. I'm going to tell that user that they can access one particular database and one database only, and that's the bio database. So i'm going to add an entry in my grants table here.
+and say, bio-user may access the bio schema
+All right, so that's it that I don't want them accessing any other thing. Oh, but they don't, can't actually do anything yet. Should we let them select?
+Yeah, sure, and insert probably. How about we? Just give them all privileges
+We won't. Give them the ability to grant privileges to others. But we'll just let them do anything they want
+with this Bio database
+boom. We're done so great. Now, I have a user account
+that can access this database that I created.
+and we go back here. I've already set this up, but you can establish connections
+to for different users, so that they can quickly open up and access whatever they want to do
+good.
+So
+so now we've we've got a database, and we've got a user that can access those that that particular database. And we we just want to.
+We we we just want to run some some queries and just learn the very, very basics of sequel, as you'll see. There's a certain pattern to sequel.
+and
+it
+it it Really, you you know, you can learn 80% of what you need to know. I feel like, probably in a day. But oh, Jack, what I did there, this it's not critical. You could. You could just connect as root if you want, for purposes of of demonstration. But
+what I had done yesterday was I? I created a connection. I'll just show you how you do that. You just say my SQL connection. You hit this plus sign, and it's just setting up a connection with
+for connecting to the database as a particular, user so i'll just call it bio 2.
+This I already have one for bio.
+and
+i'm going to say that the user i'm connecting, as is bio-user.
+and I will store
+the password, so I don't have to keep entering it.
+So this is just setting up a connection for the workbench that, and i'll make the default schema here by out, because that's the only one they have access to, anyway.
+All right, so I test that connection, and it's successful.
+And so now I have a new connection. It's a second connection to redundant connection, but it's, you know, if i'm coming in and wanting to do
+development.
+and I need to access the database. Maybe I want to write some test queries in the work bench before I write python.
+I just want to test out my queries, so your Dva will give you an account, and they will give you some sort of a client through which you would connect to the database as a particular user that's what this is doing. It's allowing me to connect to the server
+as a particular user. With limited privileges. And so now, when I click on this.
+I can write queries. But notice that when I click on schemos here I only have access to one database bio.
+and that that was
+what the dba me granted myself as the bio-user
+so I can't mess with any other database.
+All right, so good.
+Let's just run through. No, let's not that. Not that. Let's run through
+a few
+a few queries, just just to give you a flavor for sequel. If you Haven't seen it, and we'll just demonstrate some some very basic sorts of things. Here, Give me 1 s to find my notes.
+Yep.
+all right. I think I want this one
+good.
+So
+the first thing is
+so. We did this one already. Let's just do it again. So we have it. Select star
+from Gad is saying, Give me all the records
+from dad.
+and it will come down as a table here, and we could scroll through this
+and explore the data. This is usually what I do when i'm trying to understand the content of a database, I start figuring out what tables I have, and asking questions, or seeing what what the content of the various tables are
+now, instead of
+giving me everything or a particular
+table, I might say something like select. Maybe I only want certain things like the Association column and the phenotype
+and the disease class
+and the gene symbol.
+Let me see if I can make this bigger.
+How do I make this bigger?
+I see that's too small on my screen.
+Where are my preferences?
+I think it's here? It is.
+Preferences, Sequel Editor.
+Query editor.
+where the heck is the Gern font.
+It ought to be right there.
+but i'm not seeing it. General Editors.
+Does anybody see it? Or no
+offhand.
+I would just likely font to be bigger for you.
+All right. Well.
+I apologize that this is a little small on the screen.
+But again we're just going to focus on
+the it's in the lower. It was lower in that menu. Okay, Sorry. Let's find it.
+Oh, they are funds. Thank you. Okay. Sequel Editor.
+Local font. It's going to let me edit this.
+It doesn't seem to let me edit it. Appearance? No?
+Well, that's lame.
+Google says it's within tools.
+user avatar
+Unknown Speaker
+00:46:07
+Where is tools.
+user avatar
+John Rachlin
+00:46:10
+duration
+utilities?
+That's annoying.
+Okay, i'm not gonna.
+I'll just press on, I guess.
+And figuring out later.
+I'm not sure. Why.
+Here, let me just actually try one thing here. I'm just going to go.
+You connect as a root.
+Just want to just make sure
+user avatar
+Unknown Speaker
+00:46:56
+scripting
+user avatar
+John Rachlin
+00:46:58
+tools.
+Yeah, I don't know why it's not letting me change these.
+All right.
+Sorry.
+Let's let's just press on.
+So I am just going to go back.
+Open up.
+I know
+here's what I have, so I just wanted to select a subset of
+our columns.
+Come on.
+I don't know why it's
+behaving so badly on me today.
+Oh, I because I can't spell
+all right. So it was giving me an error.
+There we go.
+Let's make this nice and big.
+all right, so you can select out particular columns.
+We could be selective, about
+which
+here you know what I have an idea.
+And just try this. I'm gonna just just change my display settings here.
+and I'm going to just reduce the the yeah.
+the resolution. And I think that will make everything better.
+That might be a little
+Okay, that screwed up everything.
+This is Wow.
+hold on.
+There we go. We're getting there.
+Edit: preferences, appearance. Okay. So let's try.
+We're getting there.
+Let's move this over here.
+maybe a little bit bigger.
+Where is appearance? Appearance?
+Oh.
+user avatar
+Unknown Speaker
+00:49:17
+and then the Font section.
+user avatar
+John Rachlin
+00:49:20
+Oh, okay, Were you able to
+just click on on which one you want.
+Text, figure, text. So what do I want?
+It's not at all. Oh, I see you're saying
+I don't know it. Just doesn't seem like it's telling me, though, how that's going to change the editor.
+Click on hell. Helvetic 11, and then you can type the font. Oh, I see like this.
+Okay, I see. And then, but which one is for the darn sequel. Editor.
+I'm: not sure
+layer. I mean what the heck is of text.
+Yeah, okay, I I don't know. I'm not. I'm not going to mess with it.
+Let's just let's just press on if we can. So great you could select particular columns, you can
+add clauses that
+put constraints on the particular columns themselves, so I could say, for example, where
+association
+is. Yes.
+and
+and now I'm only looking at positive associations, or I could have additional constraints. And as my
+and phenotype
+equals as you
+all right, so i'm continually continuing to kind of narrow down on, maybe specific
+phenotypes and types of associations of interest.
+All right. So that's pretty cool. Now, the reason i'm seeing all of these redundancies here is because in gad, every row it's a publication reporting a connection between a gene and a phenotype.
+And there may have been multiple publications
+that we're reporting that particular association like this would be telling me that there was 1, 2, 3, 4, 5, 6 different associations, or or publications that were saying Yes, there is a positive link between Adam, 33 and asthma.
+user avatar
+Unknown Speaker
+00:51:51
+So
+user avatar
+John Rachlin
+00:51:53
+what we probably want to do is kind of aggregate this data. We want to do the count and say, Well, how many publications were there.
+and so to do that, subject to this constraint? What we're going to do
+is let's just focus on just the
+the phenotype
+and the gene symbol.
+Okay, and what I want to do is say, give me a account.
+Just count the rows
+where where this happens. If I were to group
+the data by both the phenotype and the gene
+symbol.
+All right. So what i'm basically doing is imagining I have this table, and I'm going to take a pair of scissors, and I'm going to cut each strip each row into a separate strip.
+and then i'm going to
+those strips of paper into different groups
+corresponding to each phenotype gene symbol combination. So whenever I get that phenotype and that gene i'm going to put that in the Asthma Adam, 33 group.
+and I might have a different group. Then for asthma Abr b 2
+i'm just gonna form those groupings, and then count how many rows fit into each of those groups.
+And what this is doing then, is that
+counting the publications, counting how many times that gene has been linked
+to that phenotype.
+and let's give it a better name. Let's call this as numb.
+So then our table is a little, has a a little friendlier header
+user avatar
+Unknown Speaker
+00:53:47
+in it.
+user avatar
+John Rachlin
+00:53:48
+Okay, and having done this grouping, maybe what I want to do
+is
+maybe only look at those genes which are
+linked to a particular phenotype at least 3 times. But there has to be at least 3 publications, because some of these smaller ones are just for spurious connections that I don't want to
+worry about right. They're just adding noise to my analysis.
+Now we have this ability to filter rows before we do the aggregation. But now i'm filtering after doing the aggregation. And so for that we have another keyword, having, let's say, having numb
+greater than or equal to 3.
+All right. So now i'm quickly narrowing down on which genes
+I might be interested in for asthma.
+and finally let's rank the genes in order by the number of publications. So we'll add yet another clause, Order by number.
+That's what I called.
+That's what I call this column nump, and I want to do it in ordering in the sending order, so that the most frequent associations are at the top of the list.
+All right. So there it is, I've basically with with a pretty simple query. I've identified jeans linked to asthma in 3 or more publications.
+Are you? Sort of this is what we typically do when we're writing queries. We we we sort of build up these
+these questions gradually, but but notice that it is really a question that we're defining constraints
+on what data we want.
+and
+we're telling it how we want the data presented, like we're saying order by this or order by that, and how the data should be aggregated. But we're not doing the aggregation ourselves.
+All right. We're not say building a
+a dictionary, and having to, you know, run through line by line and maintain a a counter for each group where each group would be represented, maybe as a unique key. Okay, the database server is doing that for us, but
+we are simply describing
+what constitutes a
+you know, a valid result, and
+it is processing this and scanning through the data and determining what are the relevant rows, and then giving us all of those rows that match our query.
+That's what I mean by sequel as being a
+a a declarative language. You declare the question, and it works out the answer for you. This is a very cool way of thinking about programming.
+all right. The other thing I I wanted to show you that that will be useful for us is
+is
+the idea of a view.
+And so what I want to do here
+is
+basically create
+a virtual table
+that will
+make it easier for me as the user to interact with the data.
+And so what i'm gonna do is
+so so that that's basically the idea of of of a view is is you're you're basically constructing a a virtual table. It's not a hard coded table. It's not part of the official schema of the database, but it's a a a way of way of sort of pre aggregating the data
+in a way that would make it easier for developers. To use the data like this would be a very good view to have right. It's just the number of publications
+for
+for each Gene Phenotype association right that that would avoid me as the developer submitting a very complicated query. You know I could just say, now, you know, select Star from this virtual table
+where phenotype equals asthma, and I'm done right. And
+so, so we often create views
+as sort of pre computed
+aggregations of our data, just to make the software development process
+a little bit easier.
+So what i'm gonna do actually is create a couple of views here. The first one i'm gonna create just cleans up the data. I'm. I'll throw it right into the chat if you're following along
+so that we're not spending too much time going through this. That's the view. I'm going to run. So i'm going to say, create view.
+Gad, clean it's just going to do a little bit of clean up up the data. It's going to remove some punctuation convert phenotypes to lower case and basically select out these specific columns that i'm interested in. So when I run that let's go ahead and run it.
+And so it created.
+I believe it created. Just make sure.
+Yeah, all right. It it it created the the the the virtual people. And now I have this new table called Gad clean, and if I select star from Gad, Queen.
+we should see that we've got this table. It looks like a table. It is a table, but it's really a virtual table. It's a table that's been constructed
+by by cleaning up a another table in in the database.
+all right, and just doing a little bit of filtering for me. So it's nice that I have that. Now i'm going to do one more virtual table.
+and it's going to rely on this virtual table. So we can cascade these things. Here we go.
+It's going to basically have the
+the
+the the the number of publications as I wanted it before. And I think this is the one I want to do. So i'm gonna just copy and paste that into the chat here.
+and we'll take a look and see what this thing is doing.
+All right. I come. These these dashes are basically a comment. So i'm just. I I originally had that in my code, but I I didn't want to use that as part of the the query.
+All right. So what this does is it basically performs the counts on the clean data.
+looking only at positive associations.
+And
+really now we're narrowing it down to just the phenotype, the gene symbol, and the number of publications.
+So here we go. Let's give this a shot
+that created the view.
+And now
+look what we can do, we can say
+select Star
+from Dad pubs.
+and
+there's all of our raw data
+for every
+Genotype Gene Association. We have account, okay, doesn't matter that it's not in sorted order.
+But
+the point is now when I want to find those asthma linked jeans.
+All I have to do is say, select
+star
+from Dad.
+where you know type
+equals as
+and there they are.
+Alright, so that's a much simpler query.
+more than than what I was doing before.
+All right. So
+so so that that's that's a that's a a nice kind of sort of pre computed table that I as a developer can use when i'm when i'm writing queries against the
+against the
+the the database. Now, do you remember last time we talked about this concept when we were building our sand key diagrams we had. We had to do a bunch of Pandas manipulations
+to generate what I was calling the local network and recall that this was basically
+finding the genes linked to asthma. And then for those genes.
+finding the
+user avatar
+Unknown Speaker
+01:02:41
+finding other diseases that were associated with asthma genes
+user avatar
+John Rachlin
+01:02:46
+all right. So that was
+not a not a overly complex process, but it was something we were doing programmatically by by constructing the data frame and manipulating and filtering the the data frame, and we went through a series of Panda operations in order to construct that local network.
+And what I wanted to show you is, in fact, and this will be very useful for us.
+In fact, we we can write such a query
+user avatar
+Unknown Speaker
+01:03:18
+to do just that to to basically pull the relevant information directly from the database.
+user avatar
+John Rachlin
+01:03:25
+So let's think about how
+we we would do this.
+We've got a query that gives us asthma linked Jeans
+right. This this this does it right here? And they these are the genes.
+So what I'm really trying to do is ask the question, Give me everything
+from Gad, this is our our view
+where the gene symbol
+is in this
+list of genes right here. So i'll just select just the gene symbol.
+all right. So i'm basically writing what's called a sub query.
+which fetches first the relevant genes, and then gives me all of the data from the
+from Gad Pubs.
+where
+where the gene of interest was one of those asthma linked to genes.
+All right, and just
+then make this a little clearer order by genotype.
+and then, all else being equal order by the gene symbol.
+Let's see what we can.
+All right. So now
+all of these genes in this table let's make it nice and big. All of these genes are asthma linked to jeans.
+and
+these are other diseases linked to asthma linked jeans.
+and how often they occur.
+All right. So so there you go, and let's just throw in one more
+requirement here.
+and just say where
+numbered
+is greater than or equal to let's say 5.
+Oh, sorry.
+and I've already got 1 one constraint. I need another one.
+So where the gene symbol is in this list and the number of publications is more than 5
+right? So you know it's not a
+it's not a huge.
+it's not a huge query. And and the point is that in a very sort of English languagey, very descriptive way. I've described
+what it means to generate that local network. And the point is that very often.
+I think software, developers make the mistake of saying, Well, I you know I don't know SQL. I'm just gonna pull down the information directly from the database. Pull it all everything I need over the wire, load it up into Panda's data frames, and do whatever manipulations I need to do.
+and that could be problematic. If you've got very large databases, and you're trying to pull a lot of data over the wire.
+and and very often what you need to be thinking about instead, is letting the server do the initial aggregations and filtering for you, and then only pulling back the data you actually need.
+And so here it is. We we've got just these various
+we we've got the foundation now for our sand key diagram that we that we like to to make, and you can kind of see already that there are a lot of heavy links, lot of frequent links to asthma genes that are linked to diabetes
+in in cleaning up the data it looks like I I screwed up the the name. I must have gotten rid of
+the the numbers, and so I screwed up the the diabetes should have been type one. But that's okay. Maybe that's something. We could go back and fix later.
+all right. But the but the point is we're we're kind of balancing
+our interaction with the database, with maybe some programming on one end, but also some database queries on the other end to kind of do the filtering and the aggregations and the processing for us where appropriate.
+Okay, so that's
+that's the idea
+good. So now that we have
+our database up and running, and we've created a few views that we can maybe write, write, write, write queries against
+what i'd like to do is see if we can't actually write a program that connects to this database runs a query, maybe generates the same key diagram for us.
+So what i'm going to do
+is open up
+my charm.
+So let's open up my charm
+and let's create all I I've already got the dB. Folder, so i'm gonna just
+create
+or open up the the that folder.
+so you can see what i'm doing here.
+That folder in my repo is right here, so let's just open that up
+all right.
+and I've pre loaded
+the Csv files, which we don't need. We don't need the sequel file, but it was there for us so that we could build the database. But one thing we do need is.
+and so this is what we'll use to generate a sand key diagram from data that we retrieve
+from
+the
+from the database now make Sanky, as we wrote. It requires a data frame
+as an input so that means that when we run a query against the database
+we'll want to convert whatever comes back into a data frame.
+And once we've got that, we should be able to just call this program
+our or this function and and generate our our diagram.
+using data pulled directly from the database
+rather than
+user avatar
+Unknown Speaker
+01:09:33
+reading it from a. Csv file.
+user avatar
+John Rachlin
+01:09:37
+All right. Does everyone see kind of where we're going with this.
+Let's give this a shot.
+All right. Bear with me.
+I think I want to do this one.
+All right, so
+let me show you how to connect to a database. Let's go ahead. And oh, yeah, you know what?
+user avatar
+Unknown Speaker
+01:10:10
+I forgot to tell you something which was that in order to connect to my SQL.
+user avatar
+John Rachlin
+01:10:16
+You need a library
+to to do that, and
+let's just look real quick at what I had installed. So I have a on the list here
+That, Mysql.
+user avatar
+Unknown Speaker
+01:10:34
+So
+user avatar
+John Rachlin
+01:10:38
+we need a way for for for Python to actually connect to Mysql and Mysql provides what's called a driver
+to enable programming languages
+to make connections and submit queries and produce results.
+and the name of that driver library is called Mysql Dash connector, Dash Python.
+And so last night I did a on the install Mysql connector Python, and I got this version.
+and
+and that that's that's all. That's all I need. So i'm going to be importing this library so that I can establish a connection to the database in my code. But I just wanted to mention, yeah, you're gonna need the driver in order to do that.
+So that's the name of the driver.
+So, having done that, I think we can create a program
+New
+python file
+it's, call it.
+I wish you wouldn't ask me this.
+You can manage, get, basically get operations entirely through pie charm. But I prefer to use the command line.
+Okay, so what are we going to need to do here? We're going to need to import
+the Mysql connector
+in order to make a in order to make a connection. So that's that's the first thing we're we're gonna do. So i'm gonna just create a main
+Yeah, Maine
+And I'm going to make a connection.
+So
+let's just sort of plan this out here, and you could get a connection
+right? And then i'm going to need to fetch some data.
+And then i'm gonna want to
+render as a same key diagram.
+It was a good idea, that kind of plan out your programs
+with inline comments
+which then
+serve as the documentation for your code.
+user avatar
+Unknown Speaker
+01:12:53
+So
+user avatar
+John Rachlin
+01:12:55
+to get a connection.
+What you do
+is.
+you say dB. Equals my SQL. Dot connector dot connect.
+and we're gonna have to give it some information like, Where is this database located? All right. What? What's the host? The host is local host.
+So so that's that's the first thing
+i'm running the server locally. It might not be. It might be some other location, but this one's on local host. Now I need to give it. The user
+and the password. And what I'm going to show you is is really bad.
+I could just
+hard code it.
+So I call it that? What what did I call it? Bio-user
+and password
+is was bio password
+it's fine for you to do this for now, just to get yourself connected, but
+but just recognize how bad this really is.
+Don't. Go on co-OP and do this and tell them that you that I told you that this was okay. I'm explicitly telling you this is a really bad thing to do to hard code passwords into your code, because just remember, your code is going to end up on some, get repo somewhere, and suddenly you've created a security breach.
+But let's just for testing purposes. We'll we'll. We'll hard code it and make sure that it works. And then we're going to tell it what database we're connecting to
+to the bio database.
+I should be consistent.
+Excuse
+Okay, so so that's the connection that i'm trying to make.
+Now.
+if I didn't want to do this.
+then what you could do instead is set up environmental variables
+that contain these values.
+And
+if I were doing that, then
+well, since I've already done it, i'll I'll actually demonstrate it. You just import OS.
+So you have to set up the environmental variables, and how you do. It is OS dependent on windows. There's a place where you can set up and create environmental settings on Mac. I think you can just export these variables in your
+dot, Bash R. C. Or dot bash profile on. Linux I was trying to do this last night, and found that if I wanted to create sort of globally accessible
+environmental variables to anyone who had access to this server, there's a configuration setting in Etsy environment where I added these environmental variables. But how you do! It is kind of dependent on your OS.
+So, instead of just naming it like this, I would basically say.
+You know, OS dot environment, give me all of the environment variables. They come back as a dictionary. And then you just ask for
+the the
+the the for the bio-user environment variable.
+and I would do the same thing for the password so this is kind of shielding
+any outsiders from seeing what my password is. Do the same thing. Now, if you haven't set up
+these environmental variables and you probably haven't, then you'll want to just
+you. You'll want to Just
+you don't hard code it for now
+the command to install Mysql on the command line.
+I
+don't know if you're a. Mac. User
+I think you will want to
+basically
+go to
+my instructions. And those are in the repo
+under handouts.
+I Basically, created a
+a collection of notes for how to install Mysql on Mac and Windows.
+and it's
+maybe more
+step by step, instructions than you need. It looks like it's really complicated because it's so long right. But most of this is, Push this button, then push that button, and it's just basically walking you through the installation process. And I believe this is pretty up to date.
+So
+so that's how you probably want to do it on Linux it is actually a one line thing. I think all I did was was say, like Sudo
+at install my SQL, and it installed the server for me.
+and then I think there was a
+I don't know. I think I may have gotten the work bench from the
+Either I did this or I went through the software
+like I I use Linux mint, and it has a a software center where you can install. These things
+does get past work as well. I'm not familiar with that
+with
+with that or how that would work. But
+I I think that that that that would probably be a viable alternative. Is it basically using some sort of a configuration file to store your passwords on disk
+as like in an encrypted format
+that that that's the other way that you might do it.
+or you could ask the user for the password. But
+you know i'm trying to avoid that. I'm trying to avoid having to type in a password each time I run this
+all right. So in theory we have. Yeah, it's an input, okay, Th: that that should work as well and sure.
+So in theory, we should be able to just make a connection. Why don't we run this and see if this actually runs?
+Okay, it didn't Get any errors
+just to
+show you like. If I entered a
+bad password instead.
+Then I should get some sort of an authentication there.
+Assuming I do this right.
+What's the problem?
+Hold on.
+huh?
+Maybe this isn't enough to to just to indicate the
+i'm suspicious.
+I thought I would get an error. I know I would in Java, but maybe the air doesn't come up until I actually try to run a query.
+This seems unlikely to me.
+All right, let's
+let's just move on.
+and just just f yi, let's just print just to make sure
+that we are
+doing the right thing.
+Okay, i'm doing something clearly wrong here. Oh, I know what the problem is.
+I'm an idiot, because once again I forgot to call Maine.
+There we go.
+all right. So that was just a check to make sure I was actually running something, and that's a good thing. I checked that. So now let's go back and just screw up this again and say, yeah.
+you know whatever
+bad.
+So what I expected, what this would fail.
+And
+there we go. It's giving me an access denied.
+Okay, so good. So this now
+does work only because I've set my environmental variables.
+and i'm not getting any access to that. So i'm making a connection.
+And i'm good to go.
+Now.
+what we'd like to do is basically
+call the database.
+So what I want to do at the end of the day
+it's just planning this out is generate the local network.
+So i'm gonna to write a function to do this.
+I'll give it the database connection so that it can make the query against the database.
+And i'm going to say you me the local network for asthma.
+and I'm going to throw in a further restriction that the number of publications
+by default
+should be
+Alright, so that's going to give me a data frame. I haven't written that function yet, but I will.
+And then
+once I have that i'm just planning ahead here. I'm going to import Sand key.
+That's what i'm gonna do.
+I'm gonna simply call
+sk dot show sand key.
+Give it the data frame. Tell it. I want to map from phenotype
+to the gene symbol.
+and
+oh, bells
+equals numbers.
+all right. So i'm going to have to create local networks. Gonna have to come back with a data frame that has these 3 columns.
+All right, Make in as that's okay.
+Good. So the only thing I need to do now is implement local network, which will be much simpler now that i'm pulling the data from a database and relying on the database to perform the queries for me.
+So let's just do that. Here's what we're gonna do.
+We're gonna create local network.
+and i'll just kind of show you the recipe for making a query against a database.
+so i'll give it the database connection. The phenotype we're interested in this that that you know times can get plugged in to our
+our
+query.
+and then maybe the default is to i'm going to override it with 4. Maybe it's 2 by default.
+That's probably a pretty good default.
+All right. So what we have to do now before we were manipulating data frames. Now, all we have to do is
+is construct the query
+right? And then we have to Basically, execute
+the query.
+Then we have to
+convert
+the result
+to.
+I did a friend.
+and then we're done.
+you know, return the data vein.
+That's the outline of what I need to do here.
+So what is the query? The query? I actually did it already. It's this.
+This is the query.
+Let's just copy and paste that right into our code. This is a very typical thing that at least I always did when I was working with databases. I I would never start by writing python code or any code in any language, and then be typing the query right there. I always went to some sort of a client workbench.
+whatever it was, Toad or the Mysql Work bench or
+dB. For that's a pretty good workbench for working with relational databases
+point is, I always tested my queries
+first
+on a client
+to kind of debug them, and to make sure I understood
+the structure of the
+of the database, and what kinds of questions I could hope to ask. So i'm going to construct the query like this. I'm going to say
+query
+equals, i'm going to make it a formatted string.
+Formatted triple, quoted String.
+and i'm gonna just copy and paste that right in there. Now, I know this is lovely, but i'll fix it so we'll
+basically
+inserting it
+like that
+and like that. And see now, what i'm gonna do is instead of asthma being hard coded. I'll just use.
+you know, Type i'm just gonna plug whatever i'm passing to the function right into the query
+right?
+So like that.
+user avatar
+Unknown Speaker
+01:26:28
+And
+user avatar
+John Rachlin
+01:26:31
+Num pubs is greater than or equal to
+Min pubs. So this becomes again just a
+place where I can insert in.
+Oh.
+and actually do it that way in My!
+I see no reason not to do it.
+And this is better.
+user avatar
+Unknown Speaker
+01:26:53
+Min pups. Sorry.
+user avatar
+John Rachlin
+01:26:58
+all right, I think. And then
+you just want to make sure, like there's extra space, and that you don't accidentally create an invalid
+query.
+I think that'll be just fine.
+all right. So
+So that's my query that i'm sort of constructing based on these 2 inputs.
+Okay, so
+give me all the records from this view. Remember, this is a view where the gene symbol is in
+are associated with that phenotype, and then do some filter.
+All right. Let's just do this. Let's
+print the query
+and make sure it looks good.
+That's all we'll, we'll do.
+We won't do any of other processing. And since I won't actually be returning anything here, I won't yet. Run this
+all right. So what happens when I run this now.
+So it constructed this query
+Right? They just plugged in asthma plugged in for.
+And you know, if I copied this
+back to
+the
+the work bench for testing purposes down here
+like that
+should be able to run, that I should be able to run that and and get a result. So this is the table that i'm trying to get back from the database.
+Okay? So so that looks like my query is, can is constructed correctly.
+That's good.
+We're now pretty close. We've got a query. We just have to execute the software
+So here's what we do
+execute a query.
+We need to set up basically the results. Set the the answer, the table that's gonna come back. This is called a cursor.
+And so
+so one is.
+create the results set.
+This is just simply saying Rf. Equals dB:
+It's all you have to sec.
+The next thing we're gonna have to do
+is actually
+let's call it, run or execute
+a query
+so good, so we'll say, rs dot execute.
+and then give it the query
+that runs the query.
+Now we have to as step 3
+match the rose to get the rose back
+from the results that
+now this fetching actually involves
+pulling the data over the wire.
+And
+So this is. This is kind of important right. We've executed the query, but the the data might still be on the database
+server, or be manage, or or or only part of the data might come back. And and so we're really gonna have to pull through the results set and get back all of the data. So here's what we'll do. We'll just say Rose
+equals ours that all this is basically telling the database give me everything you got.
+Send it all over the wire.
+user avatar
+Unknown Speaker
+01:30:25
+Alright.
+user avatar
+John Rachlin
+01:30:26
+Now that's cool, we got that.
+But I also want to fetch the columns. What columns did I get back?
+And the reason for this is because i'm going to build a data frame
+that has rows and columns, and I want to know the names of the columns that came back.
+So to do that you can say calls.
+you could say, yeah.
+you the Rs Dot column names.
+This is sort of the metadata that's coming back with the results that.
+and you can convert that to a list
+and then assign this to the left
+to a a variable called
+Okay.
+So that's it. We got the rose we got the columns.
+Now, what are we going to do with them?
+How about this
+step? 5.
+Convert
+2
+a data from?
+Okay. So to do that we'll say df
+equals.
+I think I need pandas
+all right, so df equals Pd. Data frame.
+and you just give it the rose. And then you just tell it. The columns
+are these calls
+right? I've got a data frame.
+So sorry I wrote that twice, and I don't need that.
+So I I I guess this is not really part of this is gonna form. I know it's a little better, all right. So I created to construct the query.
+Then I
+created the results. Set.
+execute the query, fetch the roads, fetch the columns built to data frame. Now, you might say, why not just return the data frame.
+and you could do that. But there's one problem with that, and that is that you have to remember that this cursor that we've created
+is is the thing that's pointing to the next row that the database is server is ready to serve up to you, and when you create a cursor. You're actually creating a a little counter or pointer on the server.
+which is taking up some resource on the database server.
+and we want to basically inform the the database that we're done with this resource that we created.
+And so it's very important that we
+close the results that
+it's like closing a file.
+Don't leave dangling open files around, Close the results that
+all right. So to do that we just sign ours that place.
+Oh, this is so much easier than job. So
+now you may say, Well, gee! That's a lot of steps I have to go through to run a query.
+But
+guess where we're going with this on Tuesday I'll. I'll kind of restructure this a little bit, and
+you can see that other than the query being customized.
+Everything else is kind of boilerplate.
+So there's no reason why we can't just pull this out into a little utilities
+class and basically give it a query and then have it. Just produce the data frame. That's that would be a little more reusable.
+But I just wanted to show you, step by step what we were doing
+all right. So now we catch the data frame before we try to render it. Let's just say, print. Yeah, make sure it's working.
+I think if we did everything correctly. This should just work.
+Okay. So look what I got. I got a table
+printed the data frame to the screen.
+So now I think I just have to run the same key diagram, and we'll call it a day.
+And
+there it is.
+all data con gotten from the database instead of a a. Csv file.
+It See? Like the potential for this right is just to
+you could define all manner of different queries against the database, and you could
+now basically hook up our dashboard for doing this directly to a database call.
+And so this is much more robust. Now, we're working with shared data that's secure and managed, and maybe continually getting updated with new records.
+And so yeah, this is this just kind of opens up a whole world of data sources for us as data scientists, and that's why I want you to kind of
+see how it was done.
+All right, Any questions I know. I went through that all pretty fast, and you may not have been able to follow if you didn't have Mysql set up. But
+you know, if you break it down. It's not too bad. You. You set up the database, you
+create a user account
+and you write programs to establish connection, submit queries, produce results, and do whatever you want with those results
+that's in a in a nutshell is
+user avatar
+Unknown Speaker
+01:36:07
+what we're trying to do.
+user avatar
+John Rachlin
+01:36:10
+Anything else.
+Apologies for the for the font problems. But it happens sometimes i'll have to go back and really figure out the right way to do that.
+and let's call it a day. Have a great weekend. Everybody stay warm, stay safe and be well, and we'll see you on Tuesday.
+user avatar
+Victor
+01:36:29
+Thank you.
+user avatar
+Natalie Hammel
+01:36:32
+Thank you.
